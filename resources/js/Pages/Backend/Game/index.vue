@@ -10,4 +10,5 @@
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
     import Master from '../Master.vue'
+    
 </script>

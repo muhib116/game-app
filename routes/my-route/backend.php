@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,3 +16,5 @@ Route::get('/game', function () {
 Route::get('/game/create', function () {
     return Inertia::render('Backend/Game/Create');
 })->middleware(['auth', 'verified'])->name('game.create');
+
+Route::post('/game/save/{game?}', [GameController::class, 'save'])->name('game.save');

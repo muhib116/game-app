@@ -6,7 +6,7 @@
             </div>
             <div className="p-4 grid grid-cols-3 gap-5">
                 <div v-for="item in components" :key="item.component">
-                    <components :is="item.component"/>
+                    <component :is="item.component" :data="item" />
                 </div>
             </div>
         </div>
@@ -14,9 +14,9 @@
 </template>
 
 <script setup>
-    import Home from '@/Components/Backend/Game/components/Home.jsx'
-    import Instruction from '@/Components/Backend/Game/components/Instruction.jsx'
-    import StartGame from '@/Components/Backend/Game/components/StartGame.jsx'
+    import Home from '@/Components/Backend/Game/components/Home.vue'
+    import Instruction from '@/Components/Backend/Game/components/Instruction.vue'
+    import StartGame from '@/Components/Backend/Game/components/StartGame.vue'
     import image_one from '@/Assets/image-one.jpg'
 
     const components = [

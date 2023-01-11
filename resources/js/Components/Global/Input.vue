@@ -11,7 +11,7 @@
             class="absolute top-[50%] transform -translate-y-1/2 left-0 transition-all"
             :class="isFocused && 'text-sm -top-[0%] opacity-90 text-orange-300'"
         >
-            { label }
+            {{ label }}
         </span>
     </label>
 </template>
@@ -26,6 +26,7 @@
     }
     
     defineProps({
-        label, type
+        label: String,
+        type: String
     })
 </script>

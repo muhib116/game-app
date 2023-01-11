@@ -1,8 +1,7 @@
 <template>
   <Master showNavigation={false}>
     <div 
-      class="py-4 px-8 h-[100vh] grid items-center bg-no-repeat bg-cover relative text-white text-opacity-80"
-      :class="wrapper"
+      class="py-4 px-8 h-[100vh] grid items-center bg-no-repeat bg-cover relative text-white text-opacity-80 wrapper"
     >
         <div class="relative z-10 box grid max-h-[400px] h-full">
           <h1 class='text-4xl font-black text-center self-start'>Sign In</h1>
@@ -17,8 +16,7 @@
 </template>
 
 <script setup>
-  import classes from './style.module.css'
-  import Button from '@/Components/Global/Button'
+  import Button from '@/Components/Global/Button.vue'
   import Input from '@/Components/Global/Input.vue'
   import Master from '@/Pages/Frontend/Master.vue'
 </script>

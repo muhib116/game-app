@@ -1,5 +1,3 @@
-import Warning from '../Warning.vue'
-
 <template>
     <div className='p-5'>
         <Warning 
@@ -40,5 +38,5 @@ import Warning from '../Warning.vue'
 </template>
 
 <script setup>
-
+import Warning from '../Warning.vue'
 </script>
