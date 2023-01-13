@@ -1,7 +1,6 @@
 import { ref, watch, watchEffect } from 'vue'
-
-const config = ref([])
-
+import gameDrain from '@/Components/Backend/Game/gameDrain';
+const { saveGame } = gameDrain();
 
 const login = {
     image: null,
@@ -49,7 +48,7 @@ const gamePayload = ref({
     id: null,
     login,
     instruction,
-    tasks: config.value,
+    tasks: [],
     status: 'draft',
 });
 
@@ -58,12 +57,11 @@ export default function useConnfiguration() {
     watch(gamePayload, ()=>{
         clearTimeout(timeOutId);
         timeOutId = setTimeout(()=>{
-            console.log(gamePayload.value);
+            saveGame(gamePayload.value);
         },1000)
     }, {deep: true});
 
     return {
         gamePayload,
-        config,
     }
 }

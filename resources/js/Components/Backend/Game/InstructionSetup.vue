@@ -4,7 +4,7 @@
             <div className="p-4 bg-[#fefefe] border-b font-bold text-black">
                 Game Instruction
             </div>
-            <div className="p-4 grid grid-cols-3 gap-5">
+            <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
                 <div v-for="item in components" :key="item.component">
                     <component :is="item.component" :data="item" />
                 </div>

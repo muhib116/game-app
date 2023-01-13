@@ -9,13 +9,24 @@ class GameController extends Controller
 {
     public function save(Request $request) {
         $data = $request->all(); 
-        $game = Game::create([
-            'user_id' => auth()->id(),
-            'login' => $request->login,
-            'instruction' => $request->instruction,
-            'status' => $request->status,
-            'tasks' => $request->tasks,
-        ]);
+        if ($request->id) {
+            $game = Game::find($request->id)->update([
+                'user_id' => auth()->id(),
+                'login' => $request->login,
+                'instruction' => $request->instruction,
+                'status' => $request->status,
+                'tasks' => $request->tasks,
+            ]);
+        } else {
+            $game = Game::create([
+                'user_id' => auth()->id(),
+                'login' => $request->login,
+                'instruction' => $request->instruction,
+                'status' => $request->status,
+                'tasks' => $request->tasks,
+            ]);
+        }
+        
         return $game;
     }
 

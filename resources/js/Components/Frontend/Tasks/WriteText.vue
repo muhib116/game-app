@@ -6,7 +6,7 @@
                 alt=""
                 className='w-full block mb-6'
             />
-            <div v-for="item in taskData" className='text-black text-opacity-80' :key="index">
+            <div v-for="(item, index) in taskData" className='text-black text-opacity-80' :key="index">
                 <h3 className='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
                 <p>{{ item.description }}</p>
             </div>

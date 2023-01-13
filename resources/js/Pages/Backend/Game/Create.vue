@@ -58,13 +58,7 @@
             id: props.id,
             getFirst: true,
         });
-        gamePayload.value = {
-            id: getFirst.id,
-            login: getFirst.login,
-            instruction: getFirst.instruction,
-            tasks: getFirst.tasks,
-            status: getFirst.status,
-        };
+        gamePayload.value = getFirst;
     });
 </script>
 

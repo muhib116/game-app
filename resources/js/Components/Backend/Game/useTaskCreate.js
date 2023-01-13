@@ -3,63 +3,71 @@ import { ref } from 'vue'
 import UploadImage from '@/Components/Frontend/Tasks/UploadImage.vue'
 import WriteText from '@/Components/Frontend/Tasks/WriteText.vue'
 import Quiz from '@/Components/Frontend/Tasks/Quiz.vue'
+import InstructionSetup from '@/Components/Backend/Game/InstructionSetup.vue'
+import TaskCreate from '@/Components/Backend/Game/TaskCreate.vue'
+import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
 
-
+const componentList = ref({
+    UploadImage,
+    WriteText,
+    Quiz
+});
 
 export default function useTaskCreate() {
     const components = [
         {
             id: 1,
-            name: 'Image',
-            component: UploadImage,
+            name: 'UploadImage',
+            component: 'UploadImage',
             isSelected: true,
         },
         {
             id: 2,
             name: 'Text',
-            component: WriteText,
+            component: 'WriteText',
             isSelected: false
         },
         {
             id: 3,
             name: 'Quiz',
-            component: Quiz,
+            component: 'Quiz',
             isSelected: false
         }
     ];
 
 
-    const makeSelected = (item, config) => {
-        config.forEach(element => {
+    const makeSelected = (item, tasks) => {
+        tasks.forEach(element => {
             element.isSelected = item.id == element.id;
         });
     }
 
-    const makeDeselected = (config) => {
-        config.forEach(element => {
+    const makeDeselected = (tasks) => {
+        tasks.forEach(element => {
             element.isSelected = false;
         });
     }
 
-    const addTemplate = (item, config) => {
-        makeDeselected(config);
+    const addTemplate = (item, tasks) => {
+        makeDeselected(tasks);
         let cloned_item = cloneDeep(item);
-        cloned_item.id = config.length+1 + Math.random()*2000;
+        cloned_item.id = tasks.length+1 + Math.random()*2000;
         cloned_item.isSelected = true;
-        config.push(cloned_item);
+        tasks.push(cloned_item);
     }
-    const removeItem = (index, config) => {
-        makeDeselected(config);
-        config.splice(index, 1);
-        if (index == config.length) {
-            config[config.length-1].isSelected = true;
+    const removeItem = (index, tasks) => {
+        makeDeselected(tasks);
+        tasks.splice(index, 1);
+        if (index == tasks.length) {
+            tasks[tasks.length-1].isSelected = true;
         } else {
-            config[index].isSelected = true;
+            tasks[index].isSelected = true;
         }
     }
 
     return {
         components,
+        componentList,
         makeSelected,
         addTemplate,
         removeItem
