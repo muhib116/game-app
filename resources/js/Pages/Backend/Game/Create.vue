@@ -16,9 +16,13 @@
     import InstructionSetup from '@/Components/Backend/Game/InstructionSetup.vue'
     import TaskCreate from '@/Components/Backend/Game/TaskCreate.vue'
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
+    import gameDrain from '@/Components/Backend/Game/gameDrain'
 
     const { gamePayload } = useConnfiguration();
-
+    const { gameList } = gameDrain();
+    const props = defineProps({
+        id: Number
+    });
     const options = ref([
         {
             id: 'LoginSetup',
@@ -50,8 +54,17 @@
     }
 
     onMounted(async()=> {
-        // Game payload.value = server response
-        console.log(gamePayload);
+        const getFirst = await gameList({
+            id: props.id,
+            getFirst: true,
+        });
+        gamePayload.value = {
+            id: getFirst.id,
+            login: getFirst.login,
+            instruction: getFirst.instruction,
+            tasks: getFirst.tasks,
+            status: getFirst.status,
+        };
     });
 </script>
 

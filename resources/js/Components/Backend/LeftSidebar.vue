@@ -1,5 +1,5 @@
 <template>
-    <aside class='h-[100vh] py-4 border-r text-gray-500 sticky top-14'>
+    <aside class='h-[100vh] py-4 border-r text-gray-500 bg-white sticky top-14'>
         <Link 
             :href="route('dashboard')"
             class="flex gap-2 items-center py-1 px-4 hover:text-black"

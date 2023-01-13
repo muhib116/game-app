@@ -46,6 +46,7 @@ const instruction = [
 ]
 
 const gamePayload = ref({
+    id: null,
     login,
     instruction,
     tasks: config.value,
@@ -58,7 +59,7 @@ export default function useConnfiguration() {
         clearTimeout(timeOutId);
         timeOutId = setTimeout(()=>{
             console.log(gamePayload.value);
-        },1500)
+        },1000)
     }, {deep: true});
 
     return {
