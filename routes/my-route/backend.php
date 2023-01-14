@@ -13,13 +13,9 @@ Route::get('/game', function () {
     return Inertia::render('Backend/Game/index');
 })->middleware(['auth', 'verified'])->name('game');
 
-Route::get('/game/setup/{id}', function ($id) {
-    return Inertia::render('Backend/Game/Create', [
-        'id' => $id
-    ]);
-})->middleware(['auth', 'verified'])->name('game.setup');
-
+Route::get('/game/setup/{id}', [GameController::class, 'setup'])->middleware(['auth', 'verified'])->name('game.setup');
 
 
 Route::post('/game/save/{game?}', [GameController::class, 'save'])->name('game.save');
 Route::post('/game/list', [GameController::class, 'list'])->name('game.list');
+Route::post('/game/delete/{game}', [GameController::class, 'delete'])->name('game.delete');

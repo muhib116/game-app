@@ -17,8 +17,10 @@ export default function gameDrain() {
     }
 
     const gameList = async (payload={}) => {
+        loading.value.list = true;
         const data = await axios.post(route('game.list'), payload)
-                        .then(res => res.data)
+        .then(res => res.data)
+        loading.value.list = false;
         return data;
     }
 
