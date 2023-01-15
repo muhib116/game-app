@@ -19,7 +19,7 @@ const instruction = [
         settings: {
             image: null,
             opacity: 100,
-            color: 'black'
+            color: '#000'
         }
     },
     {
@@ -32,7 +32,7 @@ const instruction = [
         settings: {
             image: null,
             opacity: 100,
-            color: 'black'
+            color: '#000'
         }
     },
     {

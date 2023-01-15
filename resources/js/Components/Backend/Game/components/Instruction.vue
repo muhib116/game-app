@@ -4,12 +4,12 @@
             <div className='flex items-center gap-3'>
             <label className='flex gap-2 text-xs items-center'>
                 Color: 
-                <span className="w-6 h-3 bg-red-300 border-[1px] cursor-pointer"></span>
-                <input type="color" className='w-4 h-4 absolute opacity-0' />
+                <span className="w-6 h-3 bg-[var(--dbg)] border-[1px] cursor-pointer" :style="`--dbg: ${data.settings.color}`"></span>
+                <input v-model="data.settings.color" type="color" className='w-4 h-4 absolute opacity-0' />
             </label>
             <label className='flex gap-2 items-center text-xs'>
                 Opacity: 
-                <input type="number" :value="data.opacity" min="0" max="100" className='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
+                <input type="number" v-model="data.opacity" min="0" max="100" className='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
             </label>
             <label className='cursor-pointer flex gap-2 text-xs items-center'>
                 Image
@@ -26,37 +26,6 @@
             <p>
                 Just text about the game, time limit and 
                 how to solve it. 
-            </p>
-            <p>
-                this text should also be restrictied so is 
-                fits on maximum two screens 
-                scrollingdown. 
-            </p>
-            <p>
-                bla bla bla bla bla bla bla bla blaJust 
-                text about the game, time limit and how 
-                to solve it. 
-            </p>
-            <p>
-                this text should also be restrictied so is 
-                fits on maximum two screens 
-                scrollingdown. 
-            </p>
-            <p>
-                bla bla bla bla bla bla bla bla blaJust 
-                text about the game, time limit and how 
-                to solve it. 
-            </p>
-            <p>
-                this text should also be restrictied so is 
-                fits on maximum two screens 
-                scrollingdown 
-            </p>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-            <p>
-                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
             </p>
         </div>
         <button className='bg-green-500 py-2 px-4 w-full text-white font-bold self-end'>Save</button>

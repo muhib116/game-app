@@ -5,8 +5,8 @@
                 Game Instruction
             </div>
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
-                <div v-for="item in components" :key="item.component">
-                    <component :is="item.component" :data="item" />
+                <div v-for="item in gamePayload.instruction" :key="item.component">
+                    <component :is="componentList[item.component]" :data="item" />
                 </div>
             </div>
         </div>
@@ -18,39 +18,13 @@
     import Instruction from '@/Components/Backend/Game/components/Instruction.vue'
     import StartGame from '@/Components/Backend/Game/components/StartGame.vue'
     import image_one from '@/Assets/image-one.jpg'
+    import useConnfiguration from './useConnfiguration'
+    import { ref } from 'vue'
 
-    const components = [
-        {
-            component: Home,
-            show: false,
-            title: 'This is your game:',
-            subtitle: 'Get to know paris in 3 hours',
-            description: 'Grab items, take photos and taste the french cusine',
-            settings: {
-                image: image_one,
-                opacity: 100,
-                color: 'black'
-            }
-        },
-        {
-            component: Instruction,
-            show: false,
-            text: [
-                'Just text about the game, time limit and how to solve it.',
-                'this text should also be restrictied so is fits on maximum two screens scrollingdown.'
-            ],
-            settings: {
-                image: image_one,
-                opacity: 100,
-                color: 'black'
-            }
-        },
-        {
-            component: StartGame,
-            show: false,
-            title: ' Your start point',
-            description: 'lorem',
-            settings: {}
-        }
-    ]
+    const { gamePayload } = useConnfiguration();
+    const componentList = ref({
+        Home,
+        Instruction,
+        StartGame,
+    });
 </script>
