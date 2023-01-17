@@ -11,10 +11,10 @@
             ></iframe>
         </div>
         <div className='p-6 text-black text-opacity-80 text-center leading-8 text-lg h-full'>
-            <input className="block w-full text-3xl mb-4 text-center" :value="data.title" />
+            <input className="block w-full text-3xl mb-4 text-center" v-model="data.title" />
             <textarea 
                 className='w-full block text-center bg-transparent border-none mb-2' 
-                value='This is were your team should start your game.' 
+                v-model="data.description"
                 rows="0"
             />
         </div>

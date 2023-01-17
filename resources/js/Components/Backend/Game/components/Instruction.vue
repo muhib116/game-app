@@ -24,8 +24,7 @@
         </div>
         <div className='text-sm mb-2 px-4 py-2 text-center leading-8 text-black text-opacity-75 h-full'>
             <p>
-                Just text about the game, time limit and 
-                how to solve it. 
+                <textarea v-model="data.text" class="bg-transparent border-0 w-full"></textarea>
             </p>
         </div>
         <button className='bg-green-500 py-2 px-4 w-full text-white font-bold self-end'>Save</button>
