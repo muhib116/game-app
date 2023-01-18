@@ -3,11 +3,13 @@
     <div class="py-4 px-8 h-[100vh] grid items-center bg-no-repeat bg-cover relative text-white text-opacity-80 wrapper">
       <div class="relative z-10 box grid max-h-[400px] h-full">
         <h1 class='text-4xl font-black text-center self-start'>Sign In</h1>
-        <div class="grid gap-10 self-end">
-          <Input label='Game code' type='text' />
-          <Input label='Password' type='text' />
-          <Button label='SIGN IN' />
-        </div>
+        <form class="grid gap-10 self-end" @submit.prevent="handleAuthorize">
+          <!-- <Input label='Game code' type='text' v-model="gameForm.gameCode" />
+          <Input label='Password' type='text' v-model="gameForm.password" /> -->
+          <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" />
+          <input class="text-black" label='Password' type='text' v-model="gameForm.password" />
+          <Button type="submit" label='SIGN IN' />
+        </form>
       </div>
     </div>
   </Master>
@@ -17,6 +19,25 @@
 import Button from '@/Components/Global/Button.vue'
 import Input from '@/Components/Global/Input.vue'
 import Master from '@/Pages/Frontend/Master.vue'
+import { Inertia } from '@inertiajs/inertia';
+import { useForm } from '@inertiajs/inertia-vue3';
+
+const gameForm = useForm({
+  gameCode: '',
+  password: '',
+});
+
+defineProps({
+  game: {
+    type: Object,
+    default: {}
+  },
+});
+
+const handleAuthorize = () => {
+  Inertia.post(route('authorizeGame'), gameForm);
+}
+
 </script>
 
 <style scoped>

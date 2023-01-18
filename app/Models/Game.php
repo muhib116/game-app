@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class Game extends Authenticatable
 {
     use HasFactory;
     protected $guarded = ['id'];
 
     protected $casts = [
         'instruction' => 'array',
-        'login' => 'array',
+        'login' => 'object',
         'tasks' => 'array'
     ];
 

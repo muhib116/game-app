@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\GameController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -51,13 +53,13 @@ Route::get('task', function () {
 })->name('task');
 
 
-
-
-Route::get('user/login', function () {
-    return Inertia::render('Frontend/Login/index', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('{user:username}/{gamecode}', [GameController::class, 'gameLogin']);
+Route::post('/authorizeGame', [GameController::class, 'authorizeGame'])->name('authorizeGame');
+// Route::get('user/login', function () {
+//     return Inertia::render('Frontend/Login/index', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\User;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class GameController extends Controller
@@ -56,4 +60,40 @@ class GameController extends Controller
         $game->delete();
         return back();
     }
+
+
+    public function gameLogin(User $user, $gamename) {
+        $game = Game::where('login->gameCode', $gamename)->first();
+        if (!$game) {
+            return redirect('/');
+        }
+        return Inertia::render('Frontend/Login/index', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'game' => [
+                'id' => $game->id,
+                'gameTitle' => $game->login->gameTitle,
+            ],
+        ]);
+    }
+
+    public function authorizeGame(Request $request) {
+        $request->validate([
+            'gameCode' => 'required',
+            'password' => 'required'
+        ]);
+        $game = Game::where('login->gameCode', $request->gameCode)->first();
+        if ($game) {
+            if(Auth::guard('game')->attempt([
+                'game' => $game->login->gameCode,
+                'password' => $game->login->gamePassword
+            ])) {
+                dd('loged In');
+            }
+            dd('not logged In');
+        }
+    }
+
 }
