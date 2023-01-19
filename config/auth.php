@@ -69,7 +69,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'users' => [
+        'games' => [
             'driver' => 'eloquent',
             'model' => App\Models\Game::class,
         ],
