@@ -42,7 +42,8 @@ export default function useTaskCreate() {
             isSelected: false,
             data: {
                 title: 'Task#1: Find the tower',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                options: [],
             }
         }
     ];
@@ -55,6 +56,13 @@ export default function useTaskCreate() {
     }
     const getSelected = (tasks) => {
         return tasks.find(element => element.isSelected);
+    }
+
+    const addOption = (options) => {
+        options.push({
+            isChecked: false,
+            name: 'Test'
+        });
     }
 
     const makeDeselected = (tasks) => {
@@ -86,6 +94,7 @@ export default function useTaskCreate() {
         makeSelected,
         getSelected,
         addTemplate,
+        addOption,
         removeItem
     }
 }

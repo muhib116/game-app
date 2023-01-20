@@ -6,11 +6,12 @@
                 alt=""
                 class='w-full block mb-6'
             />
-            <div v-for="(item, index) in taskData" class='text-black text-opacity-80' :key="index">
+            <div class='text-black text-opacity-80'>
                 <div v-if="controlBy=='admin'">
                     <input
                         type="text"
                         class='font-semi-bold text-2xl mb-2 border-0'
+                        placeholder="Game title"
                         v-model="getSelected(gamePayload.tasks).data.title"
                     />
                 </div>
