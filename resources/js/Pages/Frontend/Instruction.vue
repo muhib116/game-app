@@ -41,7 +41,7 @@
                     </p>
                 </div>
 
-                <Link :href="route('start.game')">
+                <Link :href="`${$page.props.ziggy.url}/start-game/username/test123`">
                     <Button label="START GAME" class='mt-5' />
                 </Link>
             </div>

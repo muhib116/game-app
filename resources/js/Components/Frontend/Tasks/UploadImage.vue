@@ -16,7 +16,7 @@
                     />
                 </div>
                 <h3 v-else class='font-semi-bold text-2xl mb-2'>
-                    {{ item.title }}
+                    {{ get(item, 'title') }}
                 </h3>
                 <input
                     v-if="controlBy=='admin'"
@@ -24,14 +24,14 @@
                     class="text-black text-opacity-80 border-0 p-0 text-center" type="text" 
                     placeholder="Title" 
                 />
-                <p v-else>{{ item.description }}</p>
+                <p v-else>{{ get(item, 'description') }}</p>
             </div> 
 
             <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
                 UPLOAD IMAGE
                 <input type='file' hidden />
             </label>
-            <button v-if="controlBy!='admin'" class='text-sm mt-4'>Skip</button>
+            <Link :href="route('instruction')" v-if="controlBy!='admin'" class='text-sm mt-4'>Skip</Link>
         </div>
     </div>
 </template>
@@ -40,7 +40,8 @@
     import useDataSource from "@/Pages/Frontend/useDataSource"
     import useTaskCreate from "@/Components/Backend/Game/useTaskCreate";
     import useConnfiguration from "@/Components/Backend/Game/useConnfiguration";
-
+    import { get } from 'lodash'
+import { Link } from "@inertiajs/inertia-vue3";
 
     defineProps({
         controlBy: {
