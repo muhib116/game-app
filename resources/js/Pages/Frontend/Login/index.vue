@@ -35,7 +35,16 @@ defineProps({
 });
 
 const handleAuthorize = () => {
-  Inertia.post(route('authorizeGame'), gameForm);
+  Inertia.post(route('authorizeGame'), gameForm, {
+    onSuccess(res) {
+      if (res.props.flash.error) {
+        alert(res.props.flash.error);
+      }
+    },
+    onError(e) {
+      console.log(e);
+    }
+  });
 }
 
 </script>

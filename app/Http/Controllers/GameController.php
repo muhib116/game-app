@@ -85,7 +85,32 @@ class GameController extends Controller
             'password' => 'required'
         ]);
         $game = Game::where('login->gameCode', $request->gameCode)->first();
+        $gameCode = $request->gameCode;
+        $password = $request->password;
+        if ($game) {
+            if ($gameCode == $game->login->gameCode && $password == $game->login->gamePassword) {
+                session()->put('login', [
+                    'gamecode' => $gameCode,
+                    'password' => $password,
+                ]);
+                return redirect(url('start-game/'.$game->user->username.'/'.$game->login->gameCode));
+            } else {
+                session()->flash('error', 'Game code or password not metch');
+                return back();
+            }
+        } else {
+            session()->flash('error', 'Game code or password not metch');
+            return back();
+        }
         // $game
     }
 
+    public function startGame() {
+        return Inertia::render('Frontend/StartGame', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ]);
+    }
 }

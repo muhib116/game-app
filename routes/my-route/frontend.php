@@ -34,14 +34,7 @@ Route::get('instruction', function () {
     ]);
 })->name('instruction');
 
-Route::get('start-game', function () {
-    return Inertia::render('Frontend/StartGame', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('start.game');
+Route::get('start-game/{username}/{gamecode}', [GameController::class, 'startGame'])->name('start.game');
 
 Route::get('task', function () {
     return Inertia::render('Frontend/Task', [

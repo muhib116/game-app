@@ -31,7 +31,11 @@
             <i class="w-5 fa fa-user" aria-hidden="true"></i>
             Profile
         </Link>
-        <Link :href="route('logout')" method="POST" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
+        <Link 
+            :href="route('logout')" 
+            method="POST" 
+            class='flex gap-2 items-center py-1 px-4 hover:text-black' 
+        >
             <i class="fas fa-sign-out-alt"></i>
             Logout
         </Link>
