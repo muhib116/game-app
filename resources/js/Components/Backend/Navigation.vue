@@ -1,6 +1,8 @@
 <template>
   <div className="px-5 flex justify-between items-center shadow bg-white sticky top-0 z-50">
-      <a href="#">Logo</a>
+      <Link :href="route('dashboard')">
+        <img class="h-10" src="https://cdn3d.iconscout.com/3d/premium/thumb/game-controller-4035922-3342601.png" alt="">
+      </Link>
       <div className="flex gap-3 items-center">
           <a href="#" className='py-4'>{{ $page.props.auth.user.name }}</a>
           <Link :href="route('logout')" method="POST">

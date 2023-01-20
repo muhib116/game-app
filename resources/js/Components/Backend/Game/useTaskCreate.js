@@ -20,18 +20,30 @@ export default function useTaskCreate() {
             name: 'UploadImage',
             component: 'UploadImage',
             isSelected: true,
+            data: {
+                title: 'Task#1: Find the tower',
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
+            }
         },
         {
             id: 2,
             name: 'Text',
             component: 'WriteText',
-            isSelected: false
+            isSelected: false,
+            data: {
+                title: 'Task#1: Find the tower',
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
+            }
         },
         {
             id: 3,
             name: 'Quiz',
             component: 'Quiz',
-            isSelected: false
+            isSelected: false,
+            data: {
+                title: 'Task#1: Find the tower',
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
+            }
         }
     ];
 
@@ -40,6 +52,9 @@ export default function useTaskCreate() {
         tasks.forEach(element => {
             element.isSelected = item.id == element.id;
         });
+    }
+    const getSelected = (tasks) => {
+        return tasks.find(element => element.isSelected);
     }
 
     const makeDeselected = (tasks) => {
@@ -69,6 +84,7 @@ export default function useTaskCreate() {
         components,
         componentList,
         makeSelected,
+        getSelected,
         addTemplate,
         removeItem
     }

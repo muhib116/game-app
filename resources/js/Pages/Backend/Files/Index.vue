@@ -47,10 +47,6 @@ const props = defineProps({
     }
 });
 
-onMounted(()=>{
-    mediaFiles.value = props.files;
-});
-
 const modelValue = ref(false);
 
 const handleMedia = async (file) => {

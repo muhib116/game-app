@@ -10,30 +10,6 @@
                     <input type="checkbox" />
                     12
                 </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    21
-                </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    28
-                </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    49
-                </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    112
-                </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    119
-                </label>
-                <label className='flex gap-4 text-sm items-center'>
-                    <input type="checkbox" />
-                    143
-                </label>
             </div>
             <Button label="WRITE IN TEXT" className='mt-14' />
             <button className='text-sm mt-4 text-center block w-full'>Skip</button>
@@ -43,6 +19,12 @@
 
 <script setup>
     import Button from '@/Components/Global/Button.vue'
+    defineProps({
+        controlBy: {
+            type: String,
+            default: null
+        }
+    })
 </script>
 
 <style lang="scss" scoped>

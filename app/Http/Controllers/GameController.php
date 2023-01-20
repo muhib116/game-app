@@ -85,18 +85,7 @@ class GameController extends Controller
             'password' => 'required'
         ]);
         $game = Game::where('login->gameCode', $request->gameCode)->first();
-        if ($game) {
-            // if(Auth::guard('game')->login($game->login->gameCode)) {
-            //     dd('loged In');
-            // }
-            // if(Auth::guard('game')->login(
-            //     'game' => $game->login->gameCode,
-            //     'password' => $game->login->gamePassword
-            // )) {
-            //     dd('loged In');
-            // }
-            dd('not logged In');
-        }
+        // $game
     }
 
 }

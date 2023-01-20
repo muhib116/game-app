@@ -23,14 +23,18 @@
             <i class="w-5 fa fa-folder-open" aria-hidden="true"></i>
             Files
         </Link>
-        <a href="#" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
+        <!-- <a href="#" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
             <i class="w-5 fa fa-lock" aria-hidden="true"></i>
             Admin
-        </a>
-        <a href="#" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
+        </a> -->
+        <Link :href="route('profile.edit')" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
             <i class="w-5 fa fa-user" aria-hidden="true"></i>
             Profile
-        </a>
+        </Link>
+        <Link :href="route('logout')" method="POST" class='flex gap-2 items-center py-1 px-4 hover:text-black'>
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </Link>
     </aside>
 </template>
 

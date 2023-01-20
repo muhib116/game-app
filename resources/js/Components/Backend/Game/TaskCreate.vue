@@ -26,7 +26,7 @@
                 </h1>
             </div>
             <div class="w-full p-4">
-                <component :is="getSelectedComponent(gamePayload.tasks)" />
+                <component :is="getSelectedComponent(gamePayload.tasks)" controlBy="admin" />
             </div>
         </div>
     </div>

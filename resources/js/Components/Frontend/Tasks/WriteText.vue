@@ -6,19 +6,46 @@
                 alt=""
                 className='w-full block mb-6'
             />
-            <div v-for="(item, index) in taskData" className='text-black text-opacity-80' :key="index">
+            <!-- <div v-for="(item, index) in taskData" className='text-black text-opacity-80' :key="index">
                 <h3 className='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
                 <p>{{ item.description }}</p>
-            </div>
+            </div> -->
+            <input
+                v-model="getSelected(gamePayload.tasks).data.title"
+                v-if="controlBy=='admin'"
+                class="font-semi-bold text-2xl mb-2 border-0 w-full text-center"
+                type="text"
+            />
+            <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
+            <input 
+                v-model="getSelected(gamePayload.tasks).data.description"
+                v-if="controlBy=='admin'"
+                type="text"
+                class="border-0 text-center"
+            />
+            <p v-else>{{ item.description }}</p>
+            
 
-            <Button label="WRITE IN TEXT" className='mt-14' />
-            <button className='text-sm mt-4'>Skip</button>
+            <Button v-if="controlBy!='admin'" label="WRITE IN TEXT" className='mt-14' />
+            <button v-if="controlBy!='admin'" className='text-sm mt-4'>Skip</button>
         </div>
     </div>
 </template>
 
 <script setup>
+    import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
+    import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
     import useDataSource from "@/Pages/Frontend/useDataSource"
+    defineProps({
+        controlBy: {
+            type: String,
+            default: null
+        }
+    });
+
+    const { gamePayload } = useConnfiguration();
+    const { getSelected } = useTaskCreate();
     const { taskData } = useDataSource()
+
 </script>

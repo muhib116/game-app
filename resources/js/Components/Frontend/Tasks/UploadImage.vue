@@ -7,21 +7,49 @@
                 class='w-full block mb-6'
             />
             <div v-for="(item, index) in taskData" class='text-black text-opacity-80' :key="index">
-                <h3 class='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-            </div>
+                <div v-if="controlBy=='admin'">
+                    <input
+                        type="text"
+                        class='font-semi-bold text-2xl mb-2 border-0'
+                        v-model="getSelected(gamePayload.tasks).data.title"
+                    />
+                </div>
+                <h3 v-else class='font-semi-bold text-2xl mb-2'>
+                    {{ item.title }}
+                </h3>
+                <input
+                    v-if="controlBy=='admin'"
+                    v-model="getSelected(gamePayload.tasks).data.description"
+                    class="text-black text-opacity-80 border-0 p-0 text-center" type="text" 
+                    placeholder="Title" 
+                />
+                <p v-else>{{ item.description }}</p>
+            </div> 
 
-            <label class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
+            <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
                 UPLOAD IMAGE
                 <input type='file' hidden />
             </label>
-            <button class='text-sm mt-4'>Skip</button>
+            <button v-if="controlBy!='admin'" class='text-sm mt-4'>Skip</button>
         </div>
     </div>
 </template>
 
 <script setup>
     import useDataSource from "@/Pages/Frontend/useDataSource"
+    import useTaskCreate from "@/Components/Backend/Game/useTaskCreate";
+    import useConnfiguration from "@/Components/Backend/Game/useConnfiguration";
+
+
+    defineProps({
+        controlBy: {
+            type: String,
+            default: null
+        }
+    });
+
+    const { gamePayload } = useConnfiguration();
+    const { getSelected } = useTaskCreate();
 
     const settings = {
         dots: true,
@@ -30,7 +58,6 @@
         slidesToShow: 1,
         slidesToScroll: 1
     }
-    const { taskData } = useDataSource()
 </script>
 
 <style lang="scss" scoped>
