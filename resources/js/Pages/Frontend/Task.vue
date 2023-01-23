@@ -16,7 +16,7 @@
   // import Quiz from '@/Components/Frontend/Tasks/Quiz.vue'
   // import QRCodeFinder from '@/Components/Frontend/Tasks/QRCodeFinder.vue'
 
-  const { components, componentList, makeSelected, addTemplate, removeItem } = useTaskCreate() 
+  const { components, componentList } = useTaskCreate() 
   const { config, gamePayload } = useConnfiguration();
   // let components = [
   //   UploadImage,
@@ -25,7 +25,7 @@
   //   QRCodeFinder
   // ]
 
-  const index = ref(0)
+  const index = ref(1)
   const changeTask = () => {
     if(index.value<3){
       index.value += 1
