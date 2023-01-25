@@ -67,6 +67,7 @@ class GameController extends Controller
         if (!$game) {
             return redirect('/');
         }
+        // dd($game);
         return Inertia::render('Frontend/Login/index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -75,6 +76,7 @@ class GameController extends Controller
             'game' => [
                 'id' => $game->id,
                 'gameTitle' => $game->login->gameTitle,
+                'image' => $game->login->image,
             ],
         ]);
     }
@@ -105,7 +107,13 @@ class GameController extends Controller
         // $game
     }
 
-    public function startGame() {
+    public function startGame(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!isset($session['gamecode'])) return redirect()->route('home');
+
+        $game = Game::where('login->gameCode', $session['gamecode'])->where('user_id', $user->id)->first();
+        if (!$game) return redirect()->route('home');
+        return $this->filterGame($game);
         return Inertia::render('Frontend/StartGame', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

@@ -22,9 +22,9 @@
                     Please push start when you are in the right address. 
                 </p>
 
-                <Link :href="route('task')">
+                <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
-                </Link>
+                </Link> -->
             </div>
         </div>
     </Master>
@@ -34,6 +34,7 @@
     import Master from './Master.vue'
     import Button from '@/Components/Global/Button.vue'
     import { Link } from '@inertiajs/inertia-vue3'
+    defineProps({});
 </script>
 
 <style lang="scss" scoped>
