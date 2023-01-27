@@ -6,24 +6,20 @@
                 alt=""
                 className='w-full block mb-6'
             />
-            <!-- <div v-for="(item, index) in taskData" className='text-black text-opacity-80' :key="index">
-                <h3 className='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-            </div> -->
             <input
                 v-model="getSelected(gamePayload.tasks).data.title"
                 v-if="controlBy=='admin'"
                 class="font-semi-bold text-2xl mb-2 border-0 w-full text-center"
                 type="text"
             />
-            <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ item.title }}</h3>
+            <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ data.title }}</h3>
             <input 
                 v-model="getSelected(gamePayload.tasks).data.description"
                 v-if="controlBy=='admin'"
                 type="text"
                 class="border-0 text-center"
             />
-            <p v-else>{{ item.description }}</p>
+            <p v-else>{{ data.description }}</p>
             
 
             <Button v-if="controlBy!='admin'" label="WRITE IN TEXT" className='mt-14' />
@@ -41,6 +37,10 @@
         controlBy: {
             type: String,
             default: null
+        },
+        data: {
+            type: Object,
+            default: {}
         }
     });
 

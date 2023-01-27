@@ -1,17 +1,17 @@
 <template>
-  <div className="relative border h-full flex flex-col">
-    <div className="py-2 px-2 bg-white z-10 flex justify-between items-center gap-3 border-b">
-      <div className='flex h-[25px] items-center gap-3'>
-        <label className='flex gap-2 text-xs items-center'>
+  <div class="relative border h-full flex flex-col">
+    <div class="py-2 px-2 bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy=='admin'">
+      <div class='flex h-[25px] items-center gap-3'>
+        <label class='flex gap-2 text-xs items-center'>
           Color:
-          <span className="w-6 h-3 bg-[var(--dbg)] border-[1px] cursor-pointer" :style="`--dbg: ${data.settings.color}`"></span>
-          <input v-model="data.settings.color" type="color" className='w-4 h-4 absolute opacity-0' />
+          <span class="w-6 h-3 bg-[var(--dbg)] border-[1px] cursor-pointer" :style="`--dbg: ${data.settings.color}`"></span>
+          <input v-model="data.settings.color" type="color" class='w-4 h-4 absolute opacity-0' />
         </label>
-        <label className='flex gap-2 items-center text-xs'>
+        <label class='flex gap-2 items-center text-xs'>
           Opacity:
-          <input type="number" v-model="data.settings.opacity" min="0" max="100" className='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
+          <input type="number" v-model="data.settings.opacity" min="0" max="100" class='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
         </label>
-        <label className='cursor-pointer flex gap-2 text-xs items-center'>
+        <label class='cursor-pointer flex gap-2 text-xs items-center'>
           Image
           <input type='file' hidden @change="(e) => {
             handleUpload(e.target.files[0], e);
@@ -21,19 +21,24 @@
           </svg>
         </label>
       </div>
-      <label className='cursor-pointer flex gap-2 text-xs items-center'>
+      <label class='cursor-pointer flex gap-2 text-xs items-center'>
         Show
         <input type="checkbox" v-model="data.show" />
       </label>
     </div>
-    <div className="relative h-full">
-      <span className='absolute top-0 left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
-      <img :src="data.settings.image" className='h-[75vh] block w-full object-cover object-center' />
-      <div className="absolute bottom-0 p-4 h-full flex flex-col justify-end overflow-y-auto py-6">
-        <div className="max-h-full">
-          <input v-model="data.title" className='text-sm font-extrabold mb-2 bg-transparent border-0' />
-          <textarea className='w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
-          <textarea className="italic bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
+    <div class="relative h-full">
+      <span class='absolute top-0 left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
+      <img :src="data.settings.image" class='h-[75vh] block w-full object-cover object-center' />
+      <div class="absolute bottom-0 p-4 h-full flex flex-col justify-end overflow-y-auto py-6">
+        <div class="max-h-full">
+          
+          <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0' />
+          <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0">{{ data.title }}</p>
+
+          <textarea v-if="controlBy=='admin'" class='w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
+          <p v-else class="w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>
+          <textarea v-if="controlBy=='admin'" class="italic bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
+          <p v-else class="italic bg-transparent border-0 block w-full">{{ data.description }}</p>
         </div>
       </div>
     </div>
@@ -47,7 +52,11 @@ import useFileUpload from '@/useFileUpload';
 
 const { handleImageUpload, deleteImage } = useFileUpload();
 const props = defineProps({
-  data: Object
+  data: Object,
+  controlBy: {
+    type: String,
+    default: null,
+  }
 })
 
 const handleUpload = async (file, e) => {

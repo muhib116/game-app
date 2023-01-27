@@ -23,7 +23,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('instruction', function () {
     return Inertia::render('Frontend/Instruction', [
@@ -35,6 +35,7 @@ Route::get('instruction', function () {
 })->name('instruction');
 
 Route::get('start-game/{user:username}/{gamecode}', [GameController::class, 'startGame'])->name('start.game');
+Route::get('instruction/{user:username}/{gamecode}', [GameController::class, 'instruction'])->name('game.instruction');
 
 Route::get('/{username}/{gamecode}/task', function () {
     return Inertia::render('Frontend/Task', [

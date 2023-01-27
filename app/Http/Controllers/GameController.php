@@ -95,7 +95,7 @@ class GameController extends Controller
                     'gamecode' => $gameCode,
                     'password' => $password,
                 ]);
-                return redirect(url('start-game/'.$game->user->username.'/'.$game->login->gameCode));
+                return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameCode));
             } else {
                 session()->flash('error', 'Game code or password not metch');
                 return back();
@@ -109,16 +109,34 @@ class GameController extends Controller
 
     public function startGame(User $user, $gameCode) {
         $session = session()->get('login');
-        if (!isset($session['gamecode'])) return redirect()->route('home');
+        if (!$session) return redirect()->route('home');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
 
-        $game = Game::where('login->gameCode', $session['gamecode'])->where('user_id', $user->id)->first();
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
         if (!$game) return redirect()->route('home');
-        return $this->filterGame($game);
+
         return Inertia::render('Frontend/StartGame', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
+            'gameData' => $this->filterGame($game),
+        ]);
+    }
+
+    public function instruction(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
+
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+        if (!$game) return redirect()->route('home');
+        // dd($game);
+        return Inertia::render('Frontend/Instruction', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'gameData' => $this->filterGame($game),
         ]);
     }
 }

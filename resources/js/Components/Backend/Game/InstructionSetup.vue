@@ -6,7 +6,7 @@
             </div>
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
                 <div v-for="item in gamePayload.instruction" :key="item.component">
-                    <component :is="componentList[item.component]" :data="item" />
+                    <component :is="componentList[item.component]" :data="item" :controlBy="'admin'" />
                 </div>
             </div>
         </div>

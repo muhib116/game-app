@@ -30,8 +30,7 @@
             <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
                 UPLOAD IMAGE
                 <input type='file' hidden />
-            </label>
-            <Link :href="route('instruction')" v-if="controlBy!='admin'" class='text-sm mt-4'>Skip</Link>
+            </label> 
         </div>
     </div>
 </template>

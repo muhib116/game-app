@@ -1,6 +1,6 @@
 <template>
     <div className='relative border h-full flex flex-col'>
-        <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b">
+        <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy=='admin'">
             <div className='flex items-center gap-3'>
             <label className='flex gap-2 text-xs items-center'>
                 Color: 
@@ -23,17 +23,20 @@
             </label>
         </div>
         <div className='text-sm mb-2 px-4 py-2 text-center leading-8 text-black text-opacity-75 h-full'>
-            <p>
-                <textarea v-model="data.text" class="bg-transparent border-0 w-full"></textarea>
-            </p>
+            <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full"></textarea>
+            <p v-else class="bg-transparent border-0 w-full" v-html="data.text"></p>
         </div>
-        <button className='bg-green-500 py-2 px-4 w-full text-white font-bold self-end'>Save</button>
+        <!-- <button className='bg-green-500 py-2 px-4 w-full text-white font-bold self-end'>Save</button> -->
     </div>
 </template>
 
 <script setup>
     defineProps({
-        data: Object
+        data: Object,
+        controlBy: {
+            type: String,
+            default: null,
+        }
     })
 </script>
 
