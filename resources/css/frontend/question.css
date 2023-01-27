@@ -1,0 +1,105 @@
+.quaestion_wraper{
+    margin-bottom: var(--bottom);
+}
+.action_wraper{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    align-items: center;
+}
+.location_wraper{
+    padding: 10px;
+    display: grid;
+    place-content: center;
+}
+.location_wraper > h6{
+    font-size: var(--para_size);
+    font-weight: 400;
+    padding: 2px 5px;
+}
+.question_title{
+    font-size: var(--title_font_size);
+    font-weight: 900;
+    color: var(--color_1);
+    text-align: center;
+    margin-bottom: var(--title_bottom);
+ }
+ .question_title>span{
+    color: var(--font_color);
+}
+.question_para{
+    font-size: var(--para_title_size);
+    font-weight: 300;
+    padding-bottom: 25px;
+    text-align: center;
+}
+.contect{
+    gap: var(--flex_gap);
+    padding: var(--padding_wraper);
+}
+.action  input{ 
+    border: none;
+    border-bottom: 1px solid var(--color_1);
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.action > h5{ 
+    font-size: var(--para_title_size);
+    font-weight: 400;
+    padding: 2px 0px;
+}
+.contect .area{
+    resize: none;
+    width: 100%;
+    height: 200px;
+    border: none;
+    border: 1px solid var(--color_1);
+}
+.action_btn{
+    display: grid;
+    place-content: center;
+    padding-top: 30px;
+}
+.app_wraper{
+    display: flex;
+    gap: var(--flex_gap);
+}
+.app_title{
+    font-size: 24px;
+    font-weight: 600;
+    width: 290px;
+    color: var(--color_1);
+}
+.app_para{
+    font-size: var(--para_size);
+    font-weight: 300;
+    text-align: justify;
+     padding-bottom: 10px;
+}
+.app_text a{
+    color: var(--color_1);
+    transition: 0.2s ease-in-out;
+}
+.app_text a:hover{
+    color: var(--font_color);
+}
+/* responsive start */
+@media screen and (max-width: 992px){
+    .question_title{
+        font-size: 30px
+    }
+    .action_wraper{
+        grid-template-columns: repeat(1 , 1fr);
+    }
+    .contect{
+        flex-direction: column;
+        align-items: center;
+    }
+    .contect .area{
+        width: 290px;
+    }
+    .app_wraper{
+        flex-direction: column;
+        padding: 15px;
+    }
+}

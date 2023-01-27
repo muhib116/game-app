@@ -12,6 +12,9 @@ body {
     font-weight: 400;
     color: #444;
 }
+button {
+    font-size: inherit !important;
+}
 
 .admin_main_wrapper{
     display: grid;
