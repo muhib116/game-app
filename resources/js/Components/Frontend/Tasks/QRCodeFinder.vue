@@ -1,16 +1,29 @@
 <template>
-    <div class='p-6 flex flex-col justify-between h-[90vh]'>
+    <div class='p-6 flex flex-col justify-between'>
         <div class="">
-            <div class="qrCode w-[100px] h-[100px] grid items center object-fill object-center mx-auto mt-10">
+            <div v-if="controlBy=='admin'" class="text-center">
+                <h2>Input qr code information</h2>
+                <input v-model="getSelected(gamePayload.tasks).data.qrValue" type="text" placeholder="Qr code information">
+            </div> 
+            <div class="flex justify-center mx-auto mt-10" v-if="controlBy=='admin'">
+                <qrcode-vue :value="getSelected(gamePayload.tasks).data.qrValue" :size="size" level="H" />
+            </div>
+            <div class="qrCode w-[100px] h-[100px] grid items center object-fill object-center mx-auto mt-10" v-else>
                 <svg class='w-full h-full' width="512" height="512" viewBox="0 0 426.667 426.667"><g fill="#fdba74"><path d="M277.333 0v149.333h149.333V0H277.333zM384 106.667h-64v-64h64v64zM0 192h85.333v42.667H0zm128 0h64v42.667h-64zm64-42.667h42.667V192H192zm-42.667-64V0H0v149.333h192v-64h-42.667zm-42.666 21.334h-64v-64h64v64zM192 0h42.667v85.333H192zm106.667 234.667h42.666v64H384V192H234.667v42.667H256v42.666h42.667zm-85.334 42.666H256v64h-42.667zM384 298.667h42.667v42.667H384z" data-original="#000000"/><path data-original="#000000" d="M298.667 341.333H256V384h-42.667v42.667h85.334V384h42.666v42.667h64V384H384v-42.667h-42.667zm-149.334 0v-64H0v149.333h149.333V384h64v-42.667h-64zM106.667 384h-64v-64h64v64z"/></g><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/></svg>
             </div>
-            <h1 class="font-bolder  text-center mt-5 text-2xl">
-                FIND THE QR CODE
+            <input class="font-bolder text-center mt-5 text-2xl border-0 w-full" type="text" v-if="controlBy=='admin'" v-model="getSelected(gamePayload.tasks).data.title">
+            <h1 class="font-bolder text-center mt-5 text-2xl" v-else>
+                {{ get(data, 'title') }}
             </h1>
         </div>
-        <div class="">
+        <QrScanner :modelValue="modelValue" />
+        
+        <div class="" v-if="controlBy=='admin'">
+            <textarea class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
+        </div>
+        <div v-else>
             <p class='text-center mb-5 max-h-[260px] overflow-y-auto'>
-                Go to Sony Departments store and look for the QR code we have hidden in the female bathroom. Scan it .
+                {{ get(data, 'description') }}
             </p>
             <Button label='OPEN CAMERA AND SCAN QR' />
         </div>
@@ -18,5 +31,29 @@
 </template>
 
 <script setup>
+    import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
+    import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
+    import QrcodeVue from 'qrcode.vue'
+    import { get } from 'lodash'
+    import { ref } from 'vue';
+    import QrScanner from '@/Components/Frontend/Popup/QrScanner.vue'
+
+    defineProps({
+        controlBy: {
+            type: String,
+            default: null
+        },
+        data: {
+            type: Object,
+            default: {}
+        }
+    });
+
+    const size = ref(200);
+    const value = ref('value');
+    const modelValue = ref(true);
+
+    const { gamePayload } = useConnfiguration();
+    const { getSelected } = useTaskCreate();
 </script>

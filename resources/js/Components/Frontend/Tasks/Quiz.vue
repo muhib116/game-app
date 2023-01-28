@@ -21,10 +21,10 @@
                     <label class='flex gap-4 text-sm items-center'>
                         <input 
                             type="checkbox" 
-                            v-model="item.name"
+                            v-model="item.isChecked"
                             :checked="item.isChecked" 
                         />
-                        {{ item.name }}
+                        <input class="border-0 py-0 px-0" type="text" v-model="item.name">
                     </label>
                 </template>
 
@@ -40,7 +40,7 @@
                     <label class='flex gap-4 text-sm items-center'>
                         <input 
                             type="checkbox" 
-                            v-model="item.name"
+                            v-model="item.isChecked"
                             :checked="item.isChecked" 
                         />
                         {{ item.name }}

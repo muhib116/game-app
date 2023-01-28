@@ -16,6 +16,7 @@ Route::get('/game', function () {
 })->middleware(['auth', 'verified'])->name('game');
 
 Route::get('/game/setup/{id}', [GameController::class, 'setup'])->middleware(['auth', 'verified'])->name('game.setup');
+Route::get('/game/dashboard/{id}', [GameController::class, 'gameDashboard'])->middleware(['auth', 'verified'])->name('game.dashboard');
 
 Route::post('/game/save/{game?}', [GameController::class, 'save'])->name('game.save');
 Route::post('/game/list', [GameController::class, 'list'])->name('game.list');

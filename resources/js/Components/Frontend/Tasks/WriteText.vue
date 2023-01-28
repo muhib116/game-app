@@ -20,10 +20,9 @@
                 class="border-0 text-center"
             />
             <p v-else>{{ data.description }}</p>
-            
 
             <Button v-if="controlBy!='admin'" label="WRITE IN TEXT" className='mt-14' />
-            <button v-if="controlBy!='admin'" className='text-sm mt-4'>Skip</button>
+            <!-- <button v-if="controlBy!='admin'" className='text-sm mt-4'>Skip</button> -->
         </div>
     </div>
 </template>

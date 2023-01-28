@@ -16,7 +16,7 @@
                     />
                 </div>
                 <h3 v-else class='font-semi-bold text-2xl mb-2'>
-                    {{ get(item, 'title') }}
+                    {{ get(data, 'title') }}
                 </h3>
                 <input
                     v-if="controlBy=='admin'"
@@ -24,7 +24,7 @@
                     class="text-black text-opacity-80 border-0 p-0 text-center" type="text" 
                     placeholder="Title" 
                 />
-                <p v-else>{{ get(item, 'description') }}</p>
+                <p v-else>{{ get(data, 'description') }}</p>
             </div> 
 
             <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
@@ -46,6 +46,10 @@ import { Link } from "@inertiajs/inertia-vue3";
         controlBy: {
             type: String,
             default: null
+        },
+        data: {
+            type: Object,
+            default: {}
         }
     });
 

@@ -22,6 +22,16 @@ class GameController extends Controller
         ]);
     }
 
+    public function gameDashboard($id) {
+        $game = Game::find($id);
+        if (!$game) {
+            return redirect()->route('dashboard');
+        }
+        return Inertia::render('Backend/Game/Dashboard', [
+            'id' => $id
+        ]);
+    }
+
     public function save(Request $request) {
         $data = $request->all(); 
         if ($request->id) {

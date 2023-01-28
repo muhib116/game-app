@@ -35,6 +35,15 @@ class Controller extends BaseController
                 $m_item['isSelected'] = $item['isSelected'];
                 $item = $m_item;
             }
+            if ($item['name'] == 'QRCodeFinder') {
+                $m_item = [];
+                $m_item['data']['title'] = $item['data']['title']; 
+                $m_item['data']['description'] = $item['data']['description']; 
+                $m_item['name'] = $item['name'];
+                $m_item['component'] = $item['component'];
+                $m_item['isSelected'] = $item['isSelected'];
+                $item = $m_item;
+            }
             return $item;
         });
         return $filterGame;
