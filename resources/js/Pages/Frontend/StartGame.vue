@@ -2,7 +2,7 @@
     <Master :showNavigation="false">
         <div class="relative">
             <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
-                <component :is="componentList[selectTask(gameData.tasks).component]" :data="selectTask(gameData.tasks).data" />
+                <component :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :data="selectTask(gameData.tasks).data" />
                 <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
                 </Link> -->

@@ -16,7 +16,7 @@
                 {{ get(data, 'title') }}
             </h1>
         </div>
-        <QrScanner :modelValue="modelValue" />
+        <QrScanner v-model="modelValue" />
         
         <div class="" v-if="controlBy=='admin'">
             <textarea class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
@@ -25,7 +25,7 @@
             <p class='text-center mb-5 max-h-[260px] overflow-y-auto'>
                 {{ get(data, 'description') }}
             </p>
-            <Button label='OPEN CAMERA AND SCAN QR' />
+            <Button @click="modelValue=true" label='OPEN CAMERA AND SCAN QR' />
         </div>
     </div>
 </template>
@@ -52,7 +52,7 @@
 
     const size = ref(200);
     const value = ref('value');
-    const modelValue = ref(true);
+    const modelValue = ref(false);
 
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();

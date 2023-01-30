@@ -20,18 +20,24 @@
                 class="border-0 text-center"
             />
             <p v-else>{{ data.description }}</p>
+            <template v-if="controlBy!='admin'">
+                <Button @click="modelValue=true" label="WRITE IN TEXT" class="mt-14 border" />
+                <TextWritePopup v-model="modelValue" :data="data" />
+            </template>
 
-            <Button v-if="controlBy!='admin'" label="WRITE IN TEXT" className='mt-14' />
             <!-- <button v-if="controlBy!='admin'" className='text-sm mt-4'>Skip</button> -->
         </div>
     </div>
 </template>
 
 <script setup>
+    import { ref } from 'vue';
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
     import useDataSource from "@/Pages/Frontend/useDataSource"
+    import TextWritePopup from '../Popup/TextWritePopup.vue';
+
     defineProps({
         controlBy: {
             type: String,
@@ -40,8 +46,10 @@
         data: {
             type: Object,
             default: {}
-        }
+        },
     });
+
+    const modelValue = ref(false);
 
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();

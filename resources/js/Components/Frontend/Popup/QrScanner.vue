@@ -11,7 +11,7 @@
             <p v-if="initError" class=" text-center mt-2 text-white py-2 px-4 w-full text-lg font-bold bg-red-500">
                 {{ initError }}
             </p>
-
+            
             <div class="grid justify-center">
                 <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
                     <div v-show="showScanConfirmation"></div>
@@ -20,7 +20,7 @@
             <p v-if="result" class="decode-result text-center mt-4">Last result: <b>{{ result }}</b></p>
             <p class=" text-center mt-2 text-white py-2 px-4 w-full text-lg font-bold" :class="status[apiResponse.type]">
                 {{ apiResponse.message }}
-            </p>
+            </p> 
 
             <!-- <audio ref="errorAudioElement">
                 <source :src="errorAudio" type="audio/ogg" />
@@ -80,8 +80,8 @@
             showScanConfirmation.value = camera.value === false
         }
     }
-    // const onDecode = async (content) => 
-    // {
+    const onDecode = async (content) => 
+    {
     //     let { guest_name, guest_id, ticket_id, ticket_number } = content ? JSON.parse(content) : {}
     //     result.value = guest_name && `${guest_name} - ${ticket_number}`
     //     // ticket_number
@@ -95,13 +95,13 @@
     //     }
     //     pause()
     //     setTimeout(unpause, 5000)
-    // }
-    // const unpause = () => {
-    //     camera.value = true
-    // }
-    // const pause = () => {
-    //     camera.value = false
-    // }
+    }
+    const unpause = () => {
+        camera.value = true
+    }
+    const pause = () => {
+        camera.value = false
+    }
 </script>
 
 <style>
