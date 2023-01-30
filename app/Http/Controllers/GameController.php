@@ -32,6 +32,26 @@ class GameController extends Controller
         ]);
     }
 
+    public function save_user_data(Request $request) {
+        $game = Game::find($request->id);
+        if ($game) {
+            $newTask = collect($game->tasks)->map(function($item) use($request) {
+                if ($item['id'] == $request->taskId) {
+                    $item['isStarted'] = true;
+                }
+                return $item;
+            });
+            $game->tasks = $newTask;
+            $game->save();
+            return response([
+                'status' => 'success'
+            ]);
+        }
+        return response([
+            'status' => 'error'
+        ]);
+    }
+
     public function save(Request $request) {
         $data = $request->all(); 
         if ($request->id) {
@@ -41,6 +61,8 @@ class GameController extends Controller
                 'instruction' => $request->instruction,
                 'status' => $request->status,
                 'tasks' => $request->tasks,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
             ]);
         } else {
             $game = Game::create([
@@ -49,6 +71,8 @@ class GameController extends Controller
                 'instruction' => $request->instruction,
                 'status' => $request->status,
                 'tasks' => $request->tasks,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
             ]);
         }
         
@@ -125,6 +149,13 @@ class GameController extends Controller
         $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
         if (!$game) return redirect()->route('home');
 
+        if (!$game->start_time) {
+            $game->update([
+                'start_time' => now(),
+            ]);
+        }
+        // saveUserData
+        // dd($this->filterGame($game));
         return Inertia::render('Frontend/StartGame', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -136,6 +167,7 @@ class GameController extends Controller
 
     public function instruction(User $user, $gameCode) {
         $session = session()->get('login');
+        if (!$session) return redirect()->route('home');
         if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
 
         $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();

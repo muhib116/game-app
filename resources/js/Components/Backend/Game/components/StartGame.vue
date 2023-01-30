@@ -1,8 +1,8 @@
 <template>
     <div class='relative border h-full flex flex-col'>
         <div class='text-sm mb-4 text-center leading-8 text-black text-opacity-75'>
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14602.255536706296!2d90.36542960000001!3d23.79853955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1671373285798!5m2!1sen!2sbd"  
+            <iframe
+                :src="`https://maps.google.com/maps?q=${data.settings.longtide},${data.settings.lattitude}&z=19&output=embed`"
                 height="300" 
                 class='w-full'
                 allowFullScreen="" 
@@ -11,6 +11,8 @@
             ></iframe>
         </div>
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg h-full'>
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.longtide" placeholder="Longtide" />
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.lattitude" placeholder="Lattitude" />
             <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.title" />
             <p v-else class="block w-full text-3xl mb-4 text-center">{{ data.title }}</p>
             <textarea 
@@ -26,6 +28,7 @@
 </template>
 
 <script setup>
+    import { get } from 'lodash'
     defineProps({
         data: Object,
         controlBy: {

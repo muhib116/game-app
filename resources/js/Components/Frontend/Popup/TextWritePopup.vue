@@ -7,27 +7,41 @@
             class="fa-solid exit fa-xmark absolute top-4 right-4 text-4xl cursor-pointer hover:text-red-600"
         ></i>
         <div class="w-full max-w-xl">
-            {{ data }}
             <textarea class="w-full" v-model="answer" rows="3" placeholder="Write your answer"></textarea>
-            <button class="mt-3 py-1 px-4 bg-[#FDBA74] text-black shadow-md rounded">Submit</button>
+            <button @click="() => handleSubmit(game.id, task.id)" class="mt-3 py-1 px-4 bg-[#FDBA74] text-black shadow-md rounded">Submit</button>
         </div>
     </div>
 </template>
 
 <script setup>
-    import axios from 'axios'
+    import gameDrain from '@/Components/Backend/Game/gameDrain';
+import axios from 'axios'
     import { ref, onMounted } from 'vue'
+    const { saveUserData } = gameDrain();
     const props = defineProps({
         modelValue: {
             type: Boolean,
             default: false
         },
-        data: {
+        task: {
             type: Object,
             default: {}
-        }
+        },
+        game: {
+            type: Object,
+            default: {}
+        },
     })
     const answer = ref('');
+
+    const handleSubmit = (gameId, taskId) => {
+        saveUserData({
+            writeText: true,
+            id: gameId,
+            taskId: taskId,
+            answer: answer.value,
+        });
+    }
 </script>
 
 <style>

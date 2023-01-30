@@ -15,6 +15,11 @@ export default function gameDrain() {
         loading.value = false;
         return data;
     }
+    const saveUserData = async (payload) => {
+        const data = await axios.post('/game/save_user_data', payload)
+                        .then(res => res.data)
+        return data;
+    }
 
     const gameList = async (payload={}) => {
         loading.value.list = true;
@@ -27,6 +32,7 @@ export default function gameDrain() {
     return {
         saveGame,
         gameList,
+        saveUserData,
         loading,
     }
 }

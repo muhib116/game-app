@@ -40,7 +40,10 @@ const instruction = [
         show: false,
         title: ' Your start point',
         description: 'lorem',
-        settings: {}
+        settings: {
+            longtide: null,
+            lattitude: null,
+        }
     }
 ]
 
@@ -50,6 +53,8 @@ const gamePayload = ref({
     instruction,
     tasks: [],
     status: 'draft',
+    start_time: null,
+    end_time: null,
 });
 
 export default function useConnfiguration() {

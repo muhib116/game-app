@@ -23,6 +23,9 @@ class Controller extends BaseController
             'instruction' => $game->instruction,
         ];
         $filterGame['tasks'] = collect($game->tasks)->map(function($item) {
+            // if (isset($item['isStarted'])) {
+            //     $item['isStarted'] = $item['isStarted'];
+            // }
             if ($item['name'] == 'Quiz') {
                 $m_item = [];
                 $m_item['data']['title'] = $item['data']['title'];

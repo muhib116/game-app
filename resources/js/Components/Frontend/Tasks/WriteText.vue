@@ -1,28 +1,30 @@
 <template>
     <div className="relative">
         <div className='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
-            <img 
+            <!-- <img 
                 src='https://plus.unsplash.com/premium_photo-1664100478021-c3b6599f0d7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60' 
                 alt=""
                 className='w-full block mb-6'
-            />
+            /> -->
             <input
                 v-model="getSelected(gamePayload.tasks).data.title"
                 v-if="controlBy=='admin'"
                 class="font-semi-bold text-2xl mb-2 border-0 w-full text-center"
                 type="text"
             />
-            <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ data.title }}</h3>
+            <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ task.data.title }}</h3>
             <input 
                 v-model="getSelected(gamePayload.tasks).data.description"
                 v-if="controlBy=='admin'"
                 type="text"
                 class="border-0 text-center"
             />
-            <p v-else>{{ data.description }}</p>
+            
+            <p v-else>{{ task.data.description }}</p>
             <template v-if="controlBy!='admin'">
-                <Button @click="modelValue=true" label="WRITE IN TEXT" class="mt-14 border" />
-                <TextWritePopup v-model="modelValue" :data="data" />
+                <Button @click="modelValue=true" v-if="!task.isStarted" label="WRITE IN TEXT" class="mt-14 border" />
+                <TextWritePopup v-model="modelValue" :task="task" :game="game" />
+                <!-- {{ game }} -->
             </template>
 
             <!-- <button v-if="controlBy!='admin'" className='text-sm mt-4'>Skip</button> -->
@@ -43,10 +45,14 @@
             type: String,
             default: null
         },
-        data: {
+        task: {
             type: Object,
             default: {}
         },
+        game: {
+            type: Object,
+            default: false,
+        }
     });
 
     const modelValue = ref(false);

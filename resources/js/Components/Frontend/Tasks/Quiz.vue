@@ -22,9 +22,9 @@
                         <input 
                             type="checkbox" 
                             v-model="item.isChecked"
-                            :checked="item.isChecked" 
+                            :checked="item.isChecked"
                         />
-                        <input class="border-0 py-0 px-0" type="text" v-model="item.name">
+                        <input class="border-0 py-0 px-0" type="text" v-model="item.name" placeholder="Add Text">
                     </label>
                 </template>
 
@@ -47,7 +47,7 @@
                     </label>
                 </template>
             </div>
-            <Button v-if="controlBy!='admin'" label="WRITE IN TEXT" class='mt-14' /> 
+            <Button v-if="controlBy!='admin'" label="Save" class='mt-14' /> 
         </div>
     </div>
 </template>

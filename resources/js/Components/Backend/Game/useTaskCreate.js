@@ -24,8 +24,10 @@ export default function useTaskCreate() {
             isSelected: true,
             data: {
                 title: 'Task#1: Find the tower',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
-            }
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                image: null,
+            },
+            isStarted: null,
         },
         {
             id: 2,
@@ -35,7 +37,8 @@ export default function useTaskCreate() {
             data: {
                 title: 'Task#1: Write text',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
-            }
+            },
+            isStarted: null,
         },
         {
             id: 3,
@@ -46,7 +49,8 @@ export default function useTaskCreate() {
                 title: 'Task#1: Quize',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 options: [],
-            }
+            },
+            isStarted: null,
         },
         {
             id: 3,
@@ -57,7 +61,8 @@ export default function useTaskCreate() {
                 title: 'Task#1: Qr code find',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 qrValue: 'value',
-            }
+            },
+            isStarted: null,
         }
     ];
 
@@ -73,8 +78,9 @@ export default function useTaskCreate() {
 
     const addOption = (options) => {
         options.push({
-            isChecked: false,
-            name: 'Test'
+            isChecked: false, // This is admin answer
+            teamAnswer: false,
+            name: ''
         });
     }
 

@@ -8,8 +8,18 @@
             />
             <div class="relative">
                 <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />
-                <Link :href="`${$page.props.ziggy.url}/start-game/username/test123`">
-                    <Button label="START GAME" class='mt-5' />
+                <div v-if="Number(gameData.instruction.length) != index+1">
+                    <Button
+                        label="Next"
+                        class='mt-5' 
+                        @click="nextSteap"
+                    />
+                </div>
+                <Link :href="`${$page.props.ziggy.url}/start-game/username/test123`" v-else>
+                    <Button
+                        label="START GAME"
+                        class='mt-5' 
+                    />
                 </Link>
             </div>
         </div>
@@ -41,6 +51,15 @@
 
     const nextSteap = () => {
         (index.value < 2) ? index.value++ : index.value = 0;
+    }
+    const shouldShow = (controlBy, data) => {
+        if (controlBy=='admin') {
+            return true;
+        }
+        if (data.show == true) {
+            return true;
+        }
+        return false;
     }
 
 </script>
