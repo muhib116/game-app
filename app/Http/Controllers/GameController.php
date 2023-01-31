@@ -35,12 +35,32 @@ class GameController extends Controller
     public function save_user_data(Request $request) {
         $game = Game::find($request->id);
         if ($game) {
+            // return $request->all();
             $newTask = collect($game->tasks)->map(function($item) use($request) {
-                if ($item['id'] == $request->taskId) {
-                    $item['isStarted'] = true;
+                if ($request->writeText==true) {
+                    if ($item['id'] == $request->taskId) {
+                        $item['isStarted'] = true;
+                        $item['answer'] = $request->answer;
+                    }
                 }
+                if ($request->Quiz == true) {
+                    if ($item['id'] == $request->taskId) {
+                        $item['isStarted'] = true;
+                        // $ans = collect($request->answer);
+                        // $a = [];
+                        // foreach ($ans as $key => $value) {
+                        //     $a[]['isChecked'] = $item['data']['options'][$key]['isChecked'];
+                        //     $a[]['teamAnswer'] = $value['teamAnswer'];
+                        //     $a[]['name'] = $item['data']['options'][$key]['name'];
+                        // }
+                        // $item['ans'] = $a;
+                        // $item['answer1'] = $item['data']['options'];
+                    }
+                }
+
                 return $item;
             });
+            // return $newTask;
             $game->tasks = $newTask;
             $game->save();
             return response([

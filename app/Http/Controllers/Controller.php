@@ -31,8 +31,10 @@ class Controller extends BaseController
                 $m_item['data']['title'] = $item['data']['title'];
                 $m_item['data']['options'] = collect($item['data']['options'])->map(function($opt) {
                     $returnedOpt['name'] = $opt['name'];
+                    $returnedOpt['teamAnswer'] = $opt['teamAnswer'];
                     return $returnedOpt;
                 });
+                $m_item['id'] = $item['id'];
                 $m_item['name'] = $item['name'];
                 $m_item['component'] = $item['component'];
                 $m_item['isSelected'] = $item['isSelected'];

@@ -38,6 +38,7 @@ export default function useTaskCreate() {
                 title: 'Task#1: Write text',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
             },
+            answer: null,
             isStarted: null,
         },
         {
@@ -53,7 +54,7 @@ export default function useTaskCreate() {
             isStarted: null,
         },
         {
-            id: 3,
+            id: 4,
             name: 'QRCodeFinder',
             component: 'QRCodeFinder',
             isSelected: false,

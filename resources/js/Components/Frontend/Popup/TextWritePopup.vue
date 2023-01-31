@@ -3,7 +3,8 @@
         <i 
             @click="() => {
                 $emit('update:modelValue', false);
-            }" 
+            }"
+            ref="closeBtn"
             class="fa-solid exit fa-xmark absolute top-4 right-4 text-4xl cursor-pointer hover:text-red-600"
         ></i>
         <div class="w-full max-w-xl">
@@ -15,9 +16,10 @@
 
 <script setup>
     import gameDrain from '@/Components/Backend/Game/gameDrain';
-import axios from 'axios'
+    import axios from 'axios'
     import { ref, onMounted } from 'vue'
     const { saveUserData } = gameDrain();
+    
     const props = defineProps({
         modelValue: {
             type: Boolean,
@@ -33,14 +35,22 @@ import axios from 'axios'
         },
     })
     const answer = ref('');
+    const closeBtn = ref(null);
 
-    const handleSubmit = (gameId, taskId) => {
-        saveUserData({
-            writeText: true,
-            id: gameId,
-            taskId: taskId,
-            answer: answer.value,
-        });
+    const handleSubmit = async (gameId, taskId) => {
+        if (answer.value) {
+            const data = await saveUserData({
+                writeText: true,
+                id: gameId,
+                taskId: taskId,
+                answer: answer.value,
+            });
+            if (data.status == "success") {
+                window.location.reload();
+            }
+        } else {
+            alert('Cannot submit empty value');
+        }
     }
 </script>
 
