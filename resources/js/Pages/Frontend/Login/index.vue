@@ -4,8 +4,8 @@
       <div class="relative z-10 box grid max-h-[400px] h-full">
         <h1 class='text-4xl font-black text-center self-start'>Sign In</h1>
         <form class="grid gap-10 self-end" @submit.prevent="handleAuthorize"> 
-          <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" /> 
-          <input class="text-black" label='Password' type='text' v-model="gameForm.password" /> 
+          <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" placeholder="Game Code" required /> 
+          <input class="text-black" label='Password' type='text' v-model="gameForm.password" placeholder="Game Password" required /> 
           <Button type="submit" label='SIGN IN' />
         </form>
       </div>

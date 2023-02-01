@@ -13,15 +13,21 @@
             </p>
             
             <div class="grid justify-center">
-                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
+                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit" class="border border-slate-400 mt-4">
                     <div v-show="showScanConfirmation"></div>
                 </qrcode-stream>
             </div>
             <p v-if="result" class="decode-result text-center mt-4">Last result: <b>{{ result }}</b></p>
-            <p class=" text-center mt-2 text-white py-2 px-4 w-full text-lg font-bold" :class="status[apiResponse.type]">
-                {{ apiResponse.message }}
-            </p> 
-
+            <div>
+                <p class=" text-center mt-2 text-white py-2 px-4 w-full text-lg font-bold" :class="status[apiResponse.type]">
+                    {{ apiResponse.message }}
+                </p>
+            </div>
+            <div v-if="!isEmpty(content)" class="flex flex-col justify-center">
+                <p><strong>Wr code result is: </strong>{{ content }}</p>
+                <button @click="handleSave(game.id, task.data.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Submit</button>
+            </div>
+            <!-- task.id -->
             <!-- <audio ref="errorAudioElement">
                 <source :src="errorAudio" type="audio/ogg" />
             </audio>
@@ -35,14 +41,26 @@
 <script setup>
     import axios from 'axios'
     import { ref, onMounted } from 'vue'
-    import errorAudio from '@/assets/audio/error.ogg'
-    import successAudio from '@/assets/audio/success.mp3'
+    // import errorAudio from '@/assets/audio/error.ogg'
+    // import successAudio from '@/assets/audio/success.mp3'
+    import { isEmpty } from 'lodash'
+    import gameDrain from '@/Components/Backend/Game/gameDrain';
+    const { saveUserData } = gameDrain();
+
     const props = defineProps({
         isCameraOpen: Boolean,
         modelValue: {
             type: Boolean,
             default: false
-        }
+        },
+        game: {
+            type: Object,
+            default: {}
+        },
+        task: {
+            type: Object,
+            default: {}
+        },
     })
     const result = ref(null);
     const camera = ref(props.isCameraOpen);
@@ -55,6 +73,7 @@
         error: 'bg-red-500'
     }
     const initError = ref('')
+    const content = ref('Some example');
     async function onInit (promise) {
         try {
             await promise
@@ -80,8 +99,9 @@
             showScanConfirmation.value = camera.value === false
         }
     }
-    const onDecode = async (content) => 
+    const onDecode = async (scanResult) => 
     {
+        content.value = scanResult;
     //     let { guest_name, guest_id, ticket_id, ticket_number } = content ? JSON.parse(content) : {}
     //     result.value = guest_name && `${guest_name} - ${ticket_number}`
     //     // ticket_number
@@ -95,6 +115,21 @@
     //     }
     //     pause()
     //     setTimeout(unpause, 5000)
+    }
+    const handleSave = async (gameId, taskId) => {
+        if (!isEmpty(content.value)) {
+            const data = await saveUserData({
+                QRCodeFinder: true,
+                id: gameId,
+                taskId: taskId,
+                answer: content.value,
+            });
+            if (data.status == "success") {
+                window.location.reload();
+            }
+        } else {
+            alert('Cannot submit empty value');
+        }
     }
     const unpause = () => {
         camera.value = true

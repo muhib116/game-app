@@ -43,18 +43,24 @@ class GameController extends Controller
                         $item['answer'] = $request->answer;
                     }
                 }
+
                 if ($request->Quiz == true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
-                        // $ans = collect($request->answer);
-                        // $a = [];
-                        // foreach ($ans as $key => $value) {
-                        //     $a[]['isChecked'] = $item['data']['options'][$key]['isChecked'];
-                        //     $a[]['teamAnswer'] = $value['teamAnswer'];
-                        //     $a[]['name'] = $item['data']['options'][$key]['name'];
-                        // }
-                        // $item['ans'] = $a;
-                        // $item['answer1'] = $item['data']['options'];
+                    }
+                }
+
+                if ($request->QRCodeFinder == true) {
+                    if ($item['id'] == $request->taskId) {
+                        $item['isStarted'] = true;
+                        $item['data']['result'] = $request->answer;
+                    }
+                }
+
+                if ($request->UploadImage == true) {
+                    if ($item['id'] == $request->taskId) {
+                        $item['isStarted'] = true;
+                        $item['data']['image'] = $request->image;
                     }
                 }
 
@@ -77,6 +83,7 @@ class GameController extends Controller
         if ($request->id) {
             $game = Game::find($request->id)->update([
                 'user_id' => auth()->id(),
+                'slug' => str()->slug(auth()->user()->name),
                 'login' => $request->login,
                 'instruction' => $request->instruction,
                 'status' => $request->status,
@@ -87,6 +94,7 @@ class GameController extends Controller
         } else {
             $game = Game::create([
                 'user_id' => auth()->id(),
+                'slug' => str()->slug(auth()->user()->name),
                 'login' => $request->login,
                 'instruction' => $request->instruction,
                 'status' => $request->status,
@@ -121,6 +129,7 @@ class GameController extends Controller
         if (!$game) {
             return redirect('/');
         }
+
         // dd($game);
         return Inertia::render('Frontend/Login/index', [
             'canLogin' => Route::has('login'),

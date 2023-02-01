@@ -62,6 +62,7 @@ export default function useTaskCreate() {
                 title: 'Task#1: Qr code find',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 qrValue: 'value',
+                result: null,
             },
             isStarted: null,
         }

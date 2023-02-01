@@ -8,11 +8,11 @@ export default function gameDrain() {
         list: false,
     });
     const saveGame = async (payload) => {
-        loading.value = true;
+        loading.value.save = true;
         const data = await axios.post('/game/save', payload)
                         .then(res => res.data)
 
-        loading.value = false;
+        loading.value.save = false;
         return data;
     }
     const saveUserData = async (payload) => {

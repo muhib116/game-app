@@ -33,7 +33,7 @@
           <div class="max-h-full">
             
             <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0' />
-            <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0">{{ data.title }}</p>
+            <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]" :style="`--dbg: ${data.settings.color}`">{{ data.title }}</p>
 
             <textarea v-if="controlBy=='admin'" class='w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
             <p v-else class="w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>

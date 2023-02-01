@@ -2,16 +2,11 @@
     <Master>
         <div className="flex justify-between p-5 bg-white">
             <p className="text-2xl font-bold text-black">Games</p>
-            <button 
-                @click="handleSave(gamePayload)" 
-                className='bg-black text-white px-4 py-1 rounded flex gap-1'
-                :disabled="loading.save"
-            >
+            <button @click="handleSave(gamePayload)" className='bg-black text-white px-4 py-1 rounded flex gap-1' :disabled="loading.save">
                 <Preloader v-if="loading.save" />
                 <template v-else>+</template>
                 Start Creating Game
             </button>
-
         </div>
         <div class="px-5 py-5">
             <div class="flex items-center justify-center min-h-[400px]" v-if="loading.list">
@@ -25,37 +20,54 @@
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="text-left font-bold bg-slate-100">
-                                <th class="pb-4 pt-6 px-6">Game host</th>
-                                <th class="pb-4 pt-6 px-6">Total task</th>
-                                <th class="pb-4 pt-6 px-6">status</th>
-                                <th class="pb-4 pt-6 px-6">Action</th>
+                                <th class="py-2 px-2 text-center">Game host</th>
+                                <th class="py-2 px-2 text-center">Total task</th>
+                                <th class="py-2 px-2 text-center">Status</th>
+                                <th class="py-2 px-2 text-center">Action</th>
+                                <th class="py-2 px-2 w-36 text-center">Link</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="game in games" :key="game.id" class="hover:bg-gray-100 focus-within:bg-gray-100 border-b">
-                                <td class="py-3 px-2">
+                                <td class="py-3 px-2 text-center">
                                     {{ game.user.name }}
                                 </td>
-                                <td class="py-3 px-2">
+                                <td class="py-3 px-2 text-center">
                                     {{ game.tasks.length }}
                                 </td>
-                                <td class="py-3 px-2">
+                                <td class="py-3 px-2 text-center">
                                     <span v-if="game.status == 'draft'" class="py-px rounded px-3 bg-red-200 text-red-600">Draft</span>
                                 </td>
-                                <td class="w-px py-3 px-2">
+                                <td class="w-px py-3 px-2 text-center">
                                     <div class="flex items-center gap-2">
                                         <Link :href="route('game.setup', game.id)" class="flex items-center" tabindex="-1">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
-                                            </svg>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
+                                        </svg>
                                         </Link>
                                         <Link :href="route('game.dashboard', game.id)" class="flex items-center" tabindex="-1">
-                                            <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
+                                        <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
                                         </Link>
                                         <button @click="handleDelete(game)">
                                             <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
                                             </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="flex gap-1">
+                                        <button :disabled="game.status == 'draft'" @click="copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`)" class="py-px px-3 bg-green-100 text-green-800 rounded flex items-center">
+                                            <svg v-if="copied" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                                            </svg>
+                                            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"></path>
+                                            </svg>
+                                            Copy
+                                        </button>
+                                        <button class="py-px px-3 bg-purple-100 text-purple-800 rounded">
+                                            View
                                         </button>
                                     </div>
                                 </td>
@@ -74,29 +86,60 @@ import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
 import Preloader from '@/Components/Global/Preloader.vue';
 import { Link } from '@inertiajs/inertia-vue3'
 import { onMounted, ref } from 'vue';
-import { isEmpty } from 'lodash'
+import { isEmpty, get, toLower } from 'lodash'
 import Master from '../Master.vue'
 import { Inertia } from '@inertiajs/inertia';
+import { useToast } from "vue-toastification";
+import axios from 'axios';
 
+const toast = useToast();
 const { gamePayload } = useConnfiguration();
 const { saveGame, gameList, loading } = gameDrain();
 
 const games = ref([]);
+const copied = ref(false);
+
 
 const handleSave = async (payload) => {
-    const data = await saveGame(payload); 
+    gamePayload.value.id = null;
+    const data = await saveGame(payload);
     if (data.id) {
+        toast.success('Game create successfully');
         Inertia.replace(route('game.setup', data.id));
     }
 }
 
+const copyLink = (link) => {
+    const inp = document.createElement('input');
+    inp.setAttribute('value', link);
+    document.body.appendChild(inp);
+    inp.select();
+    document.execCommand('copy');
+    inp.remove();
+}
+
 const handleDelete = (game) => {
     if (confirm('Are you sure?')) {
-        Inertia.post(route('game.delete', game.id));
+        loading.value.list = true;
+        axios.post(route('game.delete', game.id))
+            .then(res => res.data)
+            .then(async (result) => {
+                loading.value.list = false;
+                const data = await gameList();
+                games.value = data;
+                toast.success('Game delete successfully!', {
+                    position: 'top-center',
+                });
+            });
+        // Inertia.post(route('game.delete', game.id), {
+        //     onSuccess() {
+        //         console.log('successfully delete')
+        //     }
+        // });
     }
 }
 
-onMounted(async()=>{
+onMounted(async () => {
     const data = await gameList();
     games.value = data;
 });

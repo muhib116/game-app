@@ -16,7 +16,7 @@
                     />
                 </div>
                 <h3 v-else class='font-semi-bold text-2xl mb-2'>
-                    {{ get(data, 'title') }}
+                    {{ get(task, 'data.title') }}
                 </h3>
                 <input
                     v-if="controlBy=='admin'"
@@ -24,13 +24,28 @@
                     class="text-black text-opacity-80 border-0 p-0 text-center" type="text" 
                     placeholder="Title" 
                 />
-                <p v-else>{{ get(data, 'description') }}</p>
-            </div> 
-
-            <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
-                UPLOAD IMAGE
-                <input type='file' hidden />
-            </label> 
+                <p v-else>{{ get(task, 'data.description') }}</p>
+            </div>
+            <div v-if="!task.isStarted">
+                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
+                    UPLOAD IMAGE
+                    <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
+                </label>
+            </div>
+            <div v-if="task.isStarted" class="flex justify-center">
+                <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Task Completed
+                </span>
+            </div>
+            <div v-if="controlBy!='admin'">
+                <img class="w-[200px]" :src="imgLink" v-if="imgLink" alt="">
+            </div>
+            <div v-if="imgLink">
+                <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Save</button>
+            </div>
         </div>
     </div>
 </template>
@@ -39,22 +54,63 @@
     import useDataSource from "@/Pages/Frontend/useDataSource"
     import useTaskCreate from "@/Components/Backend/Game/useTaskCreate";
     import useConnfiguration from "@/Components/Backend/Game/useConnfiguration";
-    import { get } from 'lodash'
-import { Link } from "@inertiajs/inertia-vue3";
+    import { get, isEmpty } from 'lodash'
+    import { Link } from "@inertiajs/inertia-vue3";
+    import gameDrain from "@/Components/Backend/Game/gameDrain";
+    import useFileUpload from '@/useFileUpload';
+    import { ref } from 'vue'
+    const { saveUserData } = gameDrain();
+    const { handleImageUpload, deleteImage } = useFileUpload();
+    const imgLink = ref(false); 
 
     defineProps({
         controlBy: {
             type: String,
             default: null
         },
-        data: {
+        task: {
             type: Object,
             default: {}
-        }
+        },
+        game: {
+            type: Object,
+            default: {}
+        },
     });
 
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
+
+    const handleUpload = async (file, e) => {
+        // let data = props.data;
+        const response = await handleImageUpload(file);
+        if (response.status == 'error') {
+            console.log('error');
+        }
+        if (response.status == 'success') {
+            let old = imgLink.value;
+            if (old) {
+                deleteImage(old);
+            }
+            imgLink.value = response.path;
+        }
+    }
+
+    const handleSave = async (gameId, taskId) => {
+        if (!isEmpty(imgLink.value)) {
+            const data = await saveUserData({
+                UploadImage: true,
+                id: gameId,
+                taskId: taskId,
+                image: imgLink.value,
+            });
+            if (data.status == "success") {
+                window.location.reload();
+            }
+        } else {
+            alert('Cannot submit empty value');
+        }
+    }
 
     const settings = {
         dots: true,

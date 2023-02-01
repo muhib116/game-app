@@ -15,7 +15,7 @@
                         @click="nextSteap"
                     />
                 </div>
-                <Link :href="`${$page.props.ziggy.url}/start-game/username/test123`" v-else>
+                <Link :href="`${$page.props.ziggy.url}/start-game/username/code1`" v-else>
                     <Button
                         label="START GAME"
                         class='mt-5' 

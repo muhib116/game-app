@@ -22,6 +22,7 @@ class Controller extends BaseController
             ],
             'instruction' => $game->instruction,
         ];
+
         $filterGame['tasks'] = collect($game->tasks)->map(function($item) {
             // if (isset($item['isStarted'])) {
             //     $item['isStarted'] = $item['isStarted'];
@@ -42,11 +43,15 @@ class Controller extends BaseController
             }
             if ($item['name'] == 'QRCodeFinder') {
                 $m_item = [];
+                $m_item['data']['id'] = $item['id'];
                 $m_item['data']['title'] = $item['data']['title']; 
                 $m_item['data']['description'] = $item['data']['description']; 
+                // $m_item['data']['result'] = $item['data']['result']; 
                 $m_item['name'] = $item['name'];
                 $m_item['component'] = $item['component'];
                 $m_item['isSelected'] = $item['isSelected'];
+                $m_item['isStarted'] = $item['isStarted'];
+                $m_item['data']['result'] = isset($item['data']['result']) ? $item['data']['result'] : null;
                 $item = $m_item;
             }
             return $item;
