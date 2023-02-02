@@ -28,7 +28,8 @@ class GameController extends Controller
             return redirect()->route('dashboard');
         }
         return Inertia::render('Backend/Game/Dashboard', [
-            'id' => $id
+            'id' => $id,
+            'game' => $game,
         ]);
     }
 
@@ -36,7 +37,8 @@ class GameController extends Controller
         $game = Game::find($request->id);
         if ($game) {
             // return $request->all();
-            $newTask = collect($game->tasks)->map(function($item) use($request) {
+            $isFinished = [];
+            $newTask = collect($game->tasks)->map(function($item) use($request, $isFinished) {
                 if ($request->writeText==true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
@@ -47,6 +49,7 @@ class GameController extends Controller
                 if ($request->Quiz == true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
+                        $item['userOptions'] = $request->answer;
                     }
                 }
 
@@ -63,10 +66,16 @@ class GameController extends Controller
                         $item['data']['image'] = $request->image;
                     }
                 }
-
+                array_push($isFinished, 'false');
                 return $item;
             });
             // return $newTask;
+            $isFinished = collect($newTask)->filter(function($item) {
+                return !$item['isStarted'];
+            });
+            if (count($isFinished) == 0) {
+                $game->end_time = now();
+            }
             $game->tasks = $newTask;
             $game->save();
             return response([
@@ -109,6 +118,9 @@ class GameController extends Controller
 
     public function list(Request $request) {
         $query = Game::query()->with(['user']);
+        if (auth()->user()->type != 'admin') {
+            $query->where('user_id', auth()->id());
+        }
         if ($request->id) {
             $query->where('id', $request->id);
         }
@@ -122,12 +134,36 @@ class GameController extends Controller
         $game->delete();
         return back();
     }
+    public function publish(Game $game) {
+        if ($game->status == 'draft') {
+            $game->update([
+                'status' => 'published',
+            ]);
+        } else {
+            $game->update([
+                'status' => 'draft',
+            ]);
+        }
+        return back();
+    }
 
 
     public function gameLogin(User $user, $gamename) {
-        $game = Game::where('login->gameCode', $gamename)->first();
+        $session = session()->get('login');
+        $game = Game::where('login->gameTitle', $gamename)->first();
+        
         if (!$game) {
             return redirect('/');
+        }
+        if ($game->status == 'draft') {
+            return redirect('/');
+        }
+
+        if ($session) {
+            // $session
+            return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameTitle));
+            // $game
+            // ${game.user.username}/${game.login.gameTitle}`
         }
 
         // dd($game);
@@ -176,6 +212,7 @@ class GameController extends Controller
         if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
 
         $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+
         if (!$game) return redirect()->route('home');
 
         if (!$game->start_time) {
@@ -209,5 +246,10 @@ class GameController extends Controller
             'phpVersion' => PHP_VERSION,
             'gameData' => $this->filterGame($game),
         ]);
+    }
+
+    public function game_exit() {
+        session()->put('login', null);
+        return back();
     }
 }

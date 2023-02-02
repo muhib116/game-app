@@ -7,15 +7,14 @@
 
 /////////////////////////
 
-preloader
-Twoster after auto save.
-img on beckend img upload task
+✅preloader
+✅Twoster after auto save.
+✅img on beckend img upload task
 
+✅redirect from login page if session exist
 
-redirect from login page if session exist
+✅session kill (logout) (Quit game)
 
-session kill (logout) (Quit game)
+✅Placeholder on game login page
 
-Placeholder on game login page
-
-Next button on game setup
+✅Next button on game setup

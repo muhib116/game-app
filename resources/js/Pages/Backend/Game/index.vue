@@ -16,6 +16,9 @@
                 </div>
             </div>
             <div v-else class="mt-5 bg-white py-5 px-5 rounded max-w-screen-xl mx-auto shadow-md">
+                <div class="flex justify-center py-4" v-if="publishLoading">
+                    <Preloader />
+                </div>
                 <div class="bg-white overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
@@ -36,19 +39,37 @@
                                     {{ game.tasks.length }}
                                 </td>
                                 <td class="py-3 px-2 text-center">
-                                    <span v-if="game.status == 'draft'" class="py-px rounded px-3 bg-red-200 text-red-600">Draft</span>
+                                    <button 
+                                        @click="handlePublish(game)" 
+                                        v-if="game.status == 'draft'" 
+                                        class="py-px rounded px-3 
+                                        bg-red-200 
+                                        text-red-600 flex items-center"
+                                    >
+                                        Draft
+                                    </button>
+                                    <button 
+                                        @click="handlePublish(game)" 
+                                        v-else
+                                        class="py-px rounded px-3 
+                                        bg-green-200 flex items-center
+                                        text-green-600"
+                                    >
+                                        Published <span v-if="game.start_time">(Game started)</span>
+                                    </button>
                                 </td>
                                 <td class="w-px py-3 px-2 text-center">
                                     <div class="flex items-center gap-2">
-                                        <Link :href="route('game.setup', game.id)" class="flex items-center" tabindex="-1">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
-                                        </svg>
+                                        <Link v-if="!game.start_time" :href="route('game.setup', game.id)" class="flex items-center" tabindex="-1">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
+                                            </svg>
                                         </Link>
                                         <Link :href="route('game.dashboard', game.id)" class="flex items-center" tabindex="-1">
-                                        <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
+                                            <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
                                         </Link>
-                                        <button @click="handleDelete(game)">
+                                        
+                                        <button v-if="!game.start_time" @click="handleDelete(game)">
                                             <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
                                             </svg>
@@ -56,8 +77,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="flex gap-1">
-                                        <button :disabled="game.status == 'draft'" @click="copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`)" class="py-px px-3 bg-green-100 text-green-800 rounded flex items-center">
+                                    <div class="flex gap-1" v-if="!game.end_time">
+                                        <button :disabled="game.status == 'draft'" @click="copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle} \nGame code: ${game.login.gameCode} \nGame password: ${game.login.gamePassword}`)" class="py-px px-3 bg-green-100 text-green-800 rounded flex items-center">
                                             <svg v-if="copied" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
                                             </svg>
@@ -66,9 +87,22 @@
                                             </svg>
                                             Copy
                                         </button>
-                                        <button class="py-px px-3 bg-purple-100 text-purple-800 rounded">
+                                        <a v-if="game.status == 'published'" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`" class="py-px px-3 bg-purple-100 text-purple-800 rounded">
+                                            View
+                                        </a>
+                                        <button v-else class="py-px px-3 bg-purple-100 text-purple-800 rounded">
                                             View
                                         </button>
+                                    </div>
+                                    <div v-else>
+                                        <span
+                                            v-if="game.start_time"
+                                            class="py-px rounded px-3 
+                                            bg-green-200 flex items-center
+                                            text-green-600"
+                                        >
+                                            Complete
+                                        </span>
                                     </div>
                                 </td>
                             </tr>
@@ -98,7 +132,7 @@ const { saveGame, gameList, loading } = gameDrain();
 
 const games = ref([]);
 const copied = ref(false);
-
+const publishLoading = ref(false);
 
 const handleSave = async (payload) => {
     gamePayload.value.id = null;
@@ -110,12 +144,8 @@ const handleSave = async (payload) => {
 }
 
 const copyLink = (link) => {
-    const inp = document.createElement('input');
-    inp.setAttribute('value', link);
-    document.body.appendChild(inp);
-    inp.select();
-    document.execCommand('copy');
-    inp.remove();
+    navigator.clipboard.writeText(link);
+    toast.success('Game data is copyied!');
 }
 
 const handleDelete = (game) => {
@@ -136,6 +166,26 @@ const handleDelete = (game) => {
         //         console.log('successfully delete')
         //     }
         // });
+    }
+}
+
+const handlePublish = (game) => {
+    if (confirm('Are you sure?')) {
+        publishLoading.value = true;
+        axios.post(route('game.publish', game.id))
+            .then(res => res.data)
+            .then(async (result) => {
+                publishLoading.value = false;
+                // loading.value.list = false;
+                const data = await gameList();
+                games.value = data;
+                toast.success('Game status update successfully!', {
+                    position: 'top-center',
+                });
+            })
+            .catch(err => {
+                publishLoading.value = false;
+            });
     }
 }
 

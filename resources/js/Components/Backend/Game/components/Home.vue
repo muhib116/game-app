@@ -42,6 +42,9 @@
           </div>
         </div>
       </div>
+      <template v-if="controlBy=='admin'">
+        <button v-if="data.settings.image" @click="handleRemove(data.settings.image)" className='bg-red-500 py-2 px-4 w-full text-white font-bold self-end'>Remove Image</button>
+      </template>
       <!-- <button className='bg-green-500 py-2 px-4 w-full text-white font-bold'>Save</button> -->
     </div>
   
@@ -59,6 +62,14 @@ const props = defineProps({
     default: null,
   }
 })
+
+async function handleRemove(oldLink) {
+      let data = props.data;
+      if (oldLink) {
+          await deleteImage(oldLink);
+          data.settings.image = null;
+      }
+  }
 
 const handleUpload = async (file, e) => {
   let data = props.data;

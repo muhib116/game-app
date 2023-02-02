@@ -2,10 +2,23 @@
     <div class="relative">
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
             <img 
-                src='https://images.unsplash.com/photo-1671314888598-eff877d10f85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' 
+                v-if="controlBy=='admin'"
+                :src='getSelected(gamePayload.tasks).adminImage' 
                 alt=""
                 class='w-full block mb-6'
             />
+            <img 
+                v-else
+                :src="get(task, 'adminImage')" 
+                alt=""
+                class='w-full block mb-6'
+            />
+            
+            <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
+                <Preloader v-if="adminImageLoading" />
+                UPLOAD IMAGE
+                <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
+            </label>
             <div class='text-black text-opacity-80'>
                 <div v-if="controlBy=='admin'">
                     <input
@@ -27,7 +40,8 @@
                 <p v-else>{{ get(task, 'data.description') }}</p>
             </div>
             <div v-if="!task.isStarted">
-                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded block w-full relative mt-14'>
+                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded flex justify-center w-full relative mt-14'>
+                    <Preloader v-if="adminImageLoading" />
                     UPLOAD IMAGE
                     <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
                 </label>
@@ -43,9 +57,11 @@
             <div v-if="controlBy!='admin'">
                 <img class="w-[200px]" :src="imgLink" v-if="imgLink" alt="">
             </div>
-            <div v-if="imgLink">
-                <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Save</button>
-            </div>
+            <template v-if="controlBy=='admin'">
+                <div v-if="imgLink">
+                    <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Save</button>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -58,6 +74,7 @@
     import { Link } from "@inertiajs/inertia-vue3";
     import gameDrain from "@/Components/Backend/Game/gameDrain";
     import useFileUpload from '@/useFileUpload';
+    import Preloader from "@/Components/Global/Preloader.vue";
     import { ref } from 'vue'
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
@@ -81,6 +98,24 @@
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
 
+    const adminImageLoading = ref(false);
+
+    const handleAdminImage = async (file, tasks) => {
+        // adminImage
+        adminImageLoading.value = true;
+        const response = await handleImageUpload(file);
+        if (response.status == 'error') {
+            console.log('error');
+        }
+        if (response.status == 'success') {
+            let old = getSelected(tasks).adminImage;
+            if (old) {
+                deleteImage(old);
+            }
+            getSelected(tasks).adminImage = response.path;
+        }
+        adminImageLoading.value = false;
+    }
     const handleUpload = async (file, e) => {
         // let data = props.data;
         const response = await handleImageUpload(file);
@@ -111,6 +146,7 @@
             alert('Cannot submit empty value');
         }
     }
+    
 
     const settings = {
         dots: true,

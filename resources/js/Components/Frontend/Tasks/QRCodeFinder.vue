@@ -17,7 +17,7 @@
             </h1>
         </div>
         <QrScanner v-model="modelValue" :game="game" :task="task" />
-
+        
         <div class="" v-if="controlBy=='admin'">
             <textarea class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
         </div>

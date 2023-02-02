@@ -43,6 +43,9 @@ const instruction = [
         settings: {
             longtide: null,
             lattitude: null,
+            image: null,
+            opacity: 50,
+            color: '#000'
         }
     }
 ]

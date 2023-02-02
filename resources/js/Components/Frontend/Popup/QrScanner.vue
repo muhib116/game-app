@@ -13,7 +13,13 @@
             </p>
             
             <div class="grid justify-center">
-                <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit" class="border border-slate-400 mt-4">
+                <button 
+                    class="py-2 px-4 bg-black text-white rounded"
+                    @click="switchCamera"
+                >
+                    Switch camera
+                </button>
+                <qrcode-stream :camera="selectedCamera" @decode="onDecode" @init="onInit" class="border border-slate-400 mt-4">
                     <div v-show="showScanConfirmation"></div>
                 </qrcode-stream>
             </div>
@@ -64,6 +70,7 @@
     })
     const result = ref(null);
     const camera = ref(props.isCameraOpen);
+    const selectedCamera = ref('rear');
     const showScanConfirmation = ref(false);
     const apiResponse = ref({type: '', message: ''})
     const successAudioElement = ref()
@@ -73,7 +80,17 @@
         error: 'bg-red-500'
     }
     const initError = ref('')
-    const content = ref('Some example');
+    const content = ref(null);
+    const switchCamera = () => {
+        switch (selectedCamera.value) {
+            case 'front':
+            selectedCamera.value = 'rear'
+            break
+            case 'rear':
+            selectedCamera.value = 'front'
+            break
+        }
+    }
     async function onInit (promise) {
         try {
             await promise
@@ -102,19 +119,6 @@
     const onDecode = async (scanResult) => 
     {
         content.value = scanResult;
-    //     let { guest_name, guest_id, ticket_id, ticket_number } = content ? JSON.parse(content) : {}
-    //     result.value = guest_name && `${guest_name} - ${ticket_number}`
-    //     // ticket_number
-    //     let { type, message } = await axios.post('checkin', {ticket_number}).then(res=>res.data)
-    //     apiResponse.value.type = type
-    //     apiResponse.value.message = message
-    //     if(type == 'success'){
-    //         successAudioElement.value.play()
-    //     }else{
-    //         errorAudioElement.value.play()
-    //     }
-    //     pause()
-    //     setTimeout(unpause, 5000)
     }
     const handleSave = async (gameId, taskId) => {
         if (!isEmpty(content.value)) {

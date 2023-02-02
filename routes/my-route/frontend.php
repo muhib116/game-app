@@ -50,6 +50,8 @@ Route::get('/{username}/{gamecode}/task', function () {
 Route::get('{user:username}/{gamecode}', [GameController::class, 'gameLogin']);
 Route::post('/authorizeGame', [GameController::class, 'authorizeGame'])->name('authorizeGame');
 
+Route::post('exit-game', [GameController::class, 'game_exit'])->name('game_exit');
+
 // Route::get('user/login', function () {
 //     return Inertia::render('Frontend/Login/index', [
 //         'canLogin' => Route::has('login'),

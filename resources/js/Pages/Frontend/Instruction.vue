@@ -1,5 +1,8 @@
 <template>
     <Master :showNavigation="false">
+        <div class="flex items-center justify-center pt-4">
+            <Link class="py-2 px-4 bg-gray-500 text-white rounded" :href="route('game_exit')" method="POST" type="button">Exit Game</Link>
+        </div>
         <div class='p-6'>
             <Button 
                 label="INSTRUCTIONS" 
@@ -15,12 +18,12 @@
                         @click="nextSteap"
                     />
                 </div>
-                <Link :href="`${$page.props.ziggy.url}/start-game/username/code1`" v-else>
+                <Link :href="`${$page.props.ziggy.url}/start-game/${get(gameData, 'username')}/${get(gameData, 'login.gameCode')}`" v-else>
                     <Button
                         label="START GAME"
                         class='mt-5' 
                     />
-                </Link>
+                </Link> 
             </div>
         </div>
     </Master>
@@ -35,6 +38,7 @@
     import Instruction from '@/Components/Backend/Game/components/Instruction.vue'
     import StartGame from '@/Components/Backend/Game/components/StartGame.vue'
     import { ref } from 'vue'
+    import { get } from 'lodash'
 
     defineProps({
         gameData: Object

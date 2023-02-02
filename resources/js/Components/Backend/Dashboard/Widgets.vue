@@ -6,7 +6,7 @@
             <div class="flex flex-wrap">
               <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                 <h5 class="text-blueGray-400 uppercase font-bold text-xs">Total Gamehost</h5>
-                <span class="font-bold text-xl">10</span>
+                <span class="font-bold text-xl">{{ get($page.props, 'totalGamehost') }}</span>
               </div>
               <div class="relative w-auto pl-4 flex-initial">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-blue-500">
@@ -20,12 +20,6 @@
                 </div>
               </div>
             </div>
-            <p class="text-sm text-blueGray-500 mt-4">
-              <span class="text-emerald-500 mr-2">
-                <i class="fas fa-arrow-down"></i> 12%
-              </span>
-              <span class="whitespace-nowrap">Since last month</span>
-            </p>
           </div>
         </div>
       </div>
@@ -34,8 +28,8 @@
           <div class="flex-auto p-4">
             <div class="flex flex-wrap">
               <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Total game</h5>
-                <span class="font-bold text-xl">20</span>
+                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Published game</h5>
+                <span class="font-bold text-xl">{{ get($page.props, 'publishedGame') }}</span>
               </div>
               <div class="relative w-auto pl-4 flex-initial">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-amber-500">
@@ -50,13 +44,7 @@
                     </svg>
                 </div>
               </div>
-            </div>
-            <p class="text-sm text-blueGray-500 mt-4">
-              <span class="text-emerald-500 mr-2">
-                <i class="fas fa-arrow-down"></i> 12%
-              </span>
-              <span class="whitespace-nowrap">Since last month</span>
-            </p>
+            </div> 
           </div>
         </div>
       </div>
@@ -65,8 +53,8 @@
           <div class="flex-auto p-4">
             <div class="flex flex-wrap">
               <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Total Player</h5>
-                <span class="font-bold text-xl">10</span>
+                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Un Published game</h5>
+                <span class="font-bold text-xl">{{ get($page.props, 'unPublishedGame') }}</span>
               </div>
               <div class="relative w-auto pl-4 flex-initial">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lime-600">
@@ -76,13 +64,7 @@
                     </svg>
                 </div>
               </div>
-            </div>
-            <p class="text-sm text-blueGray-500 mt-4">
-              <span class="text-emerald-500 mr-2">
-                <i class="fas fa-arrow-down"></i> 12%
-              </span>
-              <span class="whitespace-nowrap">Since last month</span>
-            </p>
+            </div> 
           </div>
         </div>
       </div>
@@ -91,8 +73,8 @@
           <div class="flex-auto p-4">
             <div class="flex flex-wrap">
               <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Tickets visitor</h5>
-                <span class="font-bold text-xl">20</span>
+                <h5 class="text-blueGray-400 uppercase font-bold text-xs">Total Complete Game</h5>
+                <span class="font-bold text-xl">{{ get($page.props, 'completeGame') }}</span>
               </div>
               <div class="relative w-auto pl-4 flex-initial">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
@@ -105,7 +87,6 @@
                 </div>
               </div>
             </div>
-            <p class="text-sm text-blueGray-500 mt-4"><span class="text-emerald-500 mr-2"><i class="fas fa-arrow-up"></i> 3.48%</span><span class="whitespace-nowrap">Since last month</span></p>
           </div>
         </div>
       </div>
@@ -114,5 +95,5 @@
 </template>
 
 <script setup>
-
+import { get } from 'lodash'
 </script>

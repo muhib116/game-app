@@ -15,12 +15,18 @@ class Controller extends BaseController
         if (!$game) return false;
         $filterGame = [
             'id' => $game->id,
+            'username' => $game->user->username,
             'login' => [
                 'image' => $game->login->image,
                 'gameCode' => $game->login->gameCode,
                 'gameTitle' => $game->login->gameTitle,
             ],
-            'instruction' => $game->instruction,
+            'instruction' => collect($game->instruction)->filter(function($instruction) {
+                if ($instruction['show'] == false) {
+                    return false;
+                }
+                return true;
+            }),
         ];
 
         $filterGame['tasks'] = collect($game->tasks)->map(function($item) {
@@ -39,6 +45,7 @@ class Controller extends BaseController
                 $m_item['name'] = $item['name'];
                 $m_item['component'] = $item['component'];
                 $m_item['isSelected'] = $item['isSelected'];
+                $m_item['isStarted'] = $item['isStarted'];
                 $item = $m_item;
             }
             if ($item['name'] == 'QRCodeFinder') {
@@ -56,6 +63,7 @@ class Controller extends BaseController
             }
             return $item;
         });
+        // dd($filterGame);
         return $filterGame;
     }
 }
