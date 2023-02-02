@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {ref} from 'vue'
+import { toast } from '@/helper';
 
 
 export default function gameDrain() {
@@ -7,11 +8,18 @@ export default function gameDrain() {
         save: false,
         list: false,
     });
+    let timeOut = null;
     const saveGame = async (payload) => {
         loading.value.save = true;
         const data = await axios.post('/game/save', payload)
-                        .then(res => res.data)
+                        .then(res => res.data);
 
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+            toast.success('Game saved successfully', {
+                position: 'bottom-left'
+            });
+        }, 300);
         loading.value.save = false;
         return data;
     }

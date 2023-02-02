@@ -18,7 +18,7 @@ const instruction = [
         description: 'Grab items, take photos and taste the french cusine',
         settings: {
             image: null,
-            opacity: 100,
+            opacity: 50,
             color: '#000'
         }
     },
@@ -31,7 +31,7 @@ const instruction = [
         ],
         settings: {
             image: null,
-            opacity: 100,
+            opacity: 50,
             color: '#000'
         }
     },

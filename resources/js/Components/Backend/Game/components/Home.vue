@@ -30,15 +30,15 @@
         <span class='absolute top-0 left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
         <img :src="data.settings.image" class='h-[75vh] block w-full object-cover object-center' />
         <div class="absolute bottom-0 p-4 h-full flex flex-col justify-end overflow-y-auto py-6">
-          <div class="max-h-full">
+          <div class="max-h-full" :style="`--dbg: ${data.settings.color}`">
             
-            <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0' />
-            <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]" :style="`--dbg: ${data.settings.color}`">{{ data.title }}</p>
+            <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]' />
+            <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]">{{ data.title }}</p>
 
-            <textarea v-if="controlBy=='admin'" class='w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
-            <p v-else class="w-full text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>
-            <textarea v-if="controlBy=='admin'" class="italic bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
-            <p v-else class="italic bg-transparent border-0 block w-full">{{ data.description }}</p>
+            <textarea v-if="controlBy=='admin'" class='w-full text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
+            <p v-else class="w-full text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>
+            <textarea v-if="controlBy=='admin'" class="italic text-[var(--dbg)] bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
+            <p v-else class="italic text-[var(--dbg)] bg-transparent border-0 block w-full">{{ data.description }}</p>
           </div>
         </div>
       </div>

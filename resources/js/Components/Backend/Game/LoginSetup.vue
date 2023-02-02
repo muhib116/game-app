@@ -21,11 +21,19 @@
                         <!-- <label class='block mb-4'>Cover Photo Upload</label> -->
                         
                         <label
-                            class="bg-gray-100 select-none focus:scale-95 rounded-md mt-4 py-2 px-4 active:scale-95 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
+                            class="bg-gray-100 flex gap-1 items-center select-none focus:scale-95 rounded-md mt-4 py-2 px-4 active:scale-95 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
+                            :class="uploadingImg && 'opacity-95 pointer-events-none'"
                         >
-                            <i class="fa fa-upload"></i>
+                            <div v-if="uploadingImg" class="inline-flex items-center">
+                                <svg class="animate-spin h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
+                            <i v-else class="fa fa-upload"></i>
                             Cover Photo Upload
-                            <input 
+                            <input
+                                v-if="!uploadingImg"
                                 type="file" 
                                 class="hidden"
                                 @change="(e)=>{
@@ -81,6 +89,7 @@ import { ref, watch, watchEffect } from 'vue';
 import Warning from '../Warning.vue'
 import useFileUpload from '@/useFileUpload';
 import useConnfiguration from './useConnfiguration';
+import { toast } from "@/helper";
 
 defineProps({
     next: Function
@@ -88,13 +97,18 @@ defineProps({
 
 const { gamePayload } = useConnfiguration();
 const { handleImageUpload, deleteImage } = useFileUpload();
+const uploadingImg = ref(false);
 
 const handleUpload = async (file, e) => {
+    uploadingImg.value = true;
     const data = await handleImageUpload(file, 'loginSetup');
+    uploadingImg.value = false;
     if (data.status == 'error') {
         console.log('error');
+        toast.error('Opps! Something went wrong.');
     }
     if (data.status == 'success') {
+        toast.success('Image Uploaded successfully');
         let old = gamePayload.value.login.image;
         if (old) {
             deleteImage(old);

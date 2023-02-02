@@ -23,7 +23,7 @@
             </label>
         </div>
         <div className='text-sm mb-2 px-4 py-2 text-center leading-8 text-black text-opacity-75 h-full'>
-            <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full"></textarea>
+            <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full min-h-[300px]"></textarea>
             <p v-else class="bg-transparent border-0 w-full" v-html="data.text"></p>
         </div>
         <!-- <button className='bg-green-500 py-2 px-4 w-full text-white font-bold self-end'>Save</button> -->
