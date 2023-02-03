@@ -3,6 +3,7 @@
     color: #fff;
     display: grid;
     place-content: center;
+    padding: var(--padding_wraper);
 }
 .feature_title{
     font-size: var(--title_font_size);
@@ -20,15 +21,16 @@
     flex-wrap: wrap;
     gap: 10px;
     padding: 45px 16px;
-    background-color: #ff3503;
+    /* background-color: #ff3503; */
     border-radius: 25px;
-    box-shadow: 0 4px 6px #ff350366, 0 4px 16px #ff350366;
+    box-shadow: 0 4px 6px #0001, 0 4px 16px #0001;
 }
 .event_icon> span{
     font-size: var(--para_size);
+    color: var(--font_color);
 }   
 .event_icon> span i{
-    color: black;
+    color: var(--color_1);
 }   
 /* responsive start */
 @media screen and (max-width: 992px) {

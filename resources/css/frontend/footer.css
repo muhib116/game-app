@@ -1,7 +1,7 @@
 .footer_wraper{
     background-color: var(--font_color);
     min-height: 100px;
-    margin-top: 40px;   
+    margin-top: 40px; 
 }
 .flex{
     display: flex;

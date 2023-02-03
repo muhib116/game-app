@@ -14,26 +14,26 @@
 .feature_post_wraper{
     min-height: 200px;
 }
-.feature_post_text{
-    text-align: center;
-}
+
 .post_para{
     text-align: left;
     font-size: var(--para_title_size);
     font-weight: 300;
     padding: 20px 0;
+    color: var(--font_color);
 }
 .post_title{
     text-align: left;
     font-size: var(--para_title_size);
     font-weight: 500;
     padding-bottom: 30px;
+    color: var(--font_color);
 }
 .post_btn{
     background-color: var(--color_1);
     border: none;
     padding: 8px 15px;
-    width: 120px;
+    width: 150px;
     color: var(--hover_color);
     margin-bottom: var(--bottom);
     cursor: pointer;
@@ -67,6 +67,7 @@
     line-height: 30px;
     font-size: var(--para_title_size);
     font-weight: 300;
+    color: var(--font_color);
 }
 .center_btn{
     margin-top: 50px;
@@ -79,47 +80,6 @@
 
 
 
- .banner_btn{
-    display: flex;
-    gap: 11px;
- }
- .btn1{
-    border: none;
-    background-color: var(--color_1);
-    color: var(--hover_color);
-    padding: 8px 15px;
-    font-weight: 300;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    border-radius: var(--radius);
-    width: 150px;
-    font-size: 14px;
-}
- .btn2{
-    border: none;
-    background-color: #efefef;
-    color: var(--font_color);
-    padding: 8px 15px;
-    width: 150px;
-    font-weight: 300;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    border-radius: var(--radius);
-}
-.btn1:hover{
-    border: none;
-    background-color: transparent;
-    box-shadow: var(--shadow);
-    transform: scale(1);
-    color: var(--font_color);
-}
-.btn2:hover{
-    border: none;
-    background-color: var(--color_1);
-    box-shadow: var(--shadow);
-    transform: scale(1);
-    color: var(--hover_color);
-}
 @media screen and (max-width: 992px){
     .feature_post_title{
         font-size: 30px;

@@ -1,5 +1,6 @@
 .quaestion_wraper{
     margin-bottom: var(--bottom);
+    padding: var(--padding_wraper);
 }
 .action_wraper{
     display: grid;
@@ -15,6 +16,7 @@
     font-size: var(--para_size);
     font-weight: 400;
     padding: 2px 5px;
+    color: var(--font_color);
 }
 .question_title{
     font-size: var(--title_font_size);
@@ -31,6 +33,7 @@
     font-weight: 300;
     padding-bottom: 25px;
     text-align: center;
+    color: var(--font_color);
 }
 .contect{
     gap: var(--flex_gap);
@@ -47,6 +50,7 @@
     font-size: var(--para_title_size);
     font-weight: 400;
     padding: 2px 0px;
+    color: var(--font_color);
 }
 .contect .area{
     resize: none;
@@ -74,7 +78,8 @@
     font-size: var(--para_size);
     font-weight: 300;
     text-align: justify;
-     padding-bottom: 10px;
+    padding-bottom: 10px;
+    color: var(--font_color);
 }
 .app_text a{
     color: var(--color_1);
@@ -96,7 +101,7 @@
         align-items: center;
     }
     .contect .area{
-        width: 290px;
+        width: 100%;
     }
     .app_wraper{
         flex-direction: column;

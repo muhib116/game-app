@@ -14,12 +14,14 @@
 .tours_para{
    text-align: center; 
    font-size: var(--para_size);
+   color: var(--font_color);
    font-weight: 300;
 }
 .tours_container{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: var(--flex_gap);
+    padding: var(--padding_wraper);
 }
 .tours_content{
     background-color: var(--hover);
@@ -36,6 +38,7 @@
     font-size: var(--para_size);
     text-align: left;
     padding: var(--padding_wraper);
+    color: var(--font_color);
 }
 .tours_content_para img{
     height: 200px;
@@ -45,6 +48,9 @@
     .tours_title{
         font-size: 30px;
     }
+        .tours_container{
+        grid-template-columns: repeat(2,1fr);
+    } 
 
 }
 @media screen and (max-width: 762px){

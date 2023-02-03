@@ -1,9 +1,9 @@
 /* video _ wrapper start */
 .video_main_wraper{
     margin-bottom: var(--bottom);
+    padding: 15px;
 }
     .video_wraper{
-        border: 2px solid var(--color_1);
         border-radius: var(--radius);
         padding: var(--padding_wraper);
         min-height: 400px;  
@@ -11,7 +11,6 @@
 
     }
     .video_contant{
-        background-color: var(--font_color);
         height: 400px;  
         border-radius: var(--radius); 
         padding: var(--padding_wraper);  
@@ -35,6 +34,7 @@
  /* google_iceon_wraper start  */
  .google_iceon_wraper{
     margin-bottom: var(--bottom);
+    padding: 15px;
  }
  .google_iceon_wraper_text .goole_title{
     font-size: var(--title_font_size);

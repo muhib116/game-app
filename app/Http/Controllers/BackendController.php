@@ -17,6 +17,7 @@ class BackendController extends Controller
             $totalUnPublishedGame = Game::where('status', 'draft')->count();
             $totalCompleteGame = Game::where('end_time', '!=', null)->count();
         } else {
+            $totalGamehost = 0;
             $totalPublishedGame = Game::where('user_id', auth()->id())->where('status', 'published')->count();
             $totalUnPublishedGame = Game::where('user_id', auth()->id())->where('status', 'draft')->count();
             $totalCompleteGame = Game::where('user_id', auth()->id())->where('end_time', '!=', null)->count();

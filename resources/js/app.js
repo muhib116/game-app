@@ -10,7 +10,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import VueQrcodeReader from "vue3-qrcode-reader"; 
 import Toast from "vue-toastification";
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'rebuslop.no';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

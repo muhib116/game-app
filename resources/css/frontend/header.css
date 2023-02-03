@@ -1,6 +1,4 @@
-/* .project_outer{
-    padding: 35px;
-} */
+
 .outer_wrapper {
     position: sticky;
     top: 0;
@@ -55,7 +53,7 @@
     background-color: var(--dropdown_color);
 }
 .dropdown_content a{
-    font-size: var(--para_size);
+    font-size: 14px;
     color: var(--font_color);
     display: block;
     padding: 8px;
@@ -67,16 +65,14 @@
 /* menu nav end */
 /* banner start */
 .banner_wraper{
-    background-image: url(bg-l.png);
+    background-image: url(./img/bg-l.png);
     background-color: var(--hover_color);
     display: flex;
     align-items: center;
     gap: var(--flex_gap);
     margin-bottom: var(--bottom);
+    padding: 15px;
 }
-/* .banner_wraper .banner_img{
-    flex: 1;
-} */
 .banner_wraper .banner_img {
     height: 100vh;
     flex: 1;
@@ -104,7 +100,7 @@
     display: flex;
     gap: 11px;
  }
- .btn1{
+.banner_btn .btn1{
     border: none;
     background-color: var(--color_1);
     color: var(--hover_color);
@@ -113,31 +109,30 @@
     cursor: pointer;
     transition: 0.3s ease-in-out;
     border-radius: var(--radius);
-    width: 120px;
+    width: 150px;
+    font-size: 14px;
 }
- .btn2{
+.banner_btn .btn2{
     border: none;
     background-color: #efefef;
     color: var(--font_color);
     padding: 8px 15px;
-    width: 120px;
+    width: 150px;
     font-weight: 300;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    border-radius: 35px;
+    border-radius: var(--radius);
 }
 .btn1:hover{
     border: none;
     background-color: transparent;
     box-shadow: var(--shadow);
-    /* transform: scale(2); */
     color: var(--font_color);
 }
 .btn2:hover{
     border: none;
     background-color: var(--color_1);
     box-shadow: var(--shadow);
-    /* transform: scale(2); */
     color: var(--hover_color);
 }
 /* banner end */

@@ -5,6 +5,8 @@
     align-items: center;
     gap: var(--flex_gap);
     padding-bottom: 30px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 .amazing_text {
     padding-bottom: 20px;
@@ -13,6 +15,7 @@
     padding-bottom: 10px;
     font-size: 20px;
     font-weight: 600;
+    color: var(--font_color);
 }
 .amazing_text .phone_amazing>span{
     font-size: 30px;
@@ -21,6 +24,7 @@
 .amazing_para{
     font-size: var(--para_size);
     font-weight: 300;
+    color: var(--font_color);
 }
 .title_amazing{
     font-size: var(--title_font_size);
@@ -33,10 +37,6 @@
     color: var(--font_color);
 }
 .amazing_video{
-    border: 1px solid var(--color_1);
-    /* border-radius: 45px;
-    width: 320px;
-    height: 450px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,6 +70,7 @@
     text-align: center;
     font-size: var(--para_size);
     padding-bottom: 30px;
+    color: var(--font_color);
 }
 @media screen and (max-width: 992px) {
        .title_amazing{
@@ -81,6 +82,9 @@
        }
        .amazing_wraper{
             padding: 15px;
+       }
+         .amazing_end_wrapper{
+                grid-template-columns: repeat(2 , 1fr);
        }
 }   
 @media screen and (max-width: 762px) {
