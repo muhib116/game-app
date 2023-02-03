@@ -11,4 +11,16 @@
 
 <script setup>
   import Nav from '@/Components/Frontend/Nav/index.vue'
+  import { get } from 'lodash'
+
+  defineProps({
+    showNavigation: {
+      type: Boolean,
+      default: true,
+    },
+    gameData: {
+      type: Object,
+      default: []
+    }
+  });
 </script>

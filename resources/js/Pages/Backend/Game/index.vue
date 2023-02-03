@@ -2,11 +2,14 @@
     <Master>
         <div className="flex justify-between p-5 bg-white">
             <p className="text-2xl font-bold text-black">Games</p>
-            <button @click="handleSave(gamePayload)" className='bg-black text-white px-4 py-1 rounded flex gap-1' :disabled="loading.save">
-                <Preloader v-if="loading.save" />
-                <template v-else>+</template>
-                Start Creating Game
+            <button 
+                @click="handleSave(gamePayload)" 
+                class='bg-black text-white px-4 py-1 rounded flex gap-1' 
+                v-if="!loading.save"
+            >
+                + Start Creating Game
             </button>
+        <Preloader v-if="loading.save" />
         </div>
         <div class="px-5 py-5">
             <div class="flex items-center justify-center min-h-[400px]" v-if="loading.list">
@@ -49,11 +52,12 @@
                                         Draft
                                     </button>
                                     <button 
-                                        @click="handlePublish(game)" 
+                                        @click="handlePublish(game)"
                                         v-else
+                                        :disabled="game.start_time"
                                         class="py-px rounded px-3 
-                                        bg-green-200 flex items-center
-                                        text-green-600"
+                                        bg-transparent font-bold flex items-center
+                                        text-green-700"
                                     >
                                         Published <span v-if="game.start_time">(Game started)</span>
                                     </button>
@@ -98,8 +102,8 @@
                                         <span
                                             v-if="game.start_time"
                                             class="py-px rounded px-3 
-                                            bg-green-200 flex items-center
-                                            text-green-600"
+                                            flex items-center font-bold
+                                            text-green-700"
                                         >
                                             Complete
                                         </span>

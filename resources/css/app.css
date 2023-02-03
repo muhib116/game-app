@@ -16,7 +16,42 @@ button {
     font-size: inherit !important;
 }
 
-.admin_main_wrapper{
-    display: grid;
-    grid-template-columns: 250px 1fr;
+.admin_main_wrapper {
+    /* display: grid;
+    grid-template-columns: 250px 1fr; */
+    position: relative;
+    overflow-x: hidden;
+    padding-left: 250px;
+    transition: all 0.2s ease-in-out;
+}
+
+.left_aside {
+    left: 0;
+    width: 250px;
+    position: fixed;
+    top: 56px;
+    transition: all 0.2s ease-in-out;
+    z-index: 99;
+}
+
+@media (max-width: 768px) {
+    .left_aside {
+        left: -250px;
+    }
+    .admin_main_wrapper {
+        padding-left: 0;
+    }
+}
+
+.admin_main_wrapper.asideActive .left_aside {
+    left: -250px !important;
+}
+.admin_main_wrapper.asideActive  {
+    padding-left: 0;
+}
+
+@media (max-width: 768px) {
+    .admin_main_wrapper.asideActive .left_aside {
+        left: 0px !important;
+    }
 }

@@ -57,7 +57,7 @@
             <div v-if="controlBy!='admin'">
                 <img class="w-[200px]" :src="imgLink" v-if="imgLink" alt="">
             </div>
-            <template v-if="controlBy=='admin'">
+            <template v-if="controlBy!='admin'">
                 <div v-if="imgLink">
                     <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Save</button>
                 </div>

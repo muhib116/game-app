@@ -1,5 +1,5 @@
 <template>
-    <Master :showNavigation="false">
+    <Master :showNavigation="true" :gameData="gameData">
         <div class="flex items-center justify-center pt-4">
             <Link class="py-2 px-4 bg-red-500 text-white rounded" :href="route('game_exit')" method="POST" type="button">Exit Game</Link>
         </div>
