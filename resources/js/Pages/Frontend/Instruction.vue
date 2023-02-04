@@ -1,70 +1,41 @@
 <template>
-    <Master :showNavigation="false">
-        <div class="flex items-center justify-center pt-4">
-            <Link class="py-2 px-4 bg-gray-500 text-white rounded" :href="route('game_exit')" method="POST" type="button">Exit Game</Link>
-        </div>
+    <Master :showNavigation="true">
         <div class='p-6'>
-            <Button 
-                label="INSTRUCTIONS" 
-                class='mb-5 py-1 shadow-none rounded-none' 
-                @click="nextSteap"
-            />
+            <Button label="INSTRUCTIONS" class='mb-5 py-1 shadow-none rounded-none' @click="nextSteap(gameData)" />
             <div class="relative">
-                <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />
-                <div v-if="Number(gameData.instruction.length) != index+1">
-                    <Button
-                        label="Next"
-                        class='mt-5' 
-                        @click="nextSteap"
-                    />
+                <template v-if="selectSteap(gameData)">
+                    <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />
+                </template>
+                <div v-if="Number(gameData.instruction.length) != index + 1">
+                    <Button label="Next" class='mt-5' @click="nextSteap(gameData)" />
                 </div>
                 <Link :href="`${$page.props.ziggy.url}/start-game/${get(gameData, 'username')}/${get(gameData, 'login.gameCode')}`" v-else>
-                    <Button
-                        label="START GAME"
-                        class='mt-5' 
-                    />
-                </Link> 
+                <Button label="START GAME" class='mt-5' />
+                </Link>
             </div>
         </div>
     </Master>
 </template>
 
 <script setup>
-    import Master from './Master.vue'
-    import image_one from '@/Assets/image-one.jpg'
-    import Button from '@/Components/Global/Button.vue'
-    import { Link } from '@inertiajs/inertia-vue3'
-    import Home from '@/Components/Backend/Game/components/Home.vue'
-    import Instruction from '@/Components/Backend/Game/components/Instruction.vue'
-    import StartGame from '@/Components/Backend/Game/components/StartGame.vue'
-    import { ref } from 'vue'
-    import { get } from 'lodash'
+import Master from './Master.vue'
+import image_one from '@/Assets/image-one.jpg'
+import Button from '@/Components/Global/Button.vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import useGameHandle from '@/Pages/Frontend/useGameHandle'
+import { ref, onMounted, watch } from 'vue'
+import { get } from 'lodash'
+import { useGlobalSetting } from '@/helper'
+const { asideActive } = useGlobalSetting();
 
-    defineProps({
-        gameData: Object
-    });
-    const componentList = {
-        Home,
-        Instruction,
-        StartGame
-    }
-    const index = ref(0);
-    const selectSteap = (gameData) => {
-        return gameData.instruction[index.value];
-    }
+defineProps({
+    gameData: Object
+});
+const { componentList, index, selectSteap, nextSteap, shouldShow } = useGameHandle();
 
-    const nextSteap = () => {
-        (index.value < 2) ? index.value++ : index.value = 0;
-    }
-    const shouldShow = (controlBy, data) => {
-        if (controlBy=='admin') {
-            return true;
-        }
-        if (data.show == true) {
-            return true;
-        }
-        return false;
-    }
+    // onMounted(()=> {
+    //     // asideActive.value = false;
+    // });
 
 </script>
 

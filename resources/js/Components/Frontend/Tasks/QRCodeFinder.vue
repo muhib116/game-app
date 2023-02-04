@@ -1,5 +1,8 @@
 <template>
     <div class='p-6 flex flex-col justify-between'>
+        <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+            <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+        </label>
         <div class="">
             <!-- <div v-if="controlBy=='admin'" class="text-center">
                 <h2>Input qr code information</h2>

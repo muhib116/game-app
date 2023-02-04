@@ -7,10 +7,10 @@
             <!-- game.tasks -->
             <div v-if="game.start_time">
                 <div class="text-xl font-black py-3">
-                    Game start at: {{ game.start_time }}
+                    Game start at: {{ moment(game.start_time).format('D MMM YYYY H:mm:ss') }}
                 </div>
                 <div class="text-xl font-black py-3" v-if="game.end_time">
-                    Game end at: {{ game.end_time }}
+                    Game end at: {{ moment(game.end_time).format('D MMM YYYY H:mm:ss') }}
                 </div>
             </div>
             <div class="grid grid-cols-4 gap-4">
@@ -21,6 +21,10 @@
                         </div>
                         <div v-if="task.isStarted">
                             <span class="px-3 bg-green-200">Done</span>
+                        </div>
+                        <div v-if="task.isStarted" class="flex gap-1">
+                            <input type="number" class="border flex-1 py-1 px-2 border-gray-600" placeholder="Give number" />
+                            <button class="py-1 px-2 bg-green-400 border border-green-400">Save</button>
                         </div>
                         <div v-if="task.component == 'UploadImage'">
                             <img class="w-full mt-2" :src="get(task, 'data.image')" alt="">
@@ -77,6 +81,8 @@
 <script setup>
 import Master from '../Master.vue'
 import { get, isArray } from 'lodash'
+import moment from 'moment'
+
 
 defineProps({
     game: Object,

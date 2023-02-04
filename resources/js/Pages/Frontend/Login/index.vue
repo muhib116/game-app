@@ -1,9 +1,10 @@
 <template>
-  <Master showNavigation={false}>
+  <Master :showNavigation="false">
     <div class="py-4 px-8 h-[100vh] grid items-center bg-no-repeat bg-cover relative text-white text-opacity-80 wrapper" :style="`background-image: url(${game.image})`">
       <div class="relative z-10 box grid max-h-[400px] h-full">
         <h1 class='text-4xl font-black text-center self-start'>Sign In</h1>
         <form class="grid gap-10 self-end" @submit.prevent="handleAuthorize"> 
+          <input class="text-black" label='Game code' type='text' v-model="gameForm.team" placeholder="Team Code" required /> 
           <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" placeholder="Game Code" required /> 
           <input class="text-black" label='Password' type='text' v-model="gameForm.password" placeholder="Game Password" required /> 
           <Button type="submit" label='SIGN IN' />
@@ -23,6 +24,7 @@ import { useForm } from '@inertiajs/inertia-vue3';
 const gameForm = useForm({
   gameCode: '',
   password: '',
+  team: '',
 });
 
 defineProps({

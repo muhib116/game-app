@@ -79,6 +79,58 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center border-t mt-2 border-gray-400">
+                <h2 class="font-bold py-2 text-xl">Game team</h2>
+            </div>
+            <div class="px-4 pb-4">
+                <!-- team -->
+                <div class="flex justify-end mb-4">
+                    <button 
+                        class="w-[30px] h-[30px] bg-green-600 text-green-50 rounded-full flex items-center justify-center"
+                        @click="addTeam(gamePayload.login.team)"
+                    >
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <div class="bg-white overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="text-left font-bold bg-slate-100">
+                                <th class="py-2 px-2 text-center">SL</th>
+                                <th class="py-2 px-2 text-center">Team name</th>
+                                <th class="py-2 px-2 text-center">Team code</th>
+                                <th class="py-2 px-2 w-36 text-center">
+                                    <div class="flex items-center gap-1">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in get(gamePayload, 'login.team')" :key="index" class="hover:bg-gray-100 focus-within:bg-gray-100 border-b">
+                                <td class="py-3 px-2 text-center">
+                                    {{ index+1 }}
+                                </td>
+                                <td class="py-3 px-2 text-center">
+                                    <input class="border-gray-300 flex-1 py-1" type="text" v-model="gamePayload.login.team[index].teamName" />
+                                </td>
+                                <td class="py-3 px-2 text-center">
+                                    <input class="border-gray-300 flex-1 py-1" type="text" v-model="gamePayload.login.team[index].teamCode" />
+                                </td>
+                                <td class="text-center">
+                                    <button 
+                                        v-if="index>0"
+                                        @click="removeTeam(gamePayload.login.team, index)"
+                                        class="bg-red-200 text-red-600 w-[30px] h-[30px] flex items-center justify-center rounded-full"
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -90,6 +142,7 @@ import Warning from '../Warning.vue'
 import useFileUpload from '@/useFileUpload';
 import useConnfiguration from './useConnfiguration';
 import { toast } from "@/helper";
+import { get } from 'lodash'
 
 defineProps({
     next: Function
@@ -98,6 +151,16 @@ defineProps({
 const { gamePayload } = useConnfiguration();
 const { handleImageUpload, deleteImage } = useFileUpload();
 const uploadingImg = ref(false);
+
+const addTeam = (teamAray) => {
+    teamAray.push({
+        teamName: `team ${teamAray.length}`,
+        teamCode: `teamcode-${teamAray.length}`
+    });
+}
+const removeTeam = (teamAray, index) => {
+    teamAray.splice(index, 1);
+}
 
 const handleUpload = async (file, e) => {
     uploadingImg.value = true;

@@ -19,6 +19,9 @@
                 UPLOAD IMAGE
                 <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
             </label>
+            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+            </label>
             <div class='text-black text-opacity-80'>
                 <div v-if="controlBy=='admin'">
                     <input

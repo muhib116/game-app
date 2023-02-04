@@ -1,6 +1,9 @@
 <template>
     <div class="relative">
         <div class='p-6 text-black text-opacity-80 leading-8 text-lg'>
+            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+            </label>
             <div class='text-black text-opacity-80'>
                 <input 
                     v-if="controlBy=='admin'" 

@@ -82,7 +82,11 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="flex gap-1" v-if="!game.end_time">
-                                        <button :disabled="game.status == 'draft'" @click="copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle} \nGame code: ${game.login.gameCode} \nGame password: ${game.login.gamePassword}`)" class="py-px px-3 bg-green-100 text-green-800 rounded flex items-center">
+                                        <button 
+                                            :disabled="game.status == 'draft'" 
+                                            @click="openCopyPopup(game)" 
+                                            class="py-px px-3 bg-green-100 text-green-800 rounded flex items-center"
+                                        >
                                             <svg v-if="copied" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
                                             </svg>
@@ -115,6 +119,40 @@
                 </div>
             </div>
         </div>
+        <!-- game code copy popup -->
+        <Transition>
+            <div 
+                v-if="copyOpen" 
+                @click.self="closeCopyPopup"
+                class="fixed z-[999] bg-white/70 w-full h-full left-0 top-0 flex items-center justify-center"
+            >
+                
+                <div class="w-full relative max-w-[400px] min-h-[100px] mx-2 bg-white/50 border-green-500 border-2 rounded py-4 px-2 backdrop-blur-sm shadow-2xl">
+                    <button
+                        @click="closeCopyPopup"
+                        class="w-[30px] h-[30px] flex items-center justify-center bg-red-200 text-red-700 rounded-full absolute -top-5 -right-5"
+                    >
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-center mb-2">Team list</h2>
+                    <div class="divide-y">
+                        <template v-for="(item, index) in teamList" :key="index">
+                            <div class="py-4 flex justify-between items-center gap-1">
+                                <div>
+                                    <div>
+                                        Name: <strong class="font-bold">{{ item.teamName }}</strong>
+                                    </div>
+                                    <div>
+                                        Code: <strong class="font-bold">{{ item.teamCode }}</strong>
+                                    </div>
+                                </div>
+                                <button @click="copyLink(teamList[index], copyGame)" class="text-green-800 bg-green-200 rounded py-px px-2">Copy</button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </Transition>
     </Master>
 </template>
 
@@ -122,7 +160,7 @@
 import gameDrain from '@/Components/Backend/Game/gameDrain';
 import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
 import Preloader from '@/Components/Global/Preloader.vue';
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link, usePage } from '@inertiajs/inertia-vue3'
 import { onMounted, ref } from 'vue';
 import { isEmpty, get, toLower } from 'lodash'
 import Master from '../Master.vue'
@@ -133,6 +171,8 @@ import axios from 'axios';
 const toast = useToast();
 const { gamePayload } = useConnfiguration();
 const { saveGame, gameList, loading } = gameDrain();
+
+const page =  usePage();
 
 const games = ref([]);
 const copied = ref(false);
@@ -147,11 +187,31 @@ const handleSave = async (payload) => {
     }
 }
 
-const copyLink = (link) => {
-    navigator.clipboard.writeText(link);
-    toast.success('Game data is copyied!');
+const teamList = ref([]);
+const copyOpen = ref(false);
+const copyGame = ref(null);
+const openCopyPopup = (game) => {
+    teamList.value = game.login.team;
+    copyGame.value = game;
+    copyOpen.value = true;
+}
+const closeCopyPopup = () => {
+    teamList.value = [];
+    copyOpen.value = false;
+    copyGame.value = null;
 }
 
+// copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle} \nGame code: ${game.login.gameCode} \nGame password: ${game.login.gamePassword}`)
+const copyLink = (team, game) => {  
+    let link = `${page.props.value.ziggy.url}/${game.user.username}/${game.login.gameTitle}\nTeam code: ${team.teamCode}\nGame code: ${game.login.gameCode}\nGame password: ${game.login.gamePassword}`;
+    navigator.clipboard.writeText(link);
+    toast.success('Game data is copyied!');
+    closeCopyPopup();
+}
+// http://127.0.0.1:8000/username/another 
+// Team code: team-7 
+// Game code: another 
+// Game password: another
 const handleDelete = (game) => {
     if (confirm('Are you sure?')) {
         loading.value.list = true;
@@ -199,3 +259,15 @@ onMounted(async () => {
 });
 
 </script>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

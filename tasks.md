@@ -30,15 +30,15 @@ team login korar somoy game code use korbe
 
 
 :: On frontend, Hambarger menue.
-    render tasks list on One dropdown,
-    render instraction list another dropdown.
+    ✅render tasks list on One dropdown,
+    ✅render instraction list another dropdown.
     
     after click on instruction/task close hambarger 
     menue and open related component
 
-    move exit game on hambarger menue.
+    ✅move exit game on hambarger menue.
 
-    Game start at and end at time formate.
+    ✅Game start at and end at time formate.
 
     game scoreboard design like main dashboard.
 

@@ -27,6 +27,7 @@ export default function useTaskCreate() {
                 title: 'Task#1: Find the tower',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 image: null,
+                point: null,
             },
             isStarted: null,
         },
@@ -37,7 +38,8 @@ export default function useTaskCreate() {
             isSelected: false,
             data: {
                 title: 'Task#1: Write text',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                point: null,
             },
             answer: null,
             isStarted: null,
@@ -52,6 +54,7 @@ export default function useTaskCreate() {
                 title: 'Task#1: Quize',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 options: [],
+                point: null,
             },
             isStarted: null,
         },
@@ -65,6 +68,7 @@ export default function useTaskCreate() {
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 qrValue: 'value',
                 result: null,
+                point: null,
             },
             isStarted: null,
         }

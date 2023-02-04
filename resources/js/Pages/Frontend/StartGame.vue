@@ -1,8 +1,5 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
-        <div class="flex items-center justify-center pt-4">
-            <Link class="py-2 px-4 bg-red-500 text-white rounded" :href="route('game_exit')" method="POST" type="button">Exit Game</Link>
-        </div>
         <div class="relative">
             <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
                 <component :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :task="selectTask(gameData.tasks)" />

@@ -177,22 +177,26 @@ class GameController extends Controller
                 'gameTitle' => $game->login->gameTitle,
                 'image' => $game->login->image,
             ],
+            'gameData' => $this->filterGame($game),
         ]);
     }
 
     public function authorizeGame(Request $request) {
         $request->validate([
             'gameCode' => 'required',
+            'team' => 'required',
             'password' => 'required'
         ]);
         $game = Game::where('login->gameCode', $request->gameCode)->first();
         $gameCode = $request->gameCode;
         $password = $request->password;
+        $team = $request->team;
         if ($game) {
             if ($gameCode == $game->login->gameCode && $password == $game->login->gamePassword) {
                 session()->put('login', [
                     'gamecode' => $gameCode,
                     'password' => $password,
+                    'team' => $team,
                 ]);
                 return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameCode));
             } else {

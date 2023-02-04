@@ -8,13 +8,17 @@ const asideActive = ref(false);
 Inertia.on('start', (event) => {
     asideActive.value = false;
 })
+
 export function useGlobalSetting() {
     const asideToggle = () => {
-        console.log(asideActive.value);
         asideActive.value = !asideActive.value;
+    }
+    const closeAside = () => {
+        asideActive.value = false; 
     }
     return {
         asideToggle,
         asideActive,
+        closeAside
     }
 }
