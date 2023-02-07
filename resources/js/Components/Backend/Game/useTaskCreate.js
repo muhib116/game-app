@@ -30,6 +30,7 @@ export default function useTaskCreate() {
                 point: null,
             },
             isStarted: null,
+            userAnswer: [],
         },
         {
             id: 2,
@@ -43,6 +44,7 @@ export default function useTaskCreate() {
             },
             answer: null,
             isStarted: null,
+            userAnswer: [],
         },
         {
             id: 3,
@@ -57,6 +59,7 @@ export default function useTaskCreate() {
                 point: null,
             },
             isStarted: null,
+            userAnswer: [],
         },
         {
             id: 4,
@@ -71,6 +74,7 @@ export default function useTaskCreate() {
                 point: null,
             },
             isStarted: null,
+            userAnswer: [],
         }
     ];
 

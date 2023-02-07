@@ -12,6 +12,15 @@ use Inertia\Inertia;
 
 class GameController extends Controller
 {
+    public function gameHost() {
+        if (auth()->user()->type != 'admin') {
+            return redirect()->route('dashboard');
+        }
+        $gamehosts = User::withCount(['game'])->where(['type' => 'gamehost'])->get();
+        return Inertia::render('Backend/Gamehost/Index', [
+            'gamehosts' => $gamehosts
+        ]);
+    }
     public function setup($id) {
         $game = Game::find($id);
         if (!$game) {
@@ -39,31 +48,88 @@ class GameController extends Controller
             // return $request->all();
             $isFinished = [];
             $newTask = collect($game->tasks)->map(function($item) use($request, $isFinished) {
+                $session = session()->get('login');
                 if ($request->writeText==true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
-                        $item['answer'] = $request->answer;
+                        if ($request->answer) {
+                            $item['userAnswer'][] = [
+                                'team' => $session['team'],
+                                'answer' => $request->answer
+                            ];
+                        }
+                        if ($request->value) {
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
+                                if ($request->teamCode == $ans['team']) {
+                                    $ans['value'] = $request->value;
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                        }
                     }
                 }
 
                 if ($request->Quiz == true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
-                        $item['userOptions'] = $request->answer;
+                        if ($request->answer) {
+                            $item['userAnswer'][] = [
+                                'team' => $session['team'],
+                                'userOptions' => $request->answer
+                            ];
+                        }
+                        if ($request->value) {
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
+                                if ($request->teamCode == $ans['team']) {
+                                    $ans['value'] = $request->value;
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                        }
                     }
                 }
 
                 if ($request->QRCodeFinder == true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
-                        $item['data']['result'] = $request->answer;
+                        if ($request->answer) {
+                            $item['userAnswer'][] = [
+                                'team' => $session['team'],
+                                'result' => $request->answer
+                            ];
+                        }
+                        if ($request->value) {
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
+                                if ($request->teamCode == $ans['team']) {
+                                    $ans['value'] = $request->value;
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                        }
                     }
                 }
 
                 if ($request->UploadImage == true) {
                     if ($item['id'] == $request->taskId) {
                         $item['isStarted'] = true;
-                        $item['data']['image'] = $request->image;
+                        if ($request->image) {
+                            $item['userAnswer'][] = [
+                                'team' => $session['team'],
+                                'image' => $request->image
+                            ];
+                        }
+                        if ($request->value) {
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
+                                if ($request->teamCode == $ans['team']) {
+                                    $ans['value'] = $request->value;
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                        }
                     }
                 }
                 array_push($isFinished, 'false');
@@ -86,7 +152,7 @@ class GameController extends Controller
             'status' => 'error'
         ]);
     }
-
+    
     public function save(Request $request) {
         $data = $request->all(); 
         if ($request->id) {
@@ -191,6 +257,14 @@ class GameController extends Controller
         $gameCode = $request->gameCode;
         $password = $request->password;
         $team = $request->team;
+        $filteredTeam = collect($game->login->team)->filter(function($team) use($request) {            
+            return $team->teamCode == $request->team;
+        });
+        if(!count($filteredTeam)) {
+            session()->flash('error', 'Credentials not metch');
+            return back();
+        }
+        
         if ($game) {
             if ($gameCode == $game->login->gameCode && $password == $game->login->gamePassword) {
                 session()->put('login', [

@@ -14,6 +14,8 @@ Route::get('/game', function () {
     return Inertia::render('Backend/Game/index');
 })->middleware(['auth', 'verified'])->name('game');
 
+Route::get('/gamehosts', [GameController::class, 'gameHost'])->middleware(['auth', 'verified'])->name('gamehosts');
+
 Route::get('/game/setup/{id}', [GameController::class, 'setup'])->middleware(['auth', 'verified'])->name('game.setup');
 Route::get('/game/dashboard/{id}', [GameController::class, 'gameDashboard'])->middleware(['auth', 'verified'])->name('game.dashboard');
 

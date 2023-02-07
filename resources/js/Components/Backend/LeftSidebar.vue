@@ -18,6 +18,16 @@
             <i class="w-5 fa fa-gamepad" aria-hidden="true"></i>
             Games
         </Link>
+        <template v-if="get($page.props, 'auth.user.type') == 'admin'">
+            <Link 
+                :href="route('gamehosts')"
+                class="flex gap-2 items-center py-1 px-4 hover:text-black"
+                :class="component == 'Backend/Gamehost/Index' && 'text-black bg-slate-200'"
+            >
+                <i class="w-5 fa fa-users" aria-hidden="true"></i>
+                Gamehost
+            </Link>
+        </template>
         <Link 
             :href="route('files')" 
             class='flex gap-2 items-center py-1 px-4 hover:text-black'
@@ -51,7 +61,8 @@
 
 <script setup>
     import { useGlobalSetting } from '@/helper';
-import { Link, usePage } from '@inertiajs/inertia-vue3'
+    import { Link, usePage } from '@inertiajs/inertia-vue3'
+    import { get } from 'lodash'
     const { url, component } = usePage()
     const { asideActive, asideToggle } = useGlobalSetting();
 </script>
