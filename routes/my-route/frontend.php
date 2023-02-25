@@ -37,7 +37,7 @@ Route::get('instruction', function () {
 Route::get('start-game/{user:username}/{gamecode}', [GameController::class, 'startGame'])->name('start.game');
 Route::get('instruction/{user:username}/{gamecode}', [GameController::class, 'instruction'])->name('game.instruction');
 
-Route::get('/{username}/{gamecode}/task', function () {
+Route::get('/{user:username}/{gamecode}/task', function () {
     return Inertia::render('Frontend/Task', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -45,6 +45,7 @@ Route::get('/{username}/{gamecode}/task', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('task');
+Route::get('{user:username}/{gamecode}/scoreboard', [GameController::class, 'scoreboard'])->name('scoreboard');
 
 
 Route::get('{user:username}/{gamecode}', [GameController::class, 'gameLogin']);

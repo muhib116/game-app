@@ -155,6 +155,18 @@ class GameController extends Controller
     
     public function save(Request $request) {
         $data = $request->all(); 
+
+        $game_title = $request->login['gameTitle'];
+        $game_code = $request->login['gameCode'];
+
+        $gameExist = Game::where('login->gameCode', $game_code)->orWhere('login->gameTitle', $game_title)->get();
+
+        if($game_code && count($gameExist) > 1) {
+            return response([
+                'status' => 'failed',
+                'message' => 'Game code already exist',
+            ], 200);
+        }
         if ($request->id) {
             $game = Game::find($request->id)->update([
                 'user_id' => auth()->id(),
@@ -202,15 +214,38 @@ class GameController extends Controller
     }
     public function publish(Game $game) {
         if ($game->status == 'draft') {
+            if (
+                count($game->tasks) == 0 ||
+                empty($game->login->gameTitle) ||
+                empty($game->login->gameCode) ||
+                empty($game->login->gamePassword) ||
+                count($game->login->team) == 0
+            ) {
+                return response([
+                    'status' => 'failed',
+                    'message' => 'Game setup is not complete'
+                ]);
+            }
             $game->update([
                 'status' => 'published',
+            ]);
+            return response([
+                'status' => 'success',
+                'message' => 'Game published successfully'
             ]);
         } else {
             $game->update([
                 'status' => 'draft',
             ]);
+            return response([
+                'status' => 'success',
+                'message' => 'Game status updated successfully'
+            ]);
         }
-        return back();
+        return response([
+            'status' => 'failed',
+            'message' => 'Opps! Something wrong'
+        ]);
     }
 
 
@@ -301,6 +336,30 @@ class GameController extends Controller
         // saveUserData
         // dd($this->filterGame($game));
         return Inertia::render('Frontend/StartGame', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'gameData' => $this->filterGame($game),
+        ]);
+    }
+    public function scoreboard(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!$session) return redirect()->route('home');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
+        
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+        
+        if (!$game) return redirect()->route('home');
+
+        if (!$game->start_time) {
+            $game->update([
+                'start_time' => now(),
+            ]);
+        }
+        // saveUserData
+        // dd($this->filterGame($game));
+        return Inertia::render('Frontend/Scoreboard', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,

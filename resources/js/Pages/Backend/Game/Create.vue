@@ -1,7 +1,7 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Games</p>
+            <p className="text-2xl font-bold text-black">Games</p> 
         </div>
         <Nav :options="options" :setOptions="options" @handleNav="handleNav" />
         <component :is="activeComponent" :next="nextComponent" /> 

@@ -15,11 +15,24 @@ export default function gameDrain() {
                         .then(res => res.data);
 
         clearTimeout(timeOut);
-        timeOut = setTimeout(() => {
-            toast.success('Game saved successfully', {
-                position: 'bottom-left'
-            });
-        }, 300);
+        if (data?.status == 'failed') {
+            timeOut = setTimeout(() => {
+                toast.clear();
+                toast.error(data?.message, {
+                    position: 'top-right',
+                    maxToasts: 2,
+                });
+            })
+        } else {
+            timeOut = setTimeout(() => {
+                toast.clear();
+                toast.success('Game saved successfully', {
+                    position: 'top-right',
+                    // timeout: 200,
+                    maxToasts: 2,
+                });
+            }, 3000);
+        }
         loading.value.save = false;
         return data;
     }

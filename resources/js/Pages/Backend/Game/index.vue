@@ -3,7 +3,7 @@
         <div className="flex justify-between p-5 bg-white">
             <p className="text-2xl font-bold text-black">Games</p>
             <button 
-                @click="handleSave(gamePayload)" 
+                @click="handleSave(defaultGamePayload)" 
                 class='bg-black text-white px-4 py-1 rounded flex gap-1' 
                 v-if="!loading.save"
             >
@@ -169,7 +169,7 @@ import { useToast } from "vue-toastification";
 import axios from 'axios';
 
 const toast = useToast();
-const { gamePayload } = useConnfiguration();
+const { gamePayload, defaultGamePayload } = useConnfiguration();
 const { saveGame, gameList, loading } = gameDrain();
 
 const page =  usePage();
@@ -241,11 +241,13 @@ const handlePublish = (game) => {
             .then(async (result) => {
                 publishLoading.value = false;
                 // loading.value.list = false;
+                if (result?.status == 'failed') {
+                    toast.error(result.message)
+                } else {
+                    toast.success(result.message);
+                }
                 const data = await gameList();
                 games.value = data;
-                toast.success('Game status update successfully!', {
-                    position: 'top-center',
-                });
             })
             .catch(err => {
                 publishLoading.value = false;

@@ -1,5 +1,6 @@
 import { ref, watch, watchEffect } from 'vue'
 import gameDrain from '@/Components/Backend/Game/gameDrain';
+import { cloneDeep } from 'lodash'
 const { saveGame } = gameDrain();
 
 const login = {
@@ -16,7 +17,7 @@ const login = {
 const instruction = [
     {
         component: 'Home',
-        show: false,
+        show: true,
         title: 'This is your game:',
         subtitle: 'Get to know paris in 3 hours',
         description: 'Grab items, take photos and taste the french cusine',
@@ -28,7 +29,7 @@ const instruction = [
     },
     {
         component: 'Instruction',
-        show: false,
+        show: true,
         text: [
             'Just text about the game, time limit and how to solve it.',
             'this text should also be restrictied so is fits on maximum two screens scrollingdown.'
@@ -41,7 +42,7 @@ const instruction = [
     },
     {
         component: 'StartGame',
-        show: false,
+        show: true,
         title: ' Your start point',
         description: 'lorem',
         settings: {
@@ -54,7 +55,7 @@ const instruction = [
     }
 ]
 
-const gamePayload = ref({
+const defaultGamePayload = {
     id: null,
     login,
     instruction,
@@ -62,7 +63,10 @@ const gamePayload = ref({
     status: 'draft',
     start_time: null,
     end_time: null,
-});
+};
+
+
+const gamePayload = ref(cloneDeep(defaultGamePayload));
 
 export default function useConnfiguration() {
     let timeOutId = null;
@@ -75,5 +79,6 @@ export default function useConnfiguration() {
 
     return {
         gamePayload,
+        defaultGamePayload,
     }
 }

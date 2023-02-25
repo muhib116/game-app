@@ -20,7 +20,7 @@
     import Button from '@/Components/Global/Button.vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
 
     const { componentList } = useTaskCreate();
 
@@ -33,7 +33,11 @@
     const selectTask = (tasks) => {
         return tasks[index.value];
     }
-
+    onMounted(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageSize = urlParams.get('q');
+        index.value = Number(pageSize);
+    })
     const skipTask = (tasks, prev=false) => {
         if (prev) {
             index.value--;

@@ -33,10 +33,11 @@ defineProps({
 });
 const { componentList, index, selectSteap, nextSteap, shouldShow } = useGameHandle();
 
-    // onMounted(()=> {
-    //     // asideActive.value = false;
-    // });
-
+onMounted(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageSize = urlParams.get('q');
+    index.value = Number(pageSize);
+});
 </script>
 
 <style lang="scss" scoped>
