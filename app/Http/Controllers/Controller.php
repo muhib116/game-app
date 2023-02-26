@@ -20,6 +20,7 @@ class Controller extends BaseController
                 'image' => $game->login->image,
                 'gameCode' => $game->login->gameCode,
                 'gameTitle' => $game->login->gameTitle,
+                'team' => $game->login->team,
             ],
             'instruction' => collect($game->instruction)->filter(function($instruction) {
                 if ($instruction['show'] == false) {

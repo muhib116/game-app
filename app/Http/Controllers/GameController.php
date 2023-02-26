@@ -352,11 +352,6 @@ class GameController extends Controller
         
         if (!$game) return redirect()->route('home');
 
-        if (!$game->start_time) {
-            $game->update([
-                'start_time' => now(),
-            ]);
-        }
         // saveUserData
         // dd($this->filterGame($game));
         return Inertia::render('Frontend/Scoreboard', [
