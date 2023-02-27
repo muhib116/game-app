@@ -55,6 +55,7 @@
                 </template>
             </div> 
             <template v-if="!task.isStarted">
+                <button class="py-1 px-4 mb-4 mt-2 bg-orange-300 rounded">Start task</button>
                 <Button 
                     v-if="controlBy!='admin'" 
                     label="Save" 

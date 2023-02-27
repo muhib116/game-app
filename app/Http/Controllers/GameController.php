@@ -296,7 +296,7 @@ class GameController extends Controller
             return $team->teamCode == $request->team;
         });
         if(!count($filteredTeam)) {
-            session()->flash('error', 'Credentials not metch');
+            session()->flash('error', 'Credentials not match');
             return back();
         }
         

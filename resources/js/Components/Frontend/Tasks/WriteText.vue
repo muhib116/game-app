@@ -33,6 +33,7 @@
                         Task Completed
                     </span>
                 </div>
+                <button class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded">Start task</button>
                 <Button @click="modelValue=true" v-if="!task.isStarted" label="WRITE IN TEXT" class="mt-14 border" />
                 <TextWritePopup v-model="modelValue" :task="task" :game="game" />
             </template>

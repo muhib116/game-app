@@ -7,8 +7,19 @@
                     <Button label="START" class='mt-10' />
                 </Link> -->
                 <div class="flex gap-1 justify-center">
-                    <button v-if="index>0" class='text-sm mt-4 py-1 px-3 bg-orange-500 rounded text-white' @click="skipTask(gameData.tasks, true)">Prev</button>
-                    <button v-if="index<gameData.tasks.length-1" class='text-sm mt-4 py-1 px-3 bg-blue-500 rounded text-white' @click="skipTask(gameData.tasks)">Next</button>
+                    <button 
+                        v-if="index>0" 
+                        class='text-sm mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] font-semibold flex items-center justify-center' 
+                        @click="skipTask(gameData.tasks, true)">
+                        See prev task
+                    </button>
+
+                    <button 
+                        v-if="index<gameData.tasks.length-1" 
+                        class='text-sm mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] font-semibold flex items-center justify-center'
+                        @click="skipTask(gameData.tasks)">
+                        See next task
+                    </button>
                 </div>
             </div>
         </div>

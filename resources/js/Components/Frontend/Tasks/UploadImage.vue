@@ -14,6 +14,8 @@
                 class='w-full block mb-6'
             />
             
+            <button class="py-2 px-4 mb-4 bg-slate-200 rounded">Start task</button>
+
             <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
                 <Preloader v-if="adminImageLoading" />
                 UPLOAD IMAGE

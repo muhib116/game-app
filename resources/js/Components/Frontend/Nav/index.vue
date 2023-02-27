@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='flex justify-between px-6 py-3 bg-orange-300 shadow absolute top-0 left-0 right-0'>
+    <div class='flex justify-between px-6 py-3 bg-[var(--fave)] shadow absolute top-0 left-0 right-0'>
       <button @click="asideActive = true">
         <svg class='w-5 h-5' width="24px" height="24px" viewBox="0 0 24 24">
             <g>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="absolute z-40 top-0 left-0 right-0 bottom-0 text-sm bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
-      <div class="bg-orange-300 h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
+      <div class="bg-[var(--fave)] h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
         <button @click="asideActive = false" class='absolute right-4 top-4 cursor-pointer'>
           <svg class='w-4 h-4' width="20" height="20" viewBox="0 0 20 20" fill='currentColor'>
             <path d="M10 8.586 2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
@@ -46,7 +46,13 @@
           </Dropdown> 
         </template> 
         <Link :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
-          Scoreboard
+          Your team score
+        </Link>
+        <Link :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
+          Photostream
+        </Link>
+        <Link :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
+          Total Scores
         </Link>
       </div>
     </div>
