@@ -46,7 +46,8 @@ onMounted(()=>{
         }
         result.value.push(data);
     })
-    sortBy(result.value, ['point'])
+
+    result.value.sort((a, b) => b.point  - a.point)
 })
 
 const getTeamAns = (userAnswer, team) => {
@@ -62,7 +63,7 @@ const getTotalPoint = (teamCode, tasks) => {
     forEach(tasks, (item) => {
         if (item.userAnswer) {
             forEach(item.userAnswer, (ans) => {
-                if (ans.team == teamCode) {
+                if (ans.team == teamCode && ans.value) {
                     totalPoint += Number(ans.value);
                 }
             })

@@ -31,7 +31,7 @@
             </div>
             <div v-if="!isEmpty(content)" class="flex flex-col justify-center">
                 <p><strong>Wr code result is: </strong>{{ content }}</p>
-                <button @click="handleSave(game.id, task.data.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Submit</button>
+                <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Submit</button>
             </div>
             <!-- task.id -->
             <!-- <audio ref="errorAudioElement">
@@ -68,7 +68,7 @@
             default: {}
         },
     })
-    const result = ref(null);
+    const result = ref('asdf');
     const camera = ref(props.isCameraOpen);
     const selectedCamera = ref('rear');
     const showScanConfirmation = ref(false);
@@ -80,7 +80,7 @@
         error: 'bg-red-500'
     }
     const initError = ref('')
-    const content = ref(null);
+    const content = ref('asdf');
     const switchCamera = () => {
         switch (selectedCamera.value) {
             case 'front':

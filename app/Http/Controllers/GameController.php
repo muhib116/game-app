@@ -50,13 +50,29 @@ class GameController extends Controller
             $newTask = collect($game->tasks)->map(function($item) use($request, $isFinished) {
                 $session = session()->get('login');
                 if ($request->writeText==true) {
-                    if ($item['id'] == $request->taskId) {
-                        $item['isStarted'] = true;
-                        if ($request->answer) {
+                    if ($item['id'] == $request->taskId) { 
+                        if ($request->startTime) {
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
-                                'answer' => $request->answer
+                                'start_at' => now(),
+                                'ip' => $request->ip()
                             ];
+                        }
+                        if ($request->answer) {
+                            $item['isStarted'] = true;
+                            // $temp_item = collect($item['userAnswer'])->filter(function($item) {
+                            //     return $item['team']
+                            // });
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($session, $request) {
+                                if ($session['team'] == $ans['team']) {
+                                    $ans['answer'] = $request->answer;
+                                    $ans['end_at'] = now();
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                            
+                            // $item['userAnswer'][] = $request->answer;
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -72,12 +88,24 @@ class GameController extends Controller
 
                 if ($request->Quiz == true) {
                     if ($item['id'] == $request->taskId) {
-                        $item['isStarted'] = true;
-                        if ($request->answer) {
+                        if ($request->startTime) {
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
-                                'userOptions' => $request->answer
+                                'start_at' => now(),
+                                'ip' => $request->ip()
                             ];
+                        }
+                        if ($request->answer) {
+                            $item['isStarted'] = true;
+
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($session, $request) {
+                                if ($session['team'] == $ans['team']) {
+                                    $ans['userOptions'] = $request->answer;
+                                    $ans['end_at'] = now();
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -90,15 +118,26 @@ class GameController extends Controller
                         }
                     }
                 }
-
                 if ($request->QRCodeFinder == true) {
+                    // dd($request->all());
                     if ($item['id'] == $request->taskId) {
-                        $item['isStarted'] = true;
-                        if ($request->answer) {
+                        if ($request->startTime) {
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
-                                'result' => $request->answer
+                                'start_at' => now(),
+                                'ip' => $request->ip()
                             ];
+                        }
+                        if ($request->answer) {
+                            $item['isStarted'] = true;
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($session, $request) {
+                                if ($session['team'] == $ans['team']) {
+                                    $ans['result'] = $request->answer;
+                                    $ans['end_at'] = now();
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -114,12 +153,27 @@ class GameController extends Controller
 
                 if ($request->UploadImage == true) {
                     if ($item['id'] == $request->taskId) {
-                        $item['isStarted'] = true;
-                        if ($request->image) {
+                        if ($request->startTime) {
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
-                                'image' => $request->image
+                                'start_at' => now(),
+                                'ip' => $request->ip()
                             ];
+                        }
+                        if ($request->image) {
+                            $item['isStarted'] = true;
+                            $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($session, $request) {
+                                if ($session['team'] == $ans['team']) {
+                                    $ans['image'] = $request->image;
+                                    $ans['end_at'] = now();
+                                    return $ans;
+                                }
+                                return $ans;
+                            });
+                            // $item['userAnswer'][] = [
+                            //     'team' => $session['team'],
+                            //     'image' => $request->image
+                            // ];
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -144,8 +198,11 @@ class GameController extends Controller
             }
             $game->tasks = $newTask;
             $game->save();
+            $game->session = session()->get('login');
+            $game->ip = request()->ip();
             return response([
-                'status' => 'success'
+                'status' => 'success',
+                'game' => $game,
             ]);
         }
         return response([
@@ -336,6 +393,8 @@ class GameController extends Controller
         // saveUserData
         // dd($this->filterGame($game));
         $game->session = $session;
+        $game->ip = request()->ip();
+        $game->username = $game->user->username;
         return Inertia::render('Frontend/StartGame', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

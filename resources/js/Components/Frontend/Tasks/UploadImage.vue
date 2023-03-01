@@ -14,7 +14,6 @@
                 class='w-full block mb-6'
             />
             
-            <button class="py-2 px-4 mb-4 bg-slate-200 rounded">Start task</button>
 
             <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
                 <Preloader v-if="adminImageLoading" />
@@ -44,14 +43,22 @@
                 />
                 <p v-else>{{ get(task, 'data.description') }}</p>
             </div>
-            <div v-if="!task.isStarted">
+            <button
+                @click="handleSubmit(data.game.id, data.task.id)"
+                v-if="!start && controlBy != 'admin'"
+                class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
+            >
+                Start task
+            </button>
+            
+            <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
                 <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded flex justify-center w-full relative mt-14'>
                     <Preloader v-if="adminImageLoading" />
                     UPLOAD IMAGE
                     <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
                 </label>
             </div>
-            <div v-if="task.isStarted" class="flex justify-center">
+            <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -75,17 +82,17 @@
     import useDataSource from "@/Pages/Frontend/useDataSource"
     import useTaskCreate from "@/Components/Backend/Game/useTaskCreate";
     import useConnfiguration from "@/Components/Backend/Game/useConnfiguration";
-    import { get, isEmpty } from 'lodash'
+    import { get, find, isEmpty } from 'lodash'
     import { Link } from "@inertiajs/inertia-vue3";
     import gameDrain from "@/Components/Backend/Game/gameDrain";
     import useFileUpload from '@/useFileUpload';
     import Preloader from "@/Components/Global/Preloader.vue";
-    import { ref } from 'vue'
+    import { onMounted, ref } from 'vue'
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
     const imgLink = ref(false); 
 
-    defineProps({
+    const props = defineProps({
         controlBy: {
             type: String,
             default: null
@@ -99,7 +106,17 @@
             default: {}
         },
     });
+    const start = ref(false)
 
+    const data = ref({
+        task: {},
+        game: false
+    })
+
+    onMounted(()=>{
+        data.value.game = props.game;
+        data.value.task = props.task;
+    })
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
 
@@ -149,6 +166,34 @@
             }
         } else {
             alert('Cannot submit empty value');
+        }
+    }
+
+    
+    const isStarted = (game, task) => {
+        let answer = find(task.userAnswer, item => {
+            return item.team == game.session.team && game.ip == item.ip;
+        })
+        if (answer) {
+            start.value=true
+        }
+        
+        return answer;
+    }
+
+    const handleSubmit = async (gameId, taskId) => {
+        const responseData = await saveUserData({
+            UploadImage: true,
+            id: gameId,
+            taskId: taskId,
+            startTime: true,
+        });
+
+        if (get(responseData, 'status') == 'success') {
+            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            start.value = true;
+            data.value.game = responseData.game
+            data.value.task = task
         }
     }
     

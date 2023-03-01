@@ -39,13 +39,8 @@
                 </button>
             </div>
             <div class='grid gap-5 mt-16' v-else>
-                <!-- {{ game.id }} -->
-                <!-- {{ task.data.options }} -->
-                <!-- <pre>
-                    {{ task }}
-                </pre> -->
                 <template v-for="(item, index) in task.data.options" :key="index"> 
-                    <label class='flex gap-4 text-sm items-center'>
+                    <label class='flex gap-4 text-sm items-center' v-if="!isEmpty(isStarted(data.game, data.task)) && !task.isStarted">
                         <input 
                             type="checkbox" 
                             v-model="item.teamAnswer"
@@ -54,16 +49,22 @@
                     </label>
                 </template>
             </div> 
-            <template v-if="!task.isStarted">
-                <button class="py-1 px-4 mb-4 mt-2 bg-orange-300 rounded">Start task</button>
+            <template v-if="!get(isStarted(data.game, data.task), 'end_at')">
+                <button
+                    @click="handleSubmit(data.game.id, data.task.id)"
+                    v-if="!start && controlBy != 'admin'"
+                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
+                >
+                    Start task
+                </button>
                 <Button 
-                    v-if="controlBy!='admin'" 
+                    v-if="controlBy!='admin' && !isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" 
                     label="Save" 
                     class='mt-14' 
-                    @click="handleSubmit(game.id, task.id)"
+                    @click="handleSave(game.id, task.id)"
                 />
             </template>
-            <div v-if="task.isStarted" class="flex justify-center">
+            <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -80,7 +81,8 @@
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
-    import { get } from 'lodash'
+    import { onMounted, ref } from 'vue';
+    import { get, find, isEmpty } from 'lodash'
 
     const { gamePayload } = useConnfiguration();
     const { getSelected, addOption } = useTaskCreate();
@@ -100,10 +102,18 @@
             default: {}
         },
     })
-
+    const data = ref({
+        task: {},
+        game: false
+    })
+    const start = ref(false)
+    onMounted(()=>{
+        data.value.game = props.game;
+        data.value.task = props.task;
+    })
 
     
-    const handleSubmit = async (gameId, taskId) => {
+    const handleSave = async (gameId, taskId) => {
         if (confirm('Are you sure?')) {
             const data = await saveUserData({
                 Quiz: true,
@@ -115,20 +125,34 @@
                 window.location.reload();
             }
         }
-        // if (answer.value) {
-        //     const data = await saveUserData({
-        //         writeText: true,
-        //         id: gameId,
-        //         taskId: taskId,
-        //         answer: answer.value,
-        //     });
-        //     if (data.status == "success") {
-        //         window.location.reload();
-        //     }
-        // } else {
-        //     alert('Cannot submit empty value');
-        // }
     }
+
+    
+    const isStarted = (game, task) => {
+        let answer = find(task.userAnswer, item => {
+            return item.team == game.session.team && game.ip == item.ip;
+        })
+        if (answer) {
+            start.value=true
+        }
+        return answer;
+    }
+    const handleSubmit = async (gameId, taskId) => {
+        const responseData = await saveUserData({
+            Quiz: true,
+            id: gameId,
+            taskId: taskId,
+            startTime: true,
+        });
+
+        if (get(responseData, 'status') == 'success') {
+            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            start.value = true;
+            data.value.game = responseData.game
+            data.value.task = task
+        }
+    }
+
 </script>
 
 <style lang="scss" scoped>

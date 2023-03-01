@@ -22,10 +22,10 @@
                 type="text"
                 class="border-0 text-center"
             />
-            
+
             <p v-else>{{ task.data.description }}</p>
             <template v-if="controlBy!='admin'">
-                <div v-if="task.isStarted" class="flex justify-center">
+                <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
                     <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -33,16 +33,22 @@
                         Task Completed
                     </span>
                 </div>
-                <button v-if="isEmpty(get(isStarted(game, task), 'start_at'))" class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded">Start task</button>
-                <Button @click="modelValue=true" v-if="!task.isStarted" label="WRITE IN TEXT" class="mt-14 border" />
-                <TextWritePopup v-model="modelValue" :task="task" :game="game" />
+                <button
+                    @click="handleSubmit(data.game.id, data.task.id)"
+                    v-if="!start"
+                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
+                >
+                    Start task
+                </button>
+                <Button @click="modelValue=true" v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" label="WRITE IN TEXT" class="mt-14 border" />
+                <TextWritePopup v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
@@ -51,7 +57,7 @@
     import gameDrain from '@/Components/Backend/Game/gameDrain';
     import { get, find, isEmpty } from 'lodash'
 
-    defineProps({
+    const props = defineProps({
         controlBy: {
             type: String,
             default: null
@@ -65,17 +71,50 @@
             default: false,
         }
     });
+    const { saveUserData } = gameDrain();
     
     const modelValue = ref(false);
     const start = ref(false)
+
+    const data = ref({
+        task: {},
+        game: false
+    })
+
+    onMounted(()=>{
+        data.value.game = props.game;
+        data.value.task = props.task;
+    })
 
     const { saveGame } = gameDrain();
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
     const { taskData } = useDataSource()
+
     const isStarted = (game, task) => {
-        let answer = find(task.userAnswer, item => item.team == game.session.team)
-        console.log(game);
+        let answer = find(task.userAnswer, item => {
+            return item.team == game.session.team && game.ip == item.ip;
+        })
+        if (answer) {
+            start.value=true
+        }
+        return answer;
+    }
+
+    const handleSubmit = async (gameId, taskId) => {
+        const responseData = await saveUserData({
+            writeText: true,
+            id: gameId,
+            taskId: taskId,
+            startTime: true,
+        });
+
+        if (get(responseData, 'status') == 'success') {
+            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            start.value = true;
+            data.value.game = responseData.game
+            data.value.task = task
+        }
     }
 
 </script>

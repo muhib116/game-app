@@ -65,6 +65,9 @@ const defaultGamePayload = {
     end_time: null,
 };
 
+const minMax = (num=0, min=0, max=0) => {
+    return Math.max(Math.min(Math.round(num), max), min)
+}
 
 const gamePayload = ref(cloneDeep(defaultGamePayload));
 

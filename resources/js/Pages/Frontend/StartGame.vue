@@ -1,26 +1,26 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
-        <div class="relative">
+        <div class="">
             <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
                 <component :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :task="selectTask(gameData.tasks)" />
                 <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
                 </Link> -->
-                <div class="flex gap-1 justify-center">
-                    <button 
-                        v-if="index>0" 
-                        class='text-sm mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] font-semibold flex items-center justify-center' 
-                        @click="skipTask(gameData.tasks, true)">
-                        See prev task
-                    </button>
+            </div>
+            <div class="flex gap-1 justify-center w-full">
+                <button 
+                    v-if="index>0" 
+                    class='mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] text-white font-semibold flex items-center justify-center' 
+                    @click="skipTask(gameData.tasks, true)">
+                    See prev <br> task
+                </button>
 
-                    <button 
-                        v-if="index<gameData.tasks.length-1" 
-                        class='text-sm mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] font-semibold flex items-center justify-center'
-                        @click="skipTask(gameData.tasks)">
-                        See next task
-                    </button>
-                </div>
+                <button 
+                    v-if="index<gameData.tasks.length-1" 
+                    class='mt-4 w-[100px] h-[100px] rounded-full bg-[#00A89C] text-white font-semibold flex items-center justify-center'
+                    @click="skipTask(gameData.tasks)">
+                    See next <br> task
+                </button>
             </div>
         </div>
     </Master>
@@ -50,8 +50,13 @@
         index.value = Number(pageSize);
     })
     const skipTask = (tasks, prev=false) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageSize = urlParams.get('q');
+        let href = window.location.href;
+        
         if (prev) {
             index.value--;
+            history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
             return;
         }
         if (index.value < tasks.length-1) {
@@ -59,6 +64,8 @@
         } else {
             index.value = 0;
         }
+        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
+        // window.location.href = href.replace(`?q=${pageSize}`, `?q=${index.value}`);
     }
 
 </script>

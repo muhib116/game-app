@@ -14,17 +14,20 @@
                 </div>
             </div>
             <template v-for="(team, index) in game.login.team" :key="index">
-                <h2 class="text-3xl font-extrabold my-5">Team: {{ team.teamName }} {{ getTotalPoint(team.teamCode, game.tasks) }}</h2>
+                <h2 class="text-3xl font-extrabold my-5">Team: {{ team.teamName }} ({{ getTotalPoint(team.teamCode, game.tasks) }})</h2>
                 <div class="grid grid-cols-4 gap-4">
                       <template v-for="(task, index) in game.tasks" :key="index">
                          <div class="py-2 px-4 bg-white shadow-md rounded-md">
                              <div class="font-bold text-center border-b mb-3 py-2">
                                  {{ get(task, 'data.title') }}
                              </div>
-                             <div v-if="task.isStarted">
+                             <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
                                  <span class="px-3 bg-green-200">Done</span>
                              </div>
-                             <div v-if="task.isStarted" class="flex gap-1">
+                             <div v-else>
+                                <span class="px-3 bg-red-200">Pending</span>
+                             </div>
+                             <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1">
                                 <div>
                                     <template v-if="!get(getTeamAns(task.userAnswer, team.teamCode), 'value')">
                                         <input 
@@ -41,9 +44,36 @@
                                 </div>
                              </div>
                              <div v-if="task.component == 'UploadImage'">
-                                 <img class="w-full mt-2" :src="get(getTeamAns(task.userAnswer, team.teamCode), 'image')" alt="">
+                                <!-- <pre>
+                                    {{ getTeamAns(task.userAnswer, team.teamCode) }}
+                                </pre>end_at start_at -->
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>Start at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>End at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <img class="w-full mt-2" :src="get(getTeamAns(task.userAnswer, team.teamCode), 'image')" alt="">
                              </div>
                              <div v-if="task.component == 'WriteText'">
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>Start at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>End at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
                                  <div class="font-semibold mt-2">
                                      Submited answer:
                                  </div>
@@ -52,6 +82,18 @@
                                  </div>
                              </div>
                              <div v-if="task.component == 'Quiz'">
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>Start at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>End at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
                                  <div v-if="isArray(get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions'))" class="pt-4">
                                      <span class="text-black">User answer</span>
                                      <template v-for="(item, index) in get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions')" :key="index"> 
@@ -67,6 +109,18 @@
                                  </div>
                              </div>
                              <div v-if="task.component == 'QRCodeFinder'">
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>Start at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span>End at: </span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
                                  <strong class="font-semibold block my-2">Qr code scan result:</strong>
                                  <div>
                                      {{ get(getTeamAns(task.userAnswer, team.teamCode), 'result') }}
@@ -104,7 +158,9 @@ const getTotalPoint = (teamCode, tasks) => {
         if (item.userAnswer) {
             forEach(item.userAnswer, (ans) => {
                 if (ans.team == teamCode) {
-                    totalPoint += Number(ans.value);
+                    if (ans.value) {
+                        totalPoint += Number(ans.value);
+                    }
                 }
             })
         }
@@ -120,6 +176,7 @@ const handleSubmit = async (e, gameId, taskId, teamCode, point) => {
             alert('Invalid point');
             return;
         }
+        
         if (value) {
             const data = await saveUserData({
                 writeText: true,

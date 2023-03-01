@@ -28,7 +28,7 @@
             <p class='text-center mb-5 max-h-[260px] overflow-y-auto'>
                 {{ get(task, 'data.description') }}
             </p>
-            <div v-if="task.isStarted" class="flex justify-center">
+            <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -36,8 +36,14 @@
                     Task Completed
                 </span>
             </div>
-            <button class="py-1 px-4 mb-4 mt-2 bg-orange-300 rounded">Start task</button>
-            <Button v-if="!task.isStarted" @click="modelValue=true" label='OPEN CAMERA AND SCAN QR' />
+            <button
+                @click="handleSubmit(data.game.id, data.task.id)"
+                v-if="!start"
+                class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
+            >
+                Start task
+            </button>
+            <Button v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" @click="modelValue=true" label='OPEN CAMERA AND SCAN QR' />
         </div>
     </div>
 </template>
@@ -46,12 +52,13 @@
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
-    import QrcodeVue from 'qrcode.vue'
-    import { get } from 'lodash'
-    import { ref } from 'vue';
+    import QrcodeVue from 'qrcode.vue' 
+    import { onMounted, ref } from 'vue';
+    import gameDrain from '@/Components/Backend/Game/gameDrain';
+    import { get, find, isEmpty } from 'lodash'
     import QrScanner from '@/Components/Frontend/Popup/QrScanner.vue'
 
-    defineProps({
+    const props = defineProps({
         controlBy: {
             type: String,
             default: null
@@ -69,7 +76,44 @@
     const size = ref(200);
     const value = ref('value');
     const modelValue = ref(false);
+    const start = ref(false)
 
+    const data = ref({
+        task: {},
+        game: false
+    })
+
+    onMounted(()=>{
+        data.value.game = props.game;
+        data.value.task = props.task;
+    })
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
+    const { saveUserData } = gameDrain();
+    
+    
+    const isStarted = (game, task) => {
+        let answer = find(task.userAnswer, item => {
+            return item.team == game.session.team && game.ip == item.ip;
+        })
+        if (answer) {
+            start.value=true
+        }
+        return answer;
+    }
+    const handleSubmit = async (gameId, taskId) => {
+        const responseData = await saveUserData({
+            QRCodeFinder: true,
+            id: gameId,
+            taskId: taskId,
+            startTime: true,
+        });
+
+        if (get(responseData, 'status') == 'success') {
+            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            start.value = true;
+            data.value.game = responseData.game
+            data.value.task = task
+        }
+    }
 </script>
