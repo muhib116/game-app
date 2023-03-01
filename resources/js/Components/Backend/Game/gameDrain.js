@@ -9,13 +9,13 @@ export default function gameDrain() {
         list: false,
     });
     let timeOut = null;
-    const saveGame = async (payload) => {
+    const saveGame = async (payload, fromUser=false) => {
         loading.value.save = true;
         const data = await axios.post('/game/save', payload)
                         .then(res => res.data);
 
         clearTimeout(timeOut);
-        if (data?.status == 'failed') {
+        if (data?.status == 'failed' && fromUser==false) {
             timeOut = setTimeout(() => {
                 toast.clear();
                 toast.error(data?.message, {
@@ -24,14 +24,16 @@ export default function gameDrain() {
                 });
             })
         } else {
-            timeOut = setTimeout(() => {
-                toast.clear();
-                toast.success('Game saved successfully', {
-                    position: 'top-right',
-                    // timeout: 200,
-                    maxToasts: 2,
-                });
-            }, 3000);
+            if (fromUser==false) {
+                timeOut = setTimeout(() => {
+                    toast.clear();
+                    toast.success('Game saved successfully', {
+                        position: 'top-right',
+                        // timeout: 200,
+                        maxToasts: 2,
+                    });
+                }, 3000);
+            }
         }
         loading.value.save = false;
         return data;

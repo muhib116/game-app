@@ -33,7 +33,7 @@
                         Task Completed
                     </span>
                 </div>
-                <button class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded">Start task</button>
+                <button v-if="isEmpty(get(isStarted(game, task), 'start_at'))" class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded">Start task</button>
                 <Button @click="modelValue=true" v-if="!task.isStarted" label="WRITE IN TEXT" class="mt-14 border" />
                 <TextWritePopup v-model="modelValue" :task="task" :game="game" />
             </template>
@@ -48,6 +48,8 @@
     import Button from '@/Components/Global/Button.vue'
     import useDataSource from "@/Pages/Frontend/useDataSource"
     import TextWritePopup from '../Popup/TextWritePopup.vue';
+    import gameDrain from '@/Components/Backend/Game/gameDrain';
+    import { get, find, isEmpty } from 'lodash'
 
     defineProps({
         controlBy: {
@@ -63,11 +65,17 @@
             default: false,
         }
     });
-
+    
     const modelValue = ref(false);
+    const start = ref(false)
 
+    const { saveGame } = gameDrain();
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
     const { taskData } = useDataSource()
+    const isStarted = (game, task) => {
+        let answer = find(task.userAnswer, item => item.team == game.session.team)
+        console.log(game);
+    }
 
 </script>

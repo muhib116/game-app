@@ -335,12 +335,14 @@ class GameController extends Controller
         }
         // saveUserData
         // dd($this->filterGame($game));
+        $game->session = $session;
         return Inertia::render('Frontend/StartGame', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-            'gameData' => $this->filterGame($game),
+            'gameData' => $game,
+            // 'gameData' => $this->filterGame($game),
         ]);
     }
     public function scoreboard(User $user, $gameCode) {
