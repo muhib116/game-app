@@ -43,37 +43,32 @@
                                     <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} Points</span>
                                 </div>
                              </div>
+                             <div class="flex gap-1 flex-wrap">
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'deadline')">
+                                        <span>Deadline: </span>
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'deadline')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        <span>End at: </span>
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
+                                <div class="flex gap-1 flex-wrap">
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                        <span>End at: </span>
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    </span>
+                                </div>
                              <div v-if="task.component == 'UploadImage'">
                                 <!-- <pre>
                                     {{ getTeamAns(task.userAnswer, team.teamCode) }}
                                 </pre>end_at start_at -->
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>Start at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>End at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
+                                
                                 <img class="w-full mt-2" :src="get(getTeamAns(task.userAnswer, team.teamCode), 'image')" alt="">
                              </div>
-                             <div v-if="task.component == 'WriteText'">
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>Start at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>End at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
+                             <div v-if="task.component == 'WriteText'"> 
                                  <div class="font-semibold mt-2">
                                      Submited answer:
                                  </div>
@@ -81,19 +76,7 @@
                                      {{ get(getTeamAns(task.userAnswer, team.teamCode), 'answer') }}
                                  </div>
                              </div>
-                             <div v-if="task.component == 'Quiz'">
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>Start at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>End at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
+                             <div v-if="task.component == 'Quiz'"> 
                                  <div v-if="isArray(get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions'))" class="pt-4">
                                      <span class="text-black">User answer</span>
                                      <template v-for="(item, index) in get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions')" :key="index"> 
@@ -108,19 +91,7 @@
                                      </template> 
                                  </div>
                              </div>
-                             <div v-if="task.component == 'QRCodeFinder'">
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>Start at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
-                                <div class="flex gap-1 flex-wrap">
-                                    <span>End at: </span>
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
-                                    </span>
-                                </div>
+                             <div v-if="task.component == 'QRCodeFinder'"> 
                                  <strong class="font-semibold block my-2">Qr code scan result:</strong>
                                  <div>
                                      {{ get(getTeamAns(task.userAnswer, team.teamCode), 'result') }}

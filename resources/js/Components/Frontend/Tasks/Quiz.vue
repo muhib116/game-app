@@ -1,12 +1,32 @@
 <template>
     <div class="relative">
         <div class='p-6 text-black text-opacity-80 leading-8 text-lg'>
-            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
-            </label>
-            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-                <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
-            </label>
+            <div class="max-w-[500px] mx-auto">
+                <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
+                    Deadline
+                    <el-date-picker
+                        v-model="getSelected(gamePayload.tasks).data.deadline"
+                        type="date"
+                        placeholder="Pick a day"
+                        size="large"
+                        class="w-full"
+                        :shortcuts="[{
+                            text: 'Today',
+                            value: new Date(),
+                        }]"
+                    />
+                </label>
+                <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
+                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                        Point
+                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+                    </label>
+                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                        Extra Point
+                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+                    </label>
+                </div>
+            </div>
             <div class='text-black text-opacity-80'>
                 <input 
                     v-if="controlBy=='admin'" 
@@ -26,7 +46,10 @@
                             v-model="item.isChecked"
                             :checked="item.isChecked"
                         />
-                        <input class="border-0 py-0 px-0" type="text" v-model="item.name" placeholder="Add Text">
+                        <div class="w-full md:w-1/2 flex justify-between">
+                            <input class="border border-slate-300 py-0 px-2 w-full" type="text" v-model="item.name" placeholder="Add Text">
+                            <button @click="removeOption(getSelected(gamePayload.tasks).data.options, index)" class="bg-red-500 text-white w-8 h-8">x</button>
+                        </div>
                     </label>
                 </template>
 
@@ -59,7 +82,7 @@
                 </button>
                 <Button 
                     v-if="controlBy!='admin' && !isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" 
-                    label="Save" 
+                    label="Submit Task" 
                     class='mt-14' 
                     @click="handleSave(game.id, task.id)"
                 />
@@ -118,6 +141,10 @@
     })
     const start = ref(false)
     const emit = defineEmits(['skip'])
+
+    const removeOption = (options, index) => {
+        options.splice(index, 1)
+    }
     // onMounted(()=>{
     //     data.value.game = props.game;
     //     data.value.task = props.task;

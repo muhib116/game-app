@@ -2,12 +2,33 @@
     <div class="relative">
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
             
-            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
-            </label>
-            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-                <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
-            </label>
+            <div class="max-w-[500px] mx-auto">
+                <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
+                    Deadline
+                    <el-date-picker
+                        v-model="getSelected(gamePayload.tasks).data.deadline"
+                        type="datetime"
+                        placeholder="Pick a day"
+                        size="large"
+                        class="w-full"
+                        :shortcuts="[{
+                            text: 'Today',
+                            value: new Date(),
+                        }]"
+                    />
+                </label>
+                
+                <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
+                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                        Point
+                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+                    </label>
+                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                        Extra Point
+                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+                    </label>
+                </div>
+            </div>
             <img 
                 v-if="controlBy=='admin'"
                 :src='getSelected(gamePayload.tasks).adminImage' 
@@ -41,6 +62,20 @@
                 </h3>
                 <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
                 <p v-else>{{ get(task, 'data.description') }}</p>
+            </div>
+            <div class="text-left w-full py-4">
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
+                    Deadline: 
+                    {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
+                    Points: 
+                    {{ get(task, 'data.point') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
+                    Extra point: 
+                    {{ moment(get(task, 'data.extraPoint')).format('D MMM YYYY H:mm:ss') }}
+                </div>
             </div>
             <button
                 @click="handleSubmit(data.game.id, data.task.id)"
@@ -87,6 +122,7 @@
     import useFileUpload from '@/useFileUpload';
     import Preloader from "@/Components/Global/Preloader.vue";
     import { onMounted, ref } from 'vue'
+    import moment from "moment";
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
     const imgLink = ref(false); 

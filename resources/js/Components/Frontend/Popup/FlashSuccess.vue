@@ -27,11 +27,12 @@ const props = defineProps({
 })
 
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['callback'])
 onMounted(()=>{
 	if (props.modelValue) {
 		setTimeout(()=>{
-			emit('close', false)
+			emit('callback', false)
+			emit('update:modelValue', false)
 		},2000)
 	}
 });

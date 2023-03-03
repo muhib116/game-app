@@ -56,3 +56,11 @@ button {
         left: 0px !important;
     }
 }
+
+.el-date-editor.el-input, .el-date-editor.el-input__wrapper {
+    width: 100% !important;
+}
+
+.el-picker-panel__footer .el-button {
+    color: #000 !important;
+}

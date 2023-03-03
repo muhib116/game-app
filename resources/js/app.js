@@ -7,6 +7,8 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import VueQrcodeReader from "vue3-qrcode-reader"; 
 import Toast from "vue-toastification";
 
@@ -20,6 +22,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .use(VueQrcodeReader)
+            .use(ElementPlus)
             .use(Toast)
             .mount(el);
     },

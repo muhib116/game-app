@@ -1,7 +1,6 @@
 <template>
     <Master :showNavigation="true">
         <div class='p-6'>
-            <Button label="INSTRUCTIONS" class='mb-5 py-1 shadow-none rounded-none' @click="nextSteap(gameData)" />
             <div class="relative">
                 <template v-if="selectSteap(gameData)">
                     <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />
@@ -10,7 +9,7 @@
                     <Button label="Next" class='mt-5' @click="nextSteap(gameData)" />
                 </div>
                 <Link :href="`${$page.props.ziggy.url}/start-game/${get(gameData, 'username')}/${get(gameData, 'login.gameCode')}`" v-else>
-                <Button label="START GAME" class='mt-5' />
+                    <Button label="START GAME" class='mt-5' />
                 </Link>
             </div>
         </div>

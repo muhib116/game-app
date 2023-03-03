@@ -18,7 +18,7 @@
         </form>
       </div>
     </div>
-    <div class="absolute z-40 top-0 left-0 right-0 bottom-0 text-sm bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
+    <div @click.self="asideActive = false" class="absolute z-40 top-0 left-0 right-0 bottom-0 text-sm bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
       <div class="bg-[var(--fave)] h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
         <button @click="asideActive = false" class='absolute right-4 top-4 cursor-pointer'>
           <svg class='w-4 h-4' width="20" height="20" viewBox="0 0 20 20" fill='currentColor'>
@@ -48,6 +48,7 @@
         <Link :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
           Your team score
         </Link>
+        <!-- {{ get($page, 'props.gameData.login.photoStream') }} -->
         <Link v-if="get($page, 'props.gameData.login.photoStream')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
           Photostream
         </Link>

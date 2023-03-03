@@ -59,10 +59,10 @@ const { saveGame, gameList, loading } = gameDrain();
 
 const handleSave = async (payload) => {
     if (confirm('Are you sure to create new game?')) {
-        gamePayload.value.id = null;
         const data = await saveGame(payload);
         if (data.id) {
             toast.success('Game create successfully');
+            gamePayload.value = defaultGamePayload
             Inertia.replace(route('game.setup', data.id));
         }
     }

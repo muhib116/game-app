@@ -1,11 +1,36 @@
 <template>
     <div class='p-6 flex flex-col justify-between'>
-        <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-            <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
-        </label>
-        <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-            <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
-        </label>
+        <div class="max-w-[500px] mx-auto">
+            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
+                Deadline
+                <el-date-picker
+                    v-model="getSelected(gamePayload.tasks).data.deadline"
+                    type="date"
+                    placeholder="Pick a day"
+                    size="large"
+                    class="w-full"
+                    :shortcuts="[{
+                        text: 'Today',
+                        value: new Date(),
+                    }]"
+                />
+            </label>
+            <div v-else class="font-bold">
+                <template v-if="get(task, 'data.deadline')">
+                    {{ get(task, 'data.deadline') }}
+                </template>
+            </div>
+            <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
+                <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                    Point
+                    <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+                </label>
+                <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                    Extra Point
+                    <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+                </label>
+            </div>
+        </div>
         <div class="">
             <!-- <div v-if="controlBy=='admin'" class="text-center">
                 <h2>Input qr code information</h2>
@@ -32,6 +57,20 @@
                 {{ get(task, 'data.description') }}
             </p>
             
+            <div class="text-left w-full py-4">
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
+                    Deadline: 
+                    {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
+                    Points: 
+                    {{ get(task, 'data.point') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
+                    Extra point: 
+                    {{ moment(get(task, 'data.extraPoint')).format('D MMM YYYY H:mm:ss') }}
+                </div>
+            </div>
             <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

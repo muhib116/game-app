@@ -17,7 +17,7 @@
                 </button>
             </div>
         </div>
-        <FlashSuccess @close="clsoeHandle" v-model="showFlash" />
+        <FlashSuccess @callback="clsoeHandle" v-model="showFlash" v-if="showFlash" />
     </Master>
 </template>
 
@@ -37,23 +37,28 @@ defineProps({
 
 const index = ref(0)
 const showFlash = ref(false)
+
 const selectTask = (tasks) => {
     return tasks[index.value];
 }
+
 const clsoeHandle = () => {
-    showFlash.value = false;
     console.log('close', showFlash.value);
+    showFlash.value = false;
 }
+
 onMounted(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const pageSize = urlParams.get('q');
     index.value = Number(pageSize);
 })
+
 const handleEmittedSkip = (tasks, val) => {
-    // console.log(tasks, val);
+    console.log(tasks, val);
     showFlash.value = true;
     skipTask(tasks)
 }
+
 const skipTask = (tasks, prev = false) => {
     const urlParams = new URLSearchParams(window.location.search);
     const pageSize = urlParams.get('q');
@@ -63,8 +68,10 @@ const skipTask = (tasks, prev = false) => {
         index.value--;
         if (pageSize == null) {
             history.pushState({}, null, `${href}?q=${index.value}`);
+            window.location.reload();
             return;
         }
+        window.location.reload();
         history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
         return;
     }
@@ -75,9 +82,11 @@ const skipTask = (tasks, prev = false) => {
     }
     if (pageSize == null) {
         history.pushState({}, null, `${href}?q=${index.value}`);
+        window.location.reload();
         return;
     } else {
         history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
+        window.location.reload();
     }
     // window.location.href = href.replace(`?q=${pageSize}`, `?q=${index.value}`);
 }
