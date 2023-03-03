@@ -3,6 +3,9 @@
         <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
             <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
         </label>
+        <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+            <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+        </label>
         <div class="">
             <!-- <div v-if="controlBy=='admin'" class="text-center">
                 <h2>Input qr code information</h2>
@@ -28,6 +31,7 @@
             <p class='text-center mb-5 max-h-[260px] overflow-y-auto'>
                 {{ get(task, 'data.description') }}
             </p>
+            
             <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

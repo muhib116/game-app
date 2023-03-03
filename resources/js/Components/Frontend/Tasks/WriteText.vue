@@ -3,6 +3,9 @@
         <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
             <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
         </label>
+        <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+            <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+        </label>
         <div className='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
             <!-- <img 
                 src='https://plus.unsplash.com/premium_photo-1664100478021-c3b6599f0d7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60' 
@@ -16,12 +19,13 @@
                 type="text"
             />
             <h3 v-else className='font-semi-bold text-2xl mb-2'>{{ task.data.title }}</h3>
-            <input 
+            <!-- <input 
                 v-model="getSelected(gamePayload.tasks).data.description"
                 v-if="controlBy=='admin'"
                 type="text"
                 class="border-0 text-center"
-            />
+            /> -->
+            <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
 
             <p v-else>{{ task.data.description }}</p>
             <template v-if="controlBy!='admin'">

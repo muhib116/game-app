@@ -55,6 +55,7 @@ class GameController extends Controller
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
                                 'start_at' => now(),
+                                'task_id' => $request->taskId,
                                 'ip' => $request->ip()
                             ];
                         }
@@ -92,6 +93,7 @@ class GameController extends Controller
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
                                 'start_at' => now(),
+                                'task_id' => $request->taskId,
                                 'ip' => $request->ip()
                             ];
                         }
@@ -125,6 +127,7 @@ class GameController extends Controller
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
                                 'start_at' => now(),
+                                'task_id' => $request->taskId,
                                 'ip' => $request->ip()
                             ];
                         }
@@ -157,6 +160,7 @@ class GameController extends Controller
                             $item['userAnswer'][] = [
                                 'team' => $session['team'],
                                 'start_at' => now(),
+                                'task_id' => $request->taskId,
                                 'ip' => $request->ip()
                             ];
                         }

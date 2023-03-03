@@ -83,6 +83,16 @@
                 <h2 class="font-bold py-2 text-xl">Game team</h2>
             </div>
             <div class="px-4 pb-4">
+                <div class="flex flex-wrap gap-2">
+                    <label>
+                        <input type="checkbox" v-model="gamePayload.login.photoStream">
+                        Photo Stream
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="gamePayload.login.showScoreboard">
+                        Show Scoreboard
+                    </label>
+                </div>
                 <!-- team -->
                 <div class="flex justify-end mb-4">
                     <button 

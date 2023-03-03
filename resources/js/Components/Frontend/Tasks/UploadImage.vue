@@ -1,6 +1,13 @@
 <template>
     <div class="relative">
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
+            
+            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+            </label>
+            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
+                <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+            </label>
             <img 
                 v-if="controlBy=='admin'"
                 :src='getSelected(gamePayload.tasks).adminImage' 
@@ -20,14 +27,11 @@
                 UPLOAD IMAGE
                 <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
             </label>
-            <label v-if="controlBy=='admin'" class="my-4 mt-5 flex justify-center">
-                <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
-            </label>
             <div class='text-black text-opacity-80'>
                 <div v-if="controlBy=='admin'">
                     <input
                         type="text"
-                        class='font-semi-bold text-2xl mb-2 border-0'
+                        class='font-semi-bold text-2xl mb-2 border-0 w-full text-center'
                         placeholder="Game title"
                         v-model="getSelected(gamePayload.tasks).data.title"
                     />
@@ -35,12 +39,7 @@
                 <h3 v-else class='font-semi-bold text-2xl mb-2'>
                     {{ get(task, 'data.title') }}
                 </h3>
-                <input
-                    v-if="controlBy=='admin'"
-                    v-model="getSelected(gamePayload.tasks).data.description"
-                    class="text-black text-opacity-80 border-0 p-0 text-center" type="text" 
-                    placeholder="Title" 
-                />
+                <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
                 <p v-else>{{ get(task, 'data.description') }}</p>
             </div>
             <button
@@ -155,15 +154,22 @@
 
     const handleSave = async (gameId, taskId) => {
         if (!isEmpty(imgLink.value)) {
-            const data = await saveUserData({
+            const responseData = await saveUserData({
                 UploadImage: true,
                 id: gameId,
                 taskId: taskId,
                 image: imgLink.value,
             });
-            if (data.status == "success") {
-                window.location.reload();
+            if (get(responseData, 'status') == 'success') {
+                let task = find(responseData.game.tasks, item => item.id == props.task.id)
+                start.value = true;
+                data.value.game = responseData.game
+                data.value.task = task
+                imgLink.value = null;
             }
+            // if (data.status == "success") {
+            //     window.location.reload();
+            // }
         } else {
             alert('Cannot submit empty value');
         }

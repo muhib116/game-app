@@ -11,6 +11,7 @@
         </form>
       </div>
     </div>
+    <FlashScreen @close="showFlash=false" v-model="showFlash" />
   </Master>
 </template>
 
@@ -20,12 +21,16 @@ import Input from '@/Components/Global/Input.vue'
 import Master from '@/Pages/Frontend/Master.vue'
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3';
+import FlashScreen from '@/Components/Frontend/Popup/FlashScreen.vue';
+import {ref} from 'vue'
 
 const gameForm = useForm({
   gameCode: '',
   password: '',
   team: '',
 });
+
+const showFlash = ref(true)
 
 defineProps({
   game: {

@@ -8,6 +8,8 @@ const login = {
     gameTitle: null,
     gameCode: null,
     gamePassword: null,
+    showScoreboard: false,
+    photoStream: false,
     team: [{
         teamName: 'Default team',
         teamCode: 'code1' // Unique team code.
