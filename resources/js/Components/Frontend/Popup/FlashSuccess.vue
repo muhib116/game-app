@@ -1,5 +1,5 @@
 <template>
-<div v-if="modelValue" class="absolute top-0 left-0 bottom-0 right-0 bg-white flex justify-center items-center z-10">
+<div v-if="modelValue" class="absolute top-0 left-0 bottom-0 right-0 bg-white flex justify-center items-center z-[99999]">
     <div class="flex flex-col justify-center">
         <div>
             <div class="success-checkmark">

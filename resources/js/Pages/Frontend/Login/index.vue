@@ -11,7 +11,8 @@
         </form>
       </div>
     </div>
-    <FlashScreen @close="showFlash=false" v-model="showFlash" />
+    <FlashScreen @close="handleCloseFlash" v-model="showFlash" />
+    <PresentedByScreen @closePresent="(e) => handlePresentedBy(e)" v-model="showPresentedBy" :game="game" />
   </Master>
 </template>
 
@@ -22,6 +23,7 @@ import Master from '@/Pages/Frontend/Master.vue'
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3';
 import FlashScreen from '@/Components/Frontend/Popup/FlashScreen.vue';
+import PresentedByScreen from '@/Components/Frontend/Popup/PresentedByScreen.vue';
 import {ref} from 'vue'
 
 const gameForm = useForm({
@@ -30,14 +32,26 @@ const gameForm = useForm({
   team: '',
 });
 
-const showFlash = ref(true)
-
 defineProps({
   game: {
     type: Object,
     default: {}
   },
 });
+
+const showFlash = ref(true)
+const showPresentedBy = ref(false)
+const handleCloseFlash = () => {
+  showFlash.value=false
+  showPresentedBy.value=true
+}
+
+const handlePresentedBy = (e) => {
+  console.log(e);
+  showPresentedBy.value = false
+  // setTimeout(()=>{
+  // },3000)
+}
 
 const handleAuthorize = () => {
   Inertia.post(route('authorizeGame'), gameForm, {

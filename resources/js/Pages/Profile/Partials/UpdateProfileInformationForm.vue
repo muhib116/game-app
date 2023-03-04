@@ -15,6 +15,7 @@ const user = usePage().props.value.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    logo: null,
 });
 </script>
 
@@ -28,7 +29,7 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form @submit.prevent="form.post(route('profile.update'))" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -58,6 +59,18 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+            <div>
+                <InputLabel for="logo" value="Logo" />
+
+                <TextInput
+                    id="logo"
+                    type="file"
+                    class="mt-1 block w-full"
+                    @change="(e)=> form.logo = e.target.files[0]"
+                />
+
+                <InputError class="mt-2" :message="form.errors.logo" />
             </div>
 
             <div v-if="props.mustVerifyEmail && user.email_verified_at === null">

@@ -81,6 +81,8 @@
     }
     const initError = ref('')
     const content = ref('asdf');
+    
+    const emit = defineEmits(['skip'])
     const switchCamera = () => {
         switch (selectedCamera.value) {
             case 'front':
@@ -129,7 +131,8 @@
                 answer: content.value,
             });
             if (data.status == "success") {
-                window.location.reload();
+                // window.location.reload();
+                emit('skip', true)
             }
         } else {
             alert('Cannot submit empty value');

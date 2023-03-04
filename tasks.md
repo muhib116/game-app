@@ -50,34 +50,34 @@ team login korar somoy game code use korbe
     ✅ input field width full
 
 :: ✅deadline add all task component
-    show admin scoreboard (highlight)
+    ✅show admin scoreboard (highlight)
 
 :: your score board
     show all task score
 
-:: on profile image upload option name (logo/picture)
+:: ✅on profile image upload option name (logo/picture)
 
-:: Presented by flash screen
+:: ✅Presented by flash screen
 
-:: Flash screen remove when click
+:: ✅Flash screen remove when click
 
-:: instruction page -> remove border. full screen. remove instruction button
+:: ✅instruction page -> remove border. full screen. remove instruction button
 
-:: map screen
-    -- headline, map, instruction
+:: ✅map screen
+    -- ✅headline, map, instruction
 
-::task component -> deadline, points, extra points
-        deadline, extra point optional.
+::✅task component -> deadline, points, extra points
+        ✅deadline, extra point optional.
 
-:: image upload
-    image preview.
-    reupload
-    hide server preview
-    show user selected image
-    after submit click upload image.
+:: ✅image upload
+    ✅image preview.
+    ✅reupload
+    ✅hide server preview
+    ✅show user selected image
+    ✅after submit click upload image.
 
 
-::total score -> show realtime game score, sync every 5sec.
+:: total score -> show realtime game score, sync every 5sec.
 
 Your team score 
 Photostream

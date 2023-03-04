@@ -37,6 +37,7 @@
     const answer = ref('');
     const closeBtn = ref(null);
 
+    const emit = defineEmits(['skip'])
     const handleSubmit = async (gameId, taskId) => {
         if (answer.value) {
             const data = await saveUserData({
@@ -46,7 +47,9 @@
                 answer: answer.value,
             });
             if (data.status == "success") {
-                window.location.reload();
+                console.log('submited');
+                // window.location.reload();
+                emit('skip', true)
             }
         } else {
             alert('Cannot submit empty value');

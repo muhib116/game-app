@@ -1,6 +1,6 @@
 <template>
     <Master :showNavigation="true">
-        <div class='p-6'>
+        <div class=''>
             <div class="relative">
                 <template v-if="selectSteap(gameData)">
                     <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />

@@ -5,6 +5,7 @@
                 Scoreboard 
             </div>
             <div class="py-5">
+                {{ result }}
                 <template v-for="(team, index) in result" :key="index">
                     <div class="flex justify-between py-2 px-2" :class="index==0 ? 'bg-white' : ''">
                         <div class="flex gap-3">
@@ -12,7 +13,13 @@
                             <span>{{ team.name }}</span>
                         </div>
                         <span>{{ team.point }}</span>
-                    </div> 
+                    </div>
+                    <div class="flex flex-wrap mt-4">
+                        <!-- tasks -->
+                        <template v-for="(task, index) in gameData.tasks" :key="index">
+                            {{ task.userAnswer }}
+                        </template>
+                    </div>
                 </template>
                 <!-- <div class="flex justify-between py-2 px-2 border-b border-slate-500/50">
                     <div class="flex gap-3">
@@ -38,10 +45,12 @@ const result = ref([]);
 
 onMounted(()=>{
     let teams = props.gameData.login.team;
+    console.log(props.gameData);
     forEach(teams, item => {
         let data = {
             name: item.teamName,
             point: getTotalPoint(item.teamCode, props.gameData.tasks),
+            teamCode: item.teamCode,
             // point: Math.random() * 200,
         }
         result.value.push(data);

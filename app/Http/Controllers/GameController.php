@@ -338,6 +338,7 @@ class GameController extends Controller
                 'id' => $game->id,
                 'gameTitle' => $game->login->gameTitle,
                 'image' => $game->login->image,
+                'user' => $game->user,
             ],
             'gameData' => $this->filterGame($game),
         ]);

@@ -1,5 +1,5 @@
 <template>
-    <div className='relative border h-full flex flex-col'>
+    <div className='relative h-full flex flex-col'>
         <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy=='admin'">
             <div className='flex items-center gap-3'>
             <label className='flex gap-2 text-xs items-center'>
@@ -29,6 +29,10 @@
             <img :src="data.settings.image" class='h-full absolute block w-full object-cover object-center' /> -->
             <span class='absolute top-0 z-[-1] left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
             <img v-if="data.settings.image" :src="data.settings.image" class='h-full z-[-2] top-0 left-0 bottom-0 right-0 absolute block w-full object-cover object-center' />
+
+            <div v-if="controlBy!='admin'" class="font-black text-left text-xl mb-9 mt-4">
+                Instructions
+            </div>
             <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full text-[var(--dbg)] min-h-[300px]"></textarea>
             <p v-else class="bg-transparent border-0 w-full text-[var(--dbg)]" v-html="data.text"></p>
         </div>

@@ -5,7 +5,7 @@
                     Deadline
                     <el-date-picker
                         v-model="getSelected(gamePayload.tasks).data.deadline"
-                        type="date"
+                        type="datetime"
                         placeholder="Pick a day"
                         size="large"
                         class="w-full"
@@ -65,14 +65,14 @@
                     Start task
                 </button>
                 <Button @click="modelValue=true" v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" label="WRITE IN TEXT" class="mt-14 border" />
-                <TextWritePopup v-model="modelValue" :task="data.task" :game="data.game" />
+                <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue';
+    import { defineEmits, onMounted, ref } from 'vue';
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
@@ -99,6 +99,7 @@
     
     const modelValue = ref(false);
     const start = ref(false)
+
 
     const data = ref({
         task: {},

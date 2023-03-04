@@ -44,15 +44,15 @@
                                 </div>
                              </div>
                              <div class="flex gap-1 flex-wrap">
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'deadline')">
+                                    <span v-if="get(task, 'data.deadline')" class="font-bold text-red-500">
                                         <span>Deadline: </span>
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'deadline')).format('D MMM YYYY H:mm:ss') }}
+                                        {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
                                     </span>
                                 </div>
                                 <div class="flex gap-1 flex-wrap">
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                        <span>End at: </span>
-                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                        <span>Start at: </span>
+                                        {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
                                     </span>
                                 </div>
                                 <div class="flex gap-1 flex-wrap">

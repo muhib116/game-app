@@ -5,7 +5,7 @@
                 Deadline
                 <el-date-picker
                     v-model="getSelected(gamePayload.tasks).data.deadline"
-                    type="date"
+                    type="datetime"
                     placeholder="Pick a day"
                     size="large"
                     class="w-full"
@@ -47,7 +47,7 @@
                 {{ get(task, 'data.title') }}
             </h1>
         </div>
-        <QrScanner v-model="modelValue" :game="game" :task="task" />
+        <QrScanner @skip="$emit('skip', true)" v-model="modelValue" :game="game" :task="task" />
         
         <div class="" v-if="controlBy=='admin'">
             <textarea class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
@@ -100,7 +100,7 @@
     import gameDrain from '@/Components/Backend/Game/gameDrain';
     import { get, find, isEmpty } from 'lodash'
     import QrScanner from '@/Components/Frontend/Popup/QrScanner.vue'
-
+    import moment from 'moment'
     const props = defineProps({
         controlBy: {
             type: String,

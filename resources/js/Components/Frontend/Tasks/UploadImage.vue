@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
+        <div class='p-0 text-black text-opacity-80 text-center leading-8 text-lg'>
             
             <div class="max-w-[500px] mx-auto">
                 <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
@@ -29,18 +29,24 @@
                     </label>
                 </div>
             </div>
+            <h3 v-if="controlBy!='admin'" class='font-semi-bold text-2xl py-4 font-bold'>
+                {{ get(task, 'data.title') }}
+            </h3>
             <img 
                 v-if="controlBy=='admin'"
                 :src='getSelected(gamePayload.tasks).adminImage' 
                 alt=""
-                class='w-full block mb-6'
+                class='w-full block mb-6 max-w-[300px] mx-auto'
             />
-            <img 
-                v-else
-                :src="get(task, 'adminImage')" 
-                alt=""
-                class='w-full block mb-6'
-            />
+            <template v-else>
+                <img class="w-full" :src="imgLink" v-if="imgLink" alt="">
+                <img
+                    v-else
+                    :src="get(task, 'adminImage')" 
+                    alt=""
+                    class='w-full block mb-6'
+                />
+            </template>
             
 
             <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
@@ -57,9 +63,7 @@
                         v-model="getSelected(gamePayload.tasks).data.title"
                     />
                 </div>
-                <h3 v-else class='font-semi-bold text-2xl mb-2'>
-                    {{ get(task, 'data.title') }}
-                </h3>
+                
                 <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
                 <p v-else>{{ get(task, 'data.description') }}</p>
             </div>
@@ -74,7 +78,7 @@
                 </div>
                 <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
                     Extra point: 
-                    {{ moment(get(task, 'data.extraPoint')).format('D MMM YYYY H:mm:ss') }}
+                    {{ get(task, 'data.extraPoint') }}
                 </div>
             </div>
             <button
@@ -86,9 +90,14 @@
             </button>
             
             <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
-                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-orange-300 shadow rounded flex justify-center w-full relative mt-14'>
+                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-[var(--fave)] shadow rounded flex justify-center w-full relative mt-14'>
                     <Preloader v-if="adminImageLoading" />
-                    UPLOAD IMAGE
+                    <template v-if="imgLink">
+                        Use another
+                    </template>
+                    <template v-else>
+                        UPLOAD IMAGE
+                    </template>
                     <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
                 </label>
             </div>
@@ -100,12 +109,12 @@
                     Task Completed
                 </span>
             </div>
-            <div v-if="controlBy!='admin'">
-                <img class="w-[200px]" :src="imgLink" v-if="imgLink" alt="">
-            </div>
+            
             <template v-if="controlBy!='admin'">
                 <div v-if="imgLink">
-                    <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Save</button>
+                    <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-[var(--fave)] text-white rounded">
+                        Save and go to next task
+                    </button>
                 </div>
             </template>
         </div>
@@ -156,9 +165,9 @@
     const { getSelected } = useTaskCreate();
 
     const adminImageLoading = ref(false);
-
+    const inputFile = ref(null)
+    const emit = defineEmits(['skip'])
     const handleAdminImage = async (file, tasks) => {
-        // adminImage
         adminImageLoading.value = true;
         const response = await handleImageUpload(file);
         if (response.status == 'error') {
@@ -174,38 +183,29 @@
         adminImageLoading.value = false;
     }
     const handleUpload = async (file, e) => {
-        // let data = props.data;
-        const response = await handleImageUpload(file);
-        if (response.status == 'error') {
-            console.log('error');
-        }
-        if (response.status == 'success') {
-            let old = imgLink.value;
-            if (old) {
-                deleteImage(old);
-            }
-            imgLink.value = response.path;
-        }
+        inputFile.value = file;
+        const dataUrl = URL.createObjectURL(file)
+        imgLink.value = dataUrl;
     }
 
-    const handleSave = async (gameId, taskId) => {
-        if (!isEmpty(imgLink.value)) {
+    const handleSave = async (gameId, taskId) => { 
+        const response = await handleImageUpload(inputFile.value);
+        if (response.path) {
             const responseData = await saveUserData({
                 UploadImage: true,
                 id: gameId,
                 taskId: taskId,
-                image: imgLink.value,
+                image: response.path,
             });
             if (get(responseData, 'status') == 'success') {
+                
                 let task = find(responseData.game.tasks, item => item.id == props.task.id)
                 start.value = true;
                 data.value.game = responseData.game
                 data.value.task = task
                 imgLink.value = null;
+                emit('skip', true)
             }
-            // if (data.status == "success") {
-            //     window.location.reload();
-            // }
         } else {
             alert('Cannot submit empty value');
         }

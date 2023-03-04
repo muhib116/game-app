@@ -1,7 +1,7 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
         <div class="">
-            <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
+            <div class='text-black text-opacity-80 text-center leading-8 text-lg'>
                 <component @skip="(value) => handleEmittedSkip(gameData.tasks, value)" :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :task="selectTask(gameData.tasks)" />
                 <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
@@ -45,6 +45,7 @@ const selectTask = (tasks) => {
 const clsoeHandle = () => {
     console.log('close', showFlash.value);
     showFlash.value = false;
+    window.location.reload();
 }
 
 onMounted(() => {
@@ -67,11 +68,9 @@ const skipTask = (tasks, prev = false) => {
     if (prev) {
         index.value--;
         if (pageSize == null) {
-            history.pushState({}, null, `${href}?q=${index.value}`);
-            window.location.reload();
+            history.pushState({}, null, `${href}?q=${index.value}`); 
             return;
         }
-        window.location.reload();
         history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
         return;
     }
@@ -81,12 +80,10 @@ const skipTask = (tasks, prev = false) => {
         index.value = 0;
     }
     if (pageSize == null) {
-        history.pushState({}, null, `${href}?q=${index.value}`);
-        window.location.reload();
+        history.pushState({}, null, `${href}?q=${index.value}`); 
         return;
     } else {
-        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
-        window.location.reload();
+        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`)); 
     }
     // window.location.href = href.replace(`?q=${pageSize}`, `?q=${index.value}`);
 }
