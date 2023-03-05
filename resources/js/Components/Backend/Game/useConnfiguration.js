@@ -9,6 +9,7 @@ const login = {
     gameCode: null,
     gamePassword: null,
     showScoreboard: false,
+    showTeamScore: false,
     photoStream: false,
     team: [{
         teamName: 'Default team',

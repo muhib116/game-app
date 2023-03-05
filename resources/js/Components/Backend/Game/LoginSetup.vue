@@ -94,6 +94,10 @@
                         <input type="checkbox" v-model="gamePayload.login.showScoreboard">
                         Show Scoreboard
                     </label>
+                    <label>
+                        <input type="checkbox" v-model="gamePayload.login.showTeamScore">
+                        Show Scoreboard
+                    </label>
                 </div>
                 <!-- team -->
                 <div class="flex justify-end mb-4">

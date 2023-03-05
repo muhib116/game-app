@@ -87,3 +87,9 @@ Total Scores
 
 skiable note
     qr code generate and download button
+
+
+
+
+:: ✅image upload component -> after select large image return, alert, and remove disabled, and loading.
+    ✅cursor pointer

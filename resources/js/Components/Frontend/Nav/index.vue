@@ -45,7 +45,7 @@
             </Link>
           </Dropdown> 
         </template> 
-        <Link :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
+        <Link v-if="get($page, 'props.gameData.login.showTeamScore')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
           Your team score
         </Link>
         <!-- {{ get($page, 'props.gameData.login.photoStream') }} -->
