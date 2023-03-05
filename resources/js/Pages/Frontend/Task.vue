@@ -2,7 +2,6 @@
   <Master>
       <component :is="componentList[components[index].name]" />
       <!-- <button @click="changeTask" class='shadow px-4 py-2 rounded mx-auto block'>Change Template</button> -->
-      
   </Master>
 </template>
 
