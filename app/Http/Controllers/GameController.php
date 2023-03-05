@@ -321,8 +321,9 @@ class GameController extends Controller
             return redirect('/');
         }
 
-        if ($session) {
+        if ($session && $session['gamecode'] == $game->login->gameCode) {
             // $session
+            dd($session['gamecode'], $game->login->gameCode, $session['team']);
             return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameTitle));
             // $game
             // ${game.user.username}/${game.login.gameTitle}`
@@ -418,14 +419,48 @@ class GameController extends Controller
         
         if (!$game) return redirect()->route('home');
 
-        // saveUserData
-        // dd($this->filterGame($game));
+        $game->username = $game->user->username;
         return Inertia::render('Frontend/Scoreboard', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-            'gameData' => $this->filterGame($game),
+            'gameData' => $game,
+        ]);
+    }
+    public function photostream(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!$session) return redirect()->route('home');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
+        
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+        
+        if (!$game) return redirect()->route('home');
+
+        $game->username = $game->user->username;
+        return Inertia::render('Frontend/Photostream', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'gameData' => $game,
+        ]);
+    }
+    public function totalScoreboard(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!$session) return redirect()->route('home');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
+        
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+        
+        if (!$game) return redirect()->route('home');
+        $game->username = $game->user->username;
+        return Inertia::render('Frontend/TotalScoreboard', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'gameData' => $game,
         ]);
     }
 

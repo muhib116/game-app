@@ -103,7 +103,7 @@
                 <div class="flex justify-end mb-4">
                     <button 
                         class="w-[30px] h-[30px] bg-green-600 text-green-50 rounded-full flex items-center justify-center"
-                        @click="addTeam(gamePayload.login.team)"
+                        @click="addTeam(get(gamePayload, 'login.team'))"
                     >
                         <i class="fa fa-plus"></i>
                     </button>
@@ -123,26 +123,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in get(gamePayload, 'login.team')" :key="index" class="hover:bg-gray-100 focus-within:bg-gray-100 border-b">
-                                <td class="py-3 px-2 text-center">
-                                    {{ index+1 }}
-                                </td>
-                                <td class="py-3 px-2 text-center">
-                                    <input class="border-gray-300 flex-1 py-1" type="text" v-model="gamePayload.login.team[index].teamName" />
-                                </td>
-                                <td class="py-3 px-2 text-center">
-                                    <input class="border-gray-300 flex-1 py-1" type="text" v-model="gamePayload.login.team[index].teamCode" />
-                                </td>
-                                <td class="text-center">
-                                    <button 
-                                        v-if="index>0"
-                                        @click="removeTeam(gamePayload.login.team, index)"
-                                        class="bg-red-200 text-red-600 w-[30px] h-[30px] flex items-center justify-center rounded-full"
-                                    >
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <TeamSetup 
+                                v-for="(item, index) in get(gamePayload, 'login.team')" 
+                                :key="index" 
+                                :index="index+1" 
+                                :item="item"
+                                @remove="removeTeam(get(gamePayload, 'login.team'), index)"
+                                :payload="get(gamePayload, 'login.team')"
+                            />
                         </tbody>
                     </table>
                 </div>
@@ -157,6 +145,7 @@ import { ref, watch, watchEffect } from 'vue';
 import Warning from '../Warning.vue'
 import useFileUpload from '@/useFileUpload';
 import useConnfiguration from './useConnfiguration';
+import TeamSetup from './TeamSetup.vue';
 import { toast } from "@/helper";
 import { get } from 'lodash'
 
@@ -168,12 +157,15 @@ const { gamePayload } = useConnfiguration();
 const { handleImageUpload, deleteImage } = useFileUpload();
 const uploadingImg = ref(false);
 
+
+
 const addTeam = (teamAray) => {
     teamAray.push({
-        teamName: `team ${teamAray.length}`,
-        teamCode: `teamcode-${teamAray.length}`
+        teamName: `team ${teamAray.length+1}`,
+        teamCode: `teamcode-${teamAray.length+1}`
     });
 }
+
 const removeTeam = (teamAray, index) => {
     teamAray.splice(index, 1);
 }

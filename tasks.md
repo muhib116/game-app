@@ -52,8 +52,8 @@ team login korar somoy game code use korbe
 :: ✅deadline add all task component
     ✅show admin scoreboard (highlight)
 
-:: your score board
-    show all task score
+:: ✅your score board
+    ✅show all task score
 
 :: ✅on profile image upload option name (logo/picture)
 
@@ -77,12 +77,12 @@ team login korar somoy game code use korbe
     ✅after submit click upload image.
 
 
-:: total score -> show realtime game score, sync every 5sec.
+:: ✅total score -> show realtime game score, sync every 5sec.
 
-Your team score 
-Photostream
-Total Scores 
- admin permission
+✅Your team score 
+✅Photostream
+✅Total Scores 
+✅admin permission
 
 
 skiable note
