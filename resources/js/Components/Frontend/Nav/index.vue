@@ -30,7 +30,7 @@
           <Dropdown label="Instructions">
             <Link 
               :href="`${$page.props.ziggy.url}/instruction/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameTitle')}?q=${index}`" 
-              class='text-left' 
+              class='text-left py-1 block' 
               v-for="(item, index) in get($page.props, 'gameData.instruction')" 
               :key="index + Math.random() * 50000"
             >
@@ -40,7 +40,11 @@
         </template>
         <template v-if="get($page.props, 'gameData.tasks')">
           <Dropdown label="Tasks">
-            <Link :href="`${$page.props.ziggy.url}/start-game/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}?q=${index}`" class='text-left' v-for="(item, index) in get($page.props, 'gameData.tasks')" :key="index + Math.random() * 50000">
+            <Link 
+              :href="`${$page.props.ziggy.url}/start-game/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}?q=${index}`" 
+              class='text-left py-1 block' 
+              v-for="(item, index) in get($page.props, 'gameData.tasks')" :key="index + Math.random() * 50000"
+            >
               {{ item.component }} 
             </Link>
           </Dropdown> 
