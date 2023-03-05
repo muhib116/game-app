@@ -2,8 +2,8 @@
     <div class="relative">
         <div class='p-0 text-black text-opacity-80 text-center leading-8 text-lg'>
             
-            <div class="max-w-[500px] mx-auto">
-                <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
+            <div v-if="controlBy=='admin'" class="max-w-[500px] mx-auto">
+                <label class="my-4 mt-5 flex-col flex justify-center">
                     Deadline
                     <el-date-picker
                         v-model="getSelected(gamePayload.tasks).data.deadline"
@@ -19,11 +19,11 @@
                 </label>
                 
                 <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
-                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                    <label class="my-4 mt-5 flex flex-col justify-center">
                         Point
                         <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
                     </label>
-                    <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
+                    <label class="my-4 mt-5 flex flex-col justify-center">
                         Extra Point
                         <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
                     </label>
@@ -32,6 +32,7 @@
             <h3 v-if="controlBy!='admin'" class='font-semi-bold text-2xl py-4 font-bold'>
                 {{ get(task, 'data.title') }}
             </h3>
+            
             <img 
                 v-if="controlBy=='admin'"
                 :src='getSelected(gamePayload.tasks).adminImage' 
@@ -39,7 +40,7 @@
                 class='w-full block mb-6 max-w-[300px] mx-auto'
             />
             <template v-else>
-                <img class="w-full" :src="imgLink" v-if="imgLink" alt="">
+                <img v-if="imgLink" :src="imgLink" class="w-full" alt="">
                 <img
                     v-else
                     :src="get(task, 'adminImage')" 
@@ -48,75 +49,76 @@
                 />
             </template>
             
-
-            <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
-                <Preloader v-if="adminImageLoading" />
-                UPLOAD IMAGE
-                <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
-            </label>
-            <div class='text-black text-opacity-80'>
-                <div v-if="controlBy=='admin'">
-                    <input
-                        type="text"
-                        class='font-semi-bold text-2xl mb-2 border-0 w-full text-center'
-                        placeholder="Game title"
-                        v-model="getSelected(gamePayload.tasks).data.title"
-                    />
+            <div class="px-5">
+                <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
+                    <Preloader v-if="adminImageLoading" />
+                    UPLOAD IMAGE
+                    <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
+                </label>
+                <div class='text-black text-opacity-80'>
+                    <div v-if="controlBy=='admin'">
+                        <input
+                            type="text"
+                            class='font-semi-bold text-2xl mb-2 border-0 w-full text-center'
+                            placeholder="Game title"
+                            v-model="getSelected(gamePayload.tasks).data.title"
+                        />
+                    </div>
+                    
+                    <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
+                    <p v-else>{{ get(task, 'data.description') }}</p>
+                </div>
+                <div class="text-left w-full py-4">
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
+                        Deadline: 
+                        {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                    </div>
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
+                        Points: 
+                        {{ get(task, 'data.point') }}
+                    </div>
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
+                        Extra point: 
+                        {{ get(task, 'data.extraPoint') }}
+                    </div>
+                </div>
+                <button
+                    @click="handleSubmit(data.game.id, data.task.id)"
+                    v-if="!start && controlBy != 'admin'"
+                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
+                >
+                    Start task
+                </button>
+                
+                <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
+                    <label v-if="controlBy!='admin'" class='px-4 py-1 bg-[var(--fave)] shadow rounded flex justify-center w-full relative mt-14'>
+                        <Preloader v-if="adminImageLoading" />
+                        <template v-if="imgLink">
+                            Use another
+                        </template>
+                        <template v-else>
+                            UPLOAD IMAGE
+                        </template>
+                        <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
+                    </label>
+                </div>
+                <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
+                    <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Task Completed
+                    </span>
                 </div>
                 
-                <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
-                <p v-else>{{ get(task, 'data.description') }}</p>
+                <template v-if="controlBy!='admin'">
+                    <div v-if="imgLink">
+                        <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-[var(--fave)] text-white rounded">
+                            Save and go to next task
+                        </button>
+                    </div>
+                </template>
             </div>
-            <div class="text-left w-full py-4">
-                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
-                    Deadline: 
-                    {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
-                </div>
-                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
-                    Points: 
-                    {{ get(task, 'data.point') }}
-                </div>
-                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
-                    Extra point: 
-                    {{ get(task, 'data.extraPoint') }}
-                </div>
-            </div>
-            <button
-                @click="handleSubmit(data.game.id, data.task.id)"
-                v-if="!start && controlBy != 'admin'"
-                class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
-            >
-                Start task
-            </button>
-            
-            <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
-                <label v-if="controlBy!='admin'" class='px-4 py-1 bg-[var(--fave)] shadow rounded flex justify-center w-full relative mt-14'>
-                    <Preloader v-if="adminImageLoading" />
-                    <template v-if="imgLink">
-                        Use another
-                    </template>
-                    <template v-else>
-                        UPLOAD IMAGE
-                    </template>
-                    <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
-                </label>
-            </div>
-            <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
-                <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Task Completed
-                </span>
-            </div>
-            
-            <template v-if="controlBy!='admin'">
-                <div v-if="imgLink">
-                    <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-[var(--fave)] text-white rounded">
-                        Save and go to next task
-                    </button>
-                </div>
-            </template>
         </div>
     </div>
 </template>
