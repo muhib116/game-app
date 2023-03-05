@@ -1,0 +1,102 @@
+.amazing_wraper{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    place-content: center;
+    align-items: center;
+    gap: var(--flex_gap);
+    padding-bottom: 30px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.amazing_text {
+    padding-bottom: 20px;
+}
+.amazing_text .phone_amazing{
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--font_color);
+}
+.amazing_text .phone_amazing>span{
+    font-size: 30px;
+    padding-right: 10px;
+}
+.amazing_para{
+    font-size: var(--para_size);
+    font-weight: 300;
+    color: var(--font_color);
+}
+.title_amazing{
+    font-size: var(--title_font_size);
+    font-weight: 900;
+    color: var(--color_1);
+    text-align: center;
+    margin-bottom: var(--title_bottom);
+ }
+ .title_amazing>span{
+    color: var(--font_color);
+}
+.amazing_video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.amazing_video_img{
+    display: grid;
+    place-content: center;
+}
+.amazing_video_content{
+    display: grid;
+    align-items: center;
+}
+.amazing_end_wrapper{
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+    gap: var(--flex_gap);
+    margin-bottom: var(--bottom);
+}
+.amazing_card{
+    box-shadow: var(--shadow);
+    min-height: 180px;
+    padding: var(--padding_wraper);
+}
+.amazing_card_icon{
+    text-align: center;
+    padding: 30px 0px 10px 0px;
+    font-size: var(--title_font_size);
+    color: var(--color_1);
+}
+.amazing_card_para{
+    text-align: center;
+    font-size: var(--para_size);
+    padding-bottom: 30px;
+    color: var(--font_color);
+}
+@media screen and (max-width: 992px) {
+       .title_amazing{
+            font-size: 30px;
+       }
+       .amazing_video{
+            display: flex;
+            order: -1;
+       }
+       .amazing_wraper{
+            padding: 15px;
+       }
+         .amazing_end_wrapper{
+                grid-template-columns: repeat(2 , 1fr);
+       }
+}   
+@media screen and (max-width: 762px) {
+       .title_amazing{
+            font-size: 20px;
+       }
+        .amazing_end_wrapper{
+                grid-template-columns: repeat(1 , 1fr);
+       }
+            .amazing_wraper{
+            grid-template-columns: repeat(1 , 1fr);
+            max-width: 300px;
+            margin: auto ;
+       }
+}   

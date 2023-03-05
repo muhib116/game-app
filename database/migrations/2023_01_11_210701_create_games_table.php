@@ -21,7 +21,9 @@ return new class extends Migration
             $table->json('tasks');
             $table->string('status');
             $table->unsignedBigInteger('user_id');
+            $table->string('slug')->nullable();
             $table->uuid('game_id')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }

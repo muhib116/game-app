@@ -1,0 +1,98 @@
+.feature_post{
+    margin-bottom: var(--bottom);
+}
+.feature_post_title{
+    font-size: var(--title_font_size);
+    font-weight: 900;
+    color: var(--color_1);
+    text-align: center;
+    margin-bottom: var(--title_bottom);
+ }
+ .feature_post_title>span{
+    color: var(--font_color);
+}
+.feature_post_wraper{
+    min-height: 200px;
+}
+
+.post_para{
+    text-align: left;
+    font-size: var(--para_title_size);
+    font-weight: 300;
+    padding: 20px 0;
+    color: var(--font_color);
+}
+.post_title{
+    text-align: left;
+    font-size: var(--para_title_size);
+    font-weight: 500;
+    padding-bottom: 30px;
+    color: var(--font_color);
+}
+.post_btn{
+    background-color: var(--color_1);
+    border: none;
+    padding: 8px 15px;
+    width: 150px;
+    color: var(--hover_color);
+    margin-bottom: var(--bottom);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.post_btn:hover{
+    border: 1px solid var(--color_1);
+    background-color: var(--hover_color);
+    color: var(--font_color);
+}
+.feature_post_wraper_1{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    gap: 20px;
+    background-color: #efefef;  
+    padding: var(--padding_wraper);  
+}
+.feature_post_wraper{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    gap: var(--flex_gap);
+}
+.feature_post_img img{
+    min-height: 350px;
+}
+.watch{
+    padding: var(--padding_wraper);
+}
+.watch>p{
+    text-align: center;
+    line-height: 30px;
+    font-size: var(--para_title_size);
+    font-weight: 300;
+    color: var(--font_color);
+}
+.center_btn{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    display: grid;
+    place-content: center;
+}
+
+
+
+
+@media screen and (max-width: 992px){
+    .feature_post_title{
+        font-size: 30px;
+    } 
+}
+@media screen and (max-width: 762px){
+    .feature_post_title{
+        font-size: 20px;
+    } 
+    .feature_post_wraper_1{
+        grid-template-columns: repeat(1 , 1fr);
+    }
+    .feature_post_wraper{
+        grid-template-columns: repeat(1 , 1fr);
+    }
+}

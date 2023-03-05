@@ -2,7 +2,7 @@
   <Master>
     <div class="px-4 py-5">
       <div class="grid justify-center pt-4 pb-8">
-        <h1 class="text-black text-2xl font-bold">Welcome to admin dashboard</h1>
+        <h1 class="text-black text-2xl font-bold">Welcome to {{ get($page.props, 'auth.user.type') == 'gamehost' ? 'Gamehost' : 'Admin' }} dashboard</h1>
       </div>
       <Widgets />
 
@@ -27,4 +27,5 @@
 <script setup>
 import Widgets from '@/Components/Backend/Dashboard/Widgets.vue';
 import Master from '@/Pages/Backend/Master.vue'
+import { get } from 'lodash'
 </script>

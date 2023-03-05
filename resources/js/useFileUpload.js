@@ -12,7 +12,7 @@ export default function useFileUpload() {
         }
     }
 
-    const handleImageUpload = async (file) => 
+    const handleImageUpload = async (file, type) => 
     {
         if (file.size/1024 > 1024) {
             alert('Maximum file upload size should 1MB');
@@ -21,6 +21,7 @@ export default function useFileUpload() {
         preloader.value = true
         const formData = new FormData()
         formData.append('image', file)
+        formData.append('type', type)
         const data = await axios.post(route('image.upload'), formData)
                                 .then(res => res.data);
         preloader.value = false

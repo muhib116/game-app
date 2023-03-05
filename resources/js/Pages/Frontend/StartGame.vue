@@ -1,41 +1,94 @@
 <template>
-    <Master :showNavigation="false">
-        <div class="relative">
-            <div class='text-sm mb-4 text-center leading-8 text-black text-opacity-75'>
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14602.255536706296!2d90.36542960000001!3d23.79853955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1671373285798!5m2!1sen!2sbd"  
-                    height="300" 
-                    class='w-full'
-                    allowFullScreen="" 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-            </div>
-            <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
-                <p class="text-3xl mb-4">
-                    Your start point
-                </p>
-                <p>
-                    This is were your team should start your game.
-                </p>
-                <p>
-                    Please push start when you are in the right address. 
-                </p>
-
-                <Link :href="route('task')">
+    <Master :showNavigation="true" :gameData="gameData">
+        <div class="h-full">
+            <div class='text-black text-opacity-80 text-center leading-8 text-lg px-10 h-[85%]'>
+                <component @skip="(value) => handleEmittedSkip(gameData.tasks, value)" :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :task="selectTask(gameData.tasks)" />
+                <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
-                </Link>
+                </Link> -->
+            </div>
+            <div class="flex gap-1 justify-between mt-4 px-10">
+                <button v-if="index > 0" class=' w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
+                    Prev
+                </button>
+                <span v-else></span>
+
+                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks)">
+                    Next
+                </button>
             </div>
         </div>
+        <FlashSuccess @callback="clsoeHandle" v-model="showFlash" v-if="showFlash" />
     </Master>
 </template>
 
 <script setup>
-    import Master from './Master.vue'
-    import Button from '@/Components/Global/Button.vue'
-    import { Link } from '@inertiajs/inertia-vue3'
+import Master from './Master.vue'
+import Button from '@/Components/Global/Button.vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
+import { ref, onMounted } from 'vue';
+import FlashSuccess from '@/Components/Frontend/Popup/FlashSuccess.vue';
+
+const { componentList } = useTaskCreate();
+
+defineProps({
+    gameData: Object
+});
+
+const index = ref(0)
+const showFlash = ref(false)
+
+const selectTask = (tasks) => {
+    return tasks[index.value];
+}
+
+const clsoeHandle = () => {
+    console.log('close', showFlash.value);
+    showFlash.value = false;
+    window.location.reload();
+}
+
+onMounted(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageSize = urlParams.get('q');
+    index.value = Number(pageSize);
+})
+
+const handleEmittedSkip = (tasks, val) => {
+    console.log(tasks, val);
+    showFlash.value = true;
+    skipTask(tasks)
+}
+
+const skipTask = (tasks, prev = false) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageSize = urlParams.get('q');
+    let href = window.location.href;
+
+    if (prev) {
+        index.value--;
+        if (pageSize == null) {
+            history.pushState({}, null, `${href}?q=${index.value}`); 
+            return;
+        }
+        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
+        return;
+    }
+    if (index.value < tasks.length - 1) {
+        index.value++;
+    } else {
+        index.value = 0;
+    }
+    if (pageSize == null) {
+        history.pushState({}, null, `${href}?q=${index.value}`); 
+        return;
+    } else {
+        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`)); 
+    }
+    // window.location.href = href.replace(`?q=${pageSize}`, `?q=${index.value}`);
+}
+
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

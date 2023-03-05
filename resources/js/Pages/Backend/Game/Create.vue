@@ -1,10 +1,10 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Games</p>
+            <p className="text-2xl font-bold text-black">Games</p> 
         </div>
         <Nav :options="options" :setOptions="options" @handleNav="handleNav" />
-        <component :is="activeComponent" /> 
+        <component :is="activeComponent" :next="nextComponent" /> 
     </Master>
 </template>
 
@@ -17,6 +17,7 @@
     import TaskCreate from '@/Components/Backend/Game/TaskCreate.vue'
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
     import gameDrain from '@/Components/Backend/Game/gameDrain'
+    import { findIndex } from 'lodash'
 
     const { gamePayload } = useConnfiguration();
     const { gameList } = gameDrain();
@@ -51,6 +52,16 @@
         options.value.forEach(item => {
             item.isActive = selectedOption.id == item.id;
         });
+    }
+
+    const nextComponent = () => {
+        // let fnd = options.value.find(item => item.id = activeComponent.value.__name);
+        let fnd = findIndex(options.value, (itm) => itm.id == activeComponent.value.__name);
+        if (fnd < options.value.length) {
+            options.value[fnd].isActive = false;
+            options.value[fnd+1].isActive = true;
+            activeComponent.value = options.value[fnd+1].component;
+        }
     }
 
     onMounted(async()=> {

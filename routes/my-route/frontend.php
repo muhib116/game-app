@@ -23,7 +23,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('instruction', function () {
     return Inertia::render('Frontend/Instruction', [
@@ -34,9 +34,10 @@ Route::get('instruction', function () {
     ]);
 })->name('instruction');
 
-Route::get('start-game/{username}/{gamecode}', [GameController::class, 'startGame'])->name('start.game');
+Route::get('start-game/{user:username}/{gamecode}', [GameController::class, 'startGame'])->name('start.game');
+Route::get('instruction/{user:username}/{gamecode}', [GameController::class, 'instruction'])->name('game.instruction');
 
-Route::get('task', function () {
+Route::get('/{user:username}/{gamecode}/task', function () {
     return Inertia::render('Frontend/Task', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -44,10 +45,14 @@ Route::get('task', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('task');
+Route::get('{user:username}/{gamecode}/scoreboard', [GameController::class, 'scoreboard'])->name('scoreboard');
 
 
 Route::get('{user:username}/{gamecode}', [GameController::class, 'gameLogin']);
 Route::post('/authorizeGame', [GameController::class, 'authorizeGame'])->name('authorizeGame');
+
+Route::post('exit-game', [GameController::class, 'game_exit'])->name('game_exit');
+
 // Route::get('user/login', function () {
 //     return Inertia::render('Frontend/Login/index', [
 //         'canLogin' => Route::has('login'),

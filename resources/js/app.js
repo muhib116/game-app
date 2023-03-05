@@ -1,13 +1,18 @@
 import './bootstrap';
 import '../css/app.css';
+import "vue-toastification/dist/index.css";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import VueQrcodeReader from "vue3-qrcode-reader"; 
+import Toast from "vue-toastification";
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'rebuslop.no';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -16,6 +21,9 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(VueQrcodeReader)
+            .use(ElementPlus)
+            .use(Toast)
             .mount(el);
     },
 });

@@ -30,7 +30,15 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
-
+        if ($request->hasFile('logo')) {
+            $request->validate([
+                'logo' => 'image'
+            ]);
+            $file = $request->file('logo');
+            $name = $file->hashName();
+            $path = $file->move('upload/logo', $name);
+            $request->user()->logo = $path;
+        }
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }

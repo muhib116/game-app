@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import UploadImage from '@/Components/Frontend/Tasks/UploadImage.vue'
 import WriteText from '@/Components/Frontend/Tasks/WriteText.vue'
 import Quiz from '@/Components/Frontend/Tasks/Quiz.vue'
+import QRCodeFinder from '@/Components/Frontend/Tasks/QRCodeFinder.vue'
 import InstructionSetup from '@/Components/Backend/Game/InstructionSetup.vue'
 import TaskCreate from '@/Components/Backend/Game/TaskCreate.vue'
 import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
@@ -10,7 +11,8 @@ import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
 const componentList = ref({
     UploadImage,
     WriteText,
-    Quiz
+    Quiz,
+    QRCodeFinder,
 });
 
 export default function useTaskCreate() {
@@ -20,10 +22,17 @@ export default function useTaskCreate() {
             name: 'UploadImage',
             component: 'UploadImage',
             isSelected: true,
+            adminImage: null,
             data: {
                 title: 'Task#1: Find the tower',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
-            }
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                image: null,
+                point: null,
+                extraPoint: null,
+                deadline: null,
+            },
+            isStarted: null,
+            userAnswer: [],
         },
         {
             id: 2,
@@ -31,20 +40,49 @@ export default function useTaskCreate() {
             component: 'WriteText',
             isSelected: false,
             data: {
-                title: 'Task#1: Find the tower',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.'
-            }
+                title: 'Task#1: Write text',
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                point: null,
+                extraPoint: null,
+                deadline: null,
+            },
+            answer: null,
+            isStarted: null,
+            userAnswer: [],
         },
         {
             id: 3,
             name: 'Quiz',
             component: 'Quiz',
             isSelected: false,
+            userOptions: [],
             data: {
-                title: 'Task#1: Find the tower',
+                title: 'Task#1: Quize',
                 description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
                 options: [],
-            }
+                point: null,
+                extraPoint: null,
+                deadline: null,
+            },
+            isStarted: null,
+            userAnswer: [],
+        },
+        {
+            id: 4,
+            name: 'QRCodeFinder',
+            component: 'QRCodeFinder',
+            isSelected: false,
+            data: {
+                title: 'Task#1: Qr code find',
+                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                qrValue: 'value',
+                result: null,
+                point: null,
+                extraPoint: null,
+                deadline: null,
+            },
+            isStarted: null,
+            userAnswer: [],
         }
     ];
 
@@ -60,8 +98,9 @@ export default function useTaskCreate() {
 
     const addOption = (options) => {
         options.push({
-            isChecked: false,
-            name: 'Test'
+            isChecked: false, // This is admin answer
+            teamAnswer: false,
+            name: ''
         });
     }
 

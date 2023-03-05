@@ -14,7 +14,8 @@ class Game extends Authenticatable
     protected $casts = [
         'instruction' => 'array',
         'login' => 'object',
-        'tasks' => 'array'
+        'tasks' => 'array',
+        'settings' => 'array'
     ];
 
     public function user() {

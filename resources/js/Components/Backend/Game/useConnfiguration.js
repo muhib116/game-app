@@ -1,5 +1,6 @@
 import { ref, watch, watchEffect } from 'vue'
 import gameDrain from '@/Components/Backend/Game/gameDrain';
+import { cloneDeep } from 'lodash'
 const { saveGame } = gameDrain();
 
 const login = {
@@ -7,50 +8,70 @@ const login = {
     gameTitle: null,
     gameCode: null,
     gamePassword: null,
+    showScoreboard: false,
+    photoStream: false,
+    team: [{
+        teamName: 'Default team',
+        teamCode: 'code1' // Unique team code.
+    }],
 }
 
 const instruction = [
     {
         component: 'Home',
-        show: false,
+        show: true,
         title: 'This is your game:',
         subtitle: 'Get to know paris in 3 hours',
         description: 'Grab items, take photos and taste the french cusine',
         settings: {
             image: null,
-            opacity: 100,
+            opacity: 0,
             color: '#000'
         }
     },
     {
         component: 'Instruction',
-        show: false,
+        show: true,
         text: [
             'Just text about the game, time limit and how to solve it.',
             'this text should also be restrictied so is fits on maximum two screens scrollingdown.'
         ],
         settings: {
             image: null,
-            opacity: 100,
+            opacity: 0,
             color: '#000'
         }
     },
     {
         component: 'StartGame',
-        show: false,
+        show: true,
         title: ' Your start point',
         description: 'lorem',
-        settings: {}
+        settings: {
+            longtide: null,
+            lattitude: null,
+            image: null,
+            opacity: 0,
+            color: '#000'
+        }
     }
 ]
 
-const gamePayload = ref({
+const defaultGamePayload = {
     id: null,
     login,
     instruction,
     tasks: [],
     status: 'draft',
-});
+    start_time: null,
+    end_time: null,
+};
+
+const minMax = (num=0, min=0, max=0) => {
+    return Math.max(Math.min(Math.round(num), max), min)
+}
+
+const gamePayload = ref(cloneDeep(defaultGamePayload));
 
 export default function useConnfiguration() {
     let timeOutId = null;
@@ -63,5 +84,6 @@ export default function useConnfiguration() {
 
     return {
         gamePayload,
+        defaultGamePayload,
     }
 }

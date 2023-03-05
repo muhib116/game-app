@@ -1,12 +1,13 @@
 <template>
     <div className='p-5'>
         <div className="bg-white shadow rounded mt-5">
-            <div className="p-4 bg-[#fefefe] border-b font-bold text-black">
+            <div className="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
                 Game Instruction
+                <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">Next</button>
             </div>
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
                 <div v-for="item in gamePayload.instruction" :key="item.component">
-                    <component :is="componentList[item.component]" :data="item" />
+                    <component :is="componentList[item.component]" :data="item" :controlBy="'admin'" />
                 </div>
             </div>
         </div>
@@ -21,6 +22,9 @@
     import useConnfiguration from './useConnfiguration'
     import { ref } from 'vue'
 
+    defineProps({
+        next: Function
+    });
     const { gamePayload } = useConnfiguration();
     const componentList = ref({
         Home,
