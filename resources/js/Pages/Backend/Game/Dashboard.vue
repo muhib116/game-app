@@ -1,11 +1,11 @@
 <template>
     <Master>
-        <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Game Dashboard</p>
+        <div className="flex justify-between p-5 bg-white shadow">
+            <p className="text-xl font-bold text-gray-800">Game Dashboard</p>
         </div>
         <div class="px-5 py-5">
             <!-- game.tasks -->
-            <div v-if="game.start_time">
+            <div v-if="game.start_time" class="w-fit mx-auto bg-green-100 px-4 mt-10 rounded-lg border border-green-400 shadow-lg">
                 <div class="text-xl font-black py-3">
                     Game start at: {{ moment(game.start_time).format('D MMM YYYY H:mm:ss') }}
                 </div>
@@ -14,87 +14,109 @@
                 </div>
             </div>
             <template v-for="(team, index) in game.login.team" :key="index">
-                <h2 class="text-3xl font-extrabold my-5">Team: {{ team.teamName }} ({{ getTotalPoint(team.teamCode, game.tasks) }})</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <h2 class="text-xl font-extrabold my-5 mb-4 mt-10">Team: {{ team.teamName }} ({{ getTotalPoint(team.teamCode, game.tasks) }})</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                     <template v-for="(task, index) in game.tasks" :key="index">
-                        <div class="py-2 px-4 bg-white shadow-md rounded-md">
-                            <div class="font-bold text-center border-b mb-3 py-2">
+                        <div class="bg-white shadow-lg rounded-md border overflow-hidden">
+                            <div class="font-semibold text-center border-b py-2 bg-[#f9f9f9]">
                                 {{ get(task, 'data.title') }}
                             </div>
-                            <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                <span class="px-3 bg-green-200">Done</span>
-                            </div>
-                            <div v-else>
-                                <span class="px-3 bg-red-200">Pending</span>
-                            </div>
-                            <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1 my-5">
-                                <div>
-                                    <template v-if="!get(getTeamAns(task.userAnswer, team.teamCode), 'value')">
-                                        <input :max="get(task, 'data.point') + get(task, 'data.extraPoint')" type="number" class="border flex-1 py-1 px-2 border-gray-600" :placeholder="`Max point ${get(task, 'data.point') + get(task, 'data.extraPoint')}`" />
-                                        <button @click="(e) => {
-                                            handleSubmit(e, game.id, task.id, team.teamCode, task.data.point)
-                                        }" class="py-1 px-2 bg-[var(--fave)] border border-green-400">Save</button>
-                                    </template>
-                                    <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} Points</span>
-                                </div>
-                            </div>
-                            <div class="flex gap-1 flex-wrap">
-                                <span v-if="get(task, 'data.point')" class="">
-                                    <span>Point: </span>
-                                    {{ get(task, 'data.point') }}
-                                </span>
-                            </div>
-                            <div class="flex gap-1 flex-wrap">
-                                <span v-if="get(task, 'data.point')" class="">
-                                    <span>Extra Point: </span>
-                                    {{ get(task, 'data.extraPoint') }}
-                                </span>
-                            </div>
-                            <div class="flex gap-1 flex-wrap mb-5">
-                                <span v-if="get(task, 'data.deadline')" class="font-bold">
-                                    <span>Deadline: </span>
-                                    {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
-                                </span>
-                            </div>
-                            <div class="flex gap-1 flex-wrap">
-                                <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
-                                    <span>Start at: </span>
-                                    {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
-                                </span>
-                            </div>
-                            <div class="flex gap-1 flex-wrap">
-                                <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
-                                    <span>End at: </span>
-                                    {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
-                                </span>
-                            </div>
 
-                            <div v-if="task.component == 'UploadImage'">
-                                <img class="w-full mt-2" :src="get(getTeamAns(task.userAnswer, team.teamCode), 'image')" alt="">
-                            </div>
-                            <div v-if="task.component == 'WriteText'">
-                                <div class="font-semibold mt-2">
-                                    Submited answer:
+                            <div class="p-4">
+                                <div class="mb-5 flex gap-2 items-center">
+                                    Task Status: 
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="px-3 block w-fit bg-green-100 text-green-500 font-black rounded">Done</span>
+                                    <span v-else class="px-3 block w-fit bg-red-100 text-red-500 font-black rounded">Pending</span>
                                 </div>
-                                <div class="pt-2">
-                                    {{ get(getTeamAns(task.userAnswer, team.teamCode), 'answer') }}
+                                <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1 mb-5">
+                                    <div>
+                                        <template v-if="!get(getTeamAns(task.userAnswer, team.teamCode), 'value')">
+                                            <input :max="get(task, 'data.point') + get(task, 'data.extraPoint')" type="number" class="border flex-1 py-1 px-2 border-black border-opacity-10" :placeholder="`Max point ${get(task, 'data.point') + get(task, 'data.extraPoint')}`" />
+                                            <button @click="(e) => {
+                                                handleSubmit(e, game.id, task.id, team.teamCode, (task.data.point + task.data.extraPoint))
+                                            }"
+                                            class="py-1 px-3 bg-[var(--fave)] border border-green-400 text-white ml-1 rounded">Save</button>
+                                        </template>
+                                        <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} Points</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div v-if="task.component == 'Quiz'">
-                                <div v-if="isArray(get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions'))" class="pt-4">
-                                    <span class="text-black">User answer</span>
-                                    <template v-for="(item, index) in get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions')" :key="index">
-                                        <label class='flex gap-4 text-sm items-center'>
-                                            <input type="checkbox" v-model="item.teamAnswer" disabled />
-                                            {{ item.name }}
-                                        </label>
-                                    </template>
+                                
+                                <div 
+                                    v-if="get(task, 'data.point') || get(task, 'data.extraPoint') || get(task, 'data.deadline')" 
+                                    class="mb-5"
+                                >
+                                    <div class="flex gap-1 flex-wrap">
+                                        <span v-if="get(task, 'data.point')" class="">
+                                            <span class="font-semibold">Point: </span>
+                                            {{ get(task, 'data.point') }}
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-1 flex-wrap">
+                                        <span v-if="get(task, 'data.extraPoint')" class="">
+                                            <span class="font-semibold">Extra Point: </span>
+                                            {{ get(task, 'data.extraPoint') }}
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-1 flex-wrap mb-5">
+                                        <span v-if="get(task, 'data.deadline')">
+                                            <span class="font-semibold">Deadline: </span>
+                                            {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div v-if="task.component == 'QRCodeFinder'">
-                                <strong class="font-semibold block my-2">Qr code scan result:</strong>
-                                <div>
-                                    {{ get(getTeamAns(task.userAnswer, team.teamCode), 'result') }}
+
+                                <div 
+                                    v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at') || get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')" 
+                                    class="border-y mb-5 py-5"
+                                >
+                                    <div
+                                        class="flex gap-1 flex-wrap"
+                                    >
+                                        <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')">
+                                            <span class="font-semibold">Start at: </span>
+                                            {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')).format('D MMM YYYY H:mm:ss') }}
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-1 flex-wrap">
+                                        <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')">
+                                            <span class="font-semibold">End at: </span>
+                                            {{ moment(get(getTeamAns(task.userAnswer, team.teamCode), 'end_at')).format('D MMM YYYY H:mm:ss') }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div v-if="task.component == 'UploadImage'">
+                                    <img 
+                                        v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'image')"
+                                        class="w-full mt-2 border rounded overflow-hidden"
+                                        :src="get(getTeamAns(task.userAnswer, team.teamCode), 'image')" 
+                                        alt=""
+                                    >
+                                </div>
+                                <div v-if="task.component == 'WriteText'">
+                                    <div class="font-semibold mt-2">
+                                        Submitted answer:
+                                    </div>
+                                    <div class="pt-2">
+                                        {{ get(getTeamAns(task.userAnswer, team.teamCode), 'answer') }}
+                                    </div>
+                                </div>
+                                <div v-if="task.component == 'Quiz'">
+                                    <div v-if="isArray(get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions'))" class="pt-4">
+                                        <span class="text-black">User answer</span>
+                                        <template v-for="(item, index) in get(getTeamAns(task.userAnswer, team.teamCode), 'userOptions')" :key="index">
+                                            <label class='flex gap-4 text-sm items-center'>
+                                                <input type="checkbox" v-model="item.teamAnswer" disabled />
+                                                {{ item.name }}
+                                            </label>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div v-if="task.component == 'QRCodeFinder'">
+                                    <strong class="font-semibold block my-2">Qr code scan result:</strong>
+                                    <div>
+                                        {{ get(getTeamAns(task.userAnswer, team.teamCode), 'result') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

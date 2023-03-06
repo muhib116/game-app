@@ -29,7 +29,7 @@
       <div class="relative h-full">
         <span class='absolute top-0 left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
         <img v-if="data.settings.image" :src="data.settings.image" class='h-full block w-full object-cover object-center' />
-        <div class="absolute bottom-0 p-4 h-full flex flex-col justify-end overflow-y-auto py-6">
+        <div class="absolute bottom-0 p-4 h-full flex flex-col justify-end overflow-y-auto py-6 mb-24">
           <div class="max-h-full" :style="`--dbg: ${data.settings.color}`">
             
             <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]' />
@@ -38,7 +38,7 @@
             <textarea v-if="controlBy=='admin'" class='w-full text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
             <p v-else class="w-[85%] text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>
             <textarea v-if="controlBy=='admin'" class="italic text-[var(--dbg)] bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
-            <p v-else class="italic text-[var(--dbg)] bg-transparent border-0 block w-[80%]">{{ data.description }}</p>
+            <p v-else class="italic text-[var(--dbg)] bg-transparent border-0 block w-full">{{ data.description }}</p>
           </div>
         </div>
       </div>

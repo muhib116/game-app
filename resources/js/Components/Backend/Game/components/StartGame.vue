@@ -1,5 +1,5 @@
 <template>
-    <div class='relative h-full flex flex-col'>
+    <div class='relative flex flex-col h-[85%] overflow-y-auto'>
         <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy == 'admin'">
             <div className='flex items-center gap-3'></div>
             <label className='cursor-pointer flex gap-2 text-xs items-center py-2.5'>

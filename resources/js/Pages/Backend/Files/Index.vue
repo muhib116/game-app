@@ -1,7 +1,7 @@
 <template>
     <Master>
-        <div className="flex justify-between p-5 bg-white">
-            <h4 className="text-2xl font-bold text-black">Media</h4>
+        <div className="flex justify-between p-5 bg-white shadow">
+            <h4 className="text-xl font-bold text-black">Media</h4>
             <label
                 class="bg-gray-100 rounded-md py-2 px-4 active:scale-95 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
                 @click="modelValue=true"

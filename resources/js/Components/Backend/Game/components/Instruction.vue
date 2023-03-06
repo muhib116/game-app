@@ -34,7 +34,7 @@
                 Instructions
             </div>
             <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full text-[var(--dbg)] min-h-[300px]"></textarea>
-            <p v-else class="bg-transparent border-0 w-full text-[var(--dbg)] overflow-y-auto h-[77%]" v-html="data.text"></p>
+            <p v-else class="bg-transparent border-0 w-full text-[var(--dbg)] overflow-y-auto h-[68%]" v-html="data.text"></p>
         </div>
         <template v-if="controlBy=='admin'">
             <button v-if="data.settings.image" @click="handleRemove(data.settings.image)" className='bg-red-500 py-2 px-4 w-full text-white font-bold self-end'>Remove Image</button>

@@ -1,7 +1,7 @@
 <template>
     <Master>
-        <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Games</p>
+        <div className="flex justify-between p-5 bg-white shadow">
+            <p className="text-xl font-bold text-black">Games</p>
             <button 
                 @click="handleSave(defaultGamePayload)" 
                 class='bg-black text-white px-4 py-1 rounded flex gap-1' 
