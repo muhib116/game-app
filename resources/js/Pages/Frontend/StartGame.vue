@@ -2,7 +2,13 @@
     <Master :showNavigation="true" :gameData="gameData">
         <div class="h-full">
             <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[85%]'>
-                <component @skip="(value) => handleEmittedSkip(gameData.tasks, value)" :is="componentList[selectTask(gameData.tasks).component]" :game="gameData" :task="selectTask(gameData.tasks)" />
+                <!-- {{ selectTask(gameData.tasks) }} -->
+                <component 
+                    @skip="(value) => handleEmittedSkip(gameData.tasks, value)" 
+                    :is="componentList[selectTask(gameData.tasks).component]" 
+                    :game="gameData" 
+                    :task="selectTask(gameData.tasks)" 
+                />
                 <!-- <Link :href="route('task')">
                     <Button label="START" class='mt-10' />
                 </Link> -->

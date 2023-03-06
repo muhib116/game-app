@@ -39,8 +39,22 @@
             <textarea v-if="controlBy=='admin'" class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
 
             <p v-else>{{ task.data.description }}</p>
+            <div class="text-left w-full py-4">
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
+                    Deadline: 
+                    {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
+                    Points: 
+                    {{ get(task, 'data.point') }}
+                </div>
+                <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
+                    Extra point: 
+                    {{ get(task, 'data.extraPoint') }}
+                </div>
+            </div>
             <template v-if="controlBy!='admin'">
-                <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
+                <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center">
                     <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -50,12 +64,16 @@
                 </div>
                 <button
                     @click="handleSubmit(data.game.id, data.task.id)"
-                    v-if="!start"
+                    v-if="isEmpty(isStarted)"
                     class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
                 >
                     Start task
-                </button>
-                <Button @click="modelValue=true" v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" label="WRITE IN TEXT" class="mt-14 border" />
+                </button> 
+                <Button 
+                    @click="modelValue=true" 
+                    v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')" 
+                    label="WRITE IN TEXT" class="mt-14 border" 
+                />
                 <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
@@ -63,7 +81,7 @@
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue';
+    import { computed, onMounted, onUpdated, ref } from 'vue';
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration';
     import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
     import Button from '@/Components/Global/Button.vue'
@@ -71,6 +89,8 @@
     import TextWritePopup from '../Popup/TextWritePopup.vue';
     import gameDrain from '@/Components/Backend/Game/gameDrain';
     import { get, find, isEmpty } from 'lodash'
+import { Inertia } from '@inertiajs/inertia';
+    import moment from 'moment'
 
     const props = defineProps({
         controlBy: {
@@ -88,9 +108,7 @@
     });
     const { saveUserData } = gameDrain();
     
-    const modelValue = ref(false);
-    const start = ref(false)
-
+    const modelValue = ref(false); 
 
     const data = ref({
         task: {},
@@ -101,21 +119,25 @@
         data.value.game = props.game;
         data.value.task = props.task;
     })
+    onUpdated(()=>{
+        data.value.game = props.game;
+        data.value.task = props.task;
+        // console.log('updated');
+    })
 
     const { saveGame } = gameDrain();
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
     const { taskData } = useDataSource()
 
-    const isStarted = (game, task) => {
+    const isStarted = computed(() => {
+        let game = props.game;
+        let task = props.task
         let answer = find(task.userAnswer, item => {
             return item.team == game.session.team && game.ip == item.ip;
         })
-        if (answer) {
-            start.value=true
-        }
         return answer;
-    }
+    })
 
     const handleSubmit = async (gameId, taskId) => {
         const responseData = await saveUserData({
@@ -127,9 +149,11 @@
 
         if (get(responseData, 'status') == 'success') {
             let task = find(responseData.game.tasks, item => item.id == props.task.id)
-            start.value = true;
             data.value.game = responseData.game
             data.value.task = task
+            Inertia.reload();
+            // window.location.reload();
+            // console.log('inConsole', task);
         }
     }
 

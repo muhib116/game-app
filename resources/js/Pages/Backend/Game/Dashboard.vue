@@ -15,7 +15,7 @@
             </div>
             <template v-for="(team, index) in game.login.team" :key="index">
                 <h2 class="text-3xl font-extrabold my-5">Team: {{ team.teamName }} ({{ getTotalPoint(team.teamCode, game.tasks) }})</h2>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <template v-for="(task, index) in game.tasks" :key="index">
                         <div class="py-2 px-4 bg-white shadow-md rounded-md">
                             <div class="font-bold text-center border-b mb-3 py-2">
@@ -27,10 +27,10 @@
                             <div v-else>
                                 <span class="px-3 bg-red-200">Pending</span>
                             </div>
-                            <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1">
+                            <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1 my-5">
                                 <div>
                                     <template v-if="!get(getTeamAns(task.userAnswer, team.teamCode), 'value')">
-                                        <input :max="get(task, 'data.point')" type="number" class="border flex-1 py-1 px-2 border-gray-600" :placeholder="`Max point ${task.data.point}`" />
+                                        <input :max="get(task, 'data.point') + get(task, 'data.extraPoint')" type="number" class="border flex-1 py-1 px-2 border-gray-600" :placeholder="`Max point ${get(task, 'data.point') + get(task, 'data.extraPoint')}`" />
                                         <button @click="(e) => {
                                             handleSubmit(e, game.id, task.id, team.teamCode, task.data.point)
                                         }" class="py-1 px-2 bg-[var(--fave)] border border-green-400">Save</button>
@@ -39,7 +39,19 @@
                                 </div>
                             </div>
                             <div class="flex gap-1 flex-wrap">
-                                <span v-if="get(task, 'data.deadline')" class="font-bold text-red-500">
+                                <span v-if="get(task, 'data.point')" class="">
+                                    <span>Point: </span>
+                                    {{ get(task, 'data.point') }}
+                                </span>
+                            </div>
+                            <div class="flex gap-1 flex-wrap">
+                                <span v-if="get(task, 'data.point')" class="">
+                                    <span>Extra Point: </span>
+                                    {{ get(task, 'data.extraPoint') }}
+                                </span>
+                            </div>
+                            <div class="flex gap-1 flex-wrap mb-5">
+                                <span v-if="get(task, 'data.deadline')" class="font-bold">
                                     <span>Deadline: </span>
                                     {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
                                 </span>

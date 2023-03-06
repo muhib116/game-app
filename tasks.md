@@ -93,3 +93,14 @@ skiable note
 
 :: ✅image upload component -> after select large image return, alert, and remove disabled, and loading.
     ✅cursor pointer
+
+
+✅quize a date time add korte hobe.
+✅qr code scanner a date time formate, default remove
+✅game host panel scorboard a quize er checkbox disable rakhte hobe jate gamehost change korte napare
+
+game complete after all team task submit
+
+remove debug when logged in and hit login route
+
+responsive admin game scoreboard

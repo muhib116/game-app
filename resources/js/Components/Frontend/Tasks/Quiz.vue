@@ -6,7 +6,7 @@
                     Deadline
                     <el-date-picker
                         v-model="getSelected(gamePayload.tasks).data.deadline"
-                        type="date"
+                        type="datetime"
                         placeholder="Pick a day"
                         size="large"
                         class="w-full"
@@ -72,6 +72,20 @@
                 </template>
             </div> 
             
+            <div class="text-left w-full py-4">
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
+                        Deadline: 
+                        {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                    </div>
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
+                        Points: 
+                        {{ get(task, 'data.point') }}
+                    </div>
+                    <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
+                        Extra point: 
+                        {{ get(task, 'data.extraPoint') }}
+                    </div>
+                </div>
             <template v-if="!get(isStarted(data.game, data.task), 'end_at')">
                 <button
                     @click="handleSubmit(data.game.id, data.task.id)"
@@ -109,7 +123,9 @@
     import { get, find, isEmpty } from 'lodash'
     import FlashScreen from '../Popup/FlashScreen.vue';
     import FlashSuccess from '../Popup/FlashSuccess.vue';
+import { Inertia } from '@inertiajs/inertia';
 
+import moment from 'moment'
     const { gamePayload } = useConnfiguration();
     const { getSelected, addOption } = useTaskCreate();
     const { saveUserData } = gameDrain();
@@ -198,6 +214,7 @@
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task
+            Inertia.reload();
         }
     }
 

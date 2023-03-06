@@ -14,12 +14,7 @@
                         value: new Date(),
                     }]"
                 />
-            </label>
-            <div v-else class="font-bold">
-                <template v-if="get(task, 'data.deadline')">
-                    {{ get(task, 'data.deadline') }}
-                </template>
-            </div>
+            </label> 
             <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
                 <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
                     Point
@@ -101,6 +96,7 @@
     import { get, find, isEmpty } from 'lodash'
     import QrScanner from '@/Components/Frontend/Popup/QrScanner.vue'
     import moment from 'moment'
+import { Inertia } from '@inertiajs/inertia';
     const props = defineProps({
         controlBy: {
             type: String,
@@ -157,6 +153,7 @@
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task
+            Inertia.reload();
         }
     }
 </script>

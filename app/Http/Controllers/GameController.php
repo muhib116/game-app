@@ -193,11 +193,12 @@ class GameController extends Controller
                 array_push($isFinished, 'false');
                 return $item;
             });
-            // return $newTask;
-            $isFinished = collect($newTask)->filter(function($item) {
-                return !$item['isStarted'];
+
+            $notFinished = collect($newTask)->filter(function($item) use($game) {
+                return count($game->login->team) != count($item['userAnswer']);
             });
-            if (count($isFinished) == 0) {
+            
+            if (count($notFinished) == 0) {
                 $game->end_time = now();
             }
             $game->tasks = $newTask;
@@ -313,17 +314,16 @@ class GameController extends Controller
     public function gameLogin(User $user, $gamename) {
         $session = session()->get('login');
         $game = Game::where('login->gameTitle', $gamename)->first();
-        
         if (!$game) {
             return redirect('/');
         }
+        
         if ($game->status == 'draft') {
             return redirect('/');
         }
-
         if ($session && $session['gamecode'] == $game->login->gameCode) {
             // $session
-            dd($session['gamecode'], $game->login->gameCode, $session['team']);
+            // dd($session['gamecode'], $game->login->gameCode, $session['team']);
             return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameTitle));
             // $game
             // ${game.user.username}/${game.login.gameTitle}`
@@ -352,6 +352,10 @@ class GameController extends Controller
             'password' => 'required'
         ]);
         $game = Game::where('login->gameCode', $request->gameCode)->first();
+        if (!$game) {
+            session()->flash('error', 'Credentials not match');
+            return back();
+        }
         $gameCode = $request->gameCode;
         $password = $request->password;
         $team = $request->team;
@@ -472,12 +476,13 @@ class GameController extends Controller
         $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
         if (!$game) return redirect()->route('home');
         // dd($game);
+        $game->username = $game->user->username;
         return Inertia::render('Frontend/Instruction', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-            'gameData' => $this->filterGame($game),
+            'gameData' => $game,
         ]);
     }
 

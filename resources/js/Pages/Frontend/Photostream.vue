@@ -4,7 +4,8 @@
             <div class="font-bold text-xl">
                 Scoreboard 
             </div>
-            <div class="py-5">
+
+            <div class="py-5" v-if="get(gameData, 'login.photoStream')">
                 <template v-for="(team, index) in result" :key="index">
                     <div class="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         <img :src="team.image" alt="">

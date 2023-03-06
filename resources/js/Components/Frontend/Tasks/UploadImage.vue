@@ -134,6 +134,7 @@
     import Preloader from "@/Components/Global/Preloader.vue";
     import { onMounted, ref } from 'vue'
     import moment from "moment";
+import { Inertia } from "@inertiajs/inertia";
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
     const imgLink = ref(false); 
@@ -238,6 +239,7 @@
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task
+            Inertia.reload();
         }
     }
     
