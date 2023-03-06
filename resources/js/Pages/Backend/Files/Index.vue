@@ -21,7 +21,7 @@
             <div class="grid gap-4 grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
                 <div
                     class="bg-white p-2 shadow-md rounded-md aspect-square"
-                    v-for="(file, index) in files"
+                    v-for="(file, index) in uploadedFiles"
                     :key="index"
                 >
                     <img class="w-full h-full object-cover" :src="file.path" alt="">
@@ -34,10 +34,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Master from '../Master.vue'
 import FilePopup from '@/Components/Backend/Files/FilePopup.vue';
 import useMedia from '@/useMedia';
+import { toast } from '@/helper';
+import { Inertia } from '@inertiajs/inertia';
+import { findIndex } from 'lodash';
 
 const { mediaUpload, deleteMedia } = useMedia();
 const props = defineProps({
@@ -49,25 +52,31 @@ const props = defineProps({
 
 const modelValue = ref(false);
 
+const uploadedFiles = ref(props.files)
+
 const handleMedia = async (file) => {
     const data = await mediaUpload(file);
     if (data.status == 'error') {
-        console.log('error');
+        toast.error('Opps! Something wrong')
     }
     if (data.status == 'success') {
-        props.files.push(data.data);
+        uploadedFiles.value.push(data.data);
     }
 }
 
 const handleDelete = async (file) => {
-    const data = await deleteMedia(file.id);
-    if (data.status == 'error') {
-        console.log('error');
-    }
-    if (data.status == 'success') {
-        props.files.filter(f => {
-            return f.id != file.id;
-        });
+    if (confirm('Are you sure to delete?')) {
+        const data = await deleteMedia(file.id);
+        if (data.status == 'error') { 
+            toast.error('Opps! Something wrong')
+            return
+        }
+
+        if (data.status == 200) {
+            toast.success('Delete successfully')
+            let index = findIndex(uploadedFiles.value, item => item.id == file.id)
+            uploadedFiles.value.splice(index, 1)  
+        }
     }
 }
 

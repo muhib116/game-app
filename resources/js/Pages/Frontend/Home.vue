@@ -3,8 +3,8 @@
             <!-- nav_ber start -->
             <nav class="nav_ber_container container">
                 <div class="logo_ber_content">
-                    <a class="img" href="#">
-                        <img src="/assets/img/logo.png" alt="">
+                    <a class="block py-1" href="#">
+                        <img src="/logo.jpg" alt="" class="h-[15px] w-auto object-contain block">
                     </a>
                 </div>
                 <div class="menu_ber_content">

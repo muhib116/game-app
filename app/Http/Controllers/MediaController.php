@@ -39,4 +39,23 @@ class MediaController extends Controller
             'data' => null
         ]);
     }
+
+    public function delete(Request $request) {
+        $media = MediaLib::find($request->id);
+        if ($media) {
+            if (file_exists(public_path('/upload/'.basename($media->path)))) {
+                unlink(public_path('/upload/'.basename($media->path)));
+            }
+            $media->delete();
+            return response([
+                'status' => 'success',
+                'data' => 'Delete successfully',
+            ]);
+        }
+        
+        return response([
+            'status' => 'error',
+            'data' => null
+        ]);
+    }
 }

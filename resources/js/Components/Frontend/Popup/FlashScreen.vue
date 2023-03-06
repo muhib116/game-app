@@ -1,7 +1,7 @@
 <template>
 <div v-if="modelValue" @click="$emit('close', false)" class="absolute top-0 left-0 bottom-0 right-0 bg-white flex justify-center items-center z-10">
     <div class="flex flex-col justify-center">
-        <img class="w-44" :src="gameLogoPng" alt="">
+        <img class="w-44" src="/logo.png" alt="">
     </div>
 </div>
 </template>
