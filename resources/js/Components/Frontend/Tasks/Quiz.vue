@@ -85,22 +85,7 @@
                         Extra point: 
                         {{ get(task, 'data.extraPoint') }}
                     </div>
-                </div>
-            <template v-if="!get(isStarted(data.game, data.task), 'end_at')">
-                <button
-                    @click="handleSubmit(data.game.id, data.task.id)"
-                    v-if="!start && controlBy != 'admin'"
-                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
-                >
-                    Start task
-                </button>
-                <Button 
-                    v-if="controlBy!='admin' && !isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" 
-                    label="Submit Task" 
-                    class='mt-14' 
-                    @click="handleSave(game.id, task.id)"
-                />
-            </template> 
+                </div> 
             <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -112,6 +97,23 @@
         </div>
     </div>
     <!-- <FlashScreen @close="showFlash=false" v-model="showFlash" /> -->
+
+    <template v-if="!get(isStarted(data.game, data.task), 'end_at')">
+        <button
+            @click="handleSubmit(data.game.id, data.task.id)"
+            v-if="!start && controlBy != 'admin'"
+            class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-sm"
+        >
+            Start task
+        </button>
+        <button 
+            v-if="controlBy!='admin' && !isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" 
+            class='absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight' 
+            @click="handleSave(game.id, task.id)"
+        >
+            Submit Task
+        </button>
+    </template>
 </template>
 
 <script setup>

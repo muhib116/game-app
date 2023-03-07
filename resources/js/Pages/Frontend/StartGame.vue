@@ -1,30 +1,29 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
-        <div class="h-full">
-            <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[85%]'>
-                <!-- {{ selectTask(gameData.tasks) }} -->
+        <div class="h-full relative">
+            <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[80%]'>
                 <component 
                     @skip="(value) => handleEmittedSkip(gameData.tasks, value)" 
                     :is="componentList[selectTask(gameData.tasks).component]" 
                     :game="gameData" 
                     :task="selectTask(gameData.tasks)" 
+                    :isLastTask="!(index < gameData.tasks.length - 1)"
                 />
-                <!-- <Link :href="route('task')">
-                    <Button label="START" class='mt-10' />
-                </Link> -->
             </div>
-            <div class="flex gap-1 justify-between mt-4 px-5 z-20">
-                <!-- <button v-if="index > 0" class=' w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
+            
+            <div class="absolute bottom-4 px-4 left-0 w-full flex gap-1 justify-between mt-4 h-[100px] z-20">
+                <!-- <button v-if="index > 0" class=' w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
                     Prev
                 </button>
                 <span v-else></span> -->
                 <div></div>
                 <span></span>
 
-                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks)">
+                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-black' @click="skipTask(gameData.tasks)">
                     Next
                 </button>
             </div>
+
         </div>
         <FlashSuccess @callback="clsoeHandle" v-model="showFlash" v-if="showFlash" />
     </Master>

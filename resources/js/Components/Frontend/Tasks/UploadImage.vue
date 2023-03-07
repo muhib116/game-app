@@ -82,27 +82,7 @@
                         {{ get(task, 'data.extraPoint') }}
                     </div>
                 </div>
-                <button
-                    @click="handleSubmit(data.game.id, data.task.id)"
-                    v-if="!start && controlBy != 'admin'"
-                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
-                >
-                    Start task
-                </button>
                 
-                <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
-                    
-                    <label v-if="controlBy!='admin'" class='w-[100px] h-[100px] rounded-full bg-[var(--fave)] font-black flex items-center justify-center'>
-                        <Preloader v-if="adminImageLoading" />
-                        <template v-if="imgLink">
-                            Use another
-                        </template>
-                        <template v-else>
-                            Upload Image
-                        </template>
-                        <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden accept="image/*" />
-                    </label>
-                </div>
                 <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
                     <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -111,31 +91,62 @@
                         Task Completed
                     </span>
                 </div>
-                
-                <template v-if="controlBy!='admin'">
-                    <div v-if="imgLink">
-                        <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-[var(--fave)] text-white rounded">
-                            Save and go to next task
-                        </button>
-                    </div>
-                </template>
             </div>
         </div>
+    </div>
+
+    <button
+        @click="handleSubmit(data.game.id, data.task.id)"
+        v-if="!start && controlBy != 'admin'"
+        class="absolute bottom-4 p-1 left-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+    >
+        Start task
+    </button>
+
+    <div 
+        class="absolute left-4 bottom-4 z-40 flex gap-5"
+        :class="isLastTask ? 'right-4 justify-between' : ''"
+    >
+        <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
+                    
+            <label v-if="controlBy!='admin'" 
+                class="p-2 cursor-pointer left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+            >
+                <Preloader v-if="adminImageLoading" />
+                <template v-if="imgLink">
+                    Use another
+                </template>
+                <template v-else>
+                    Upload Image
+                </template>
+                <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden accept="image/*" />
+            </label>
+        </div>
+    
+        <template v-if="controlBy!='admin'">
+            <div>
+                <button 
+                    @click="handleSave(game.id, task.id)" 
+                    class="p-1 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+                >
+                    Submit
+                </button>
+            </div>
+        </template>
     </div>
 </template>
 
 <script setup>
-    import useDataSource from "@/Pages/Frontend/useDataSource"
     import useTaskCreate from "@/Components/Backend/Game/useTaskCreate";
     import useConnfiguration from "@/Components/Backend/Game/useConnfiguration";
     import { get, find, isEmpty } from 'lodash' 
-    import { Link } from "@inertiajs/inertia-vue3";
     import gameDrain from "@/Components/Backend/Game/gameDrain";
     import useFileUpload from '@/useFileUpload';
     import Preloader from "@/Components/Global/Preloader.vue";
     import { onMounted, ref } from 'vue'
     import moment from "moment";
-import { Inertia } from "@inertiajs/inertia";
+    import { Inertia } from "@inertiajs/inertia";
+
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
     const imgLink = ref(false); 
@@ -153,6 +164,10 @@ import { Inertia } from "@inertiajs/inertia";
             type: Object,
             default: {}
         },
+        isLastTask: {
+            type: Boolean,
+            default: false
+        }
     });
     const start = ref(false)
 

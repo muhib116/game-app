@@ -1,5 +1,5 @@
 <template>
-    <div className="relative">
+    <div>
         <div class="max-w-[500px] mx-auto">
                 <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
                     Deadline
@@ -62,24 +62,26 @@
                         Task Completed
                     </span>
                 </div>
-                <button
-                    @click="handleSubmit(data.game.id, data.task.id)"
-                    v-if="isEmpty(isStarted)"
-                    class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
-                >
-                    Start task
-                </button> 
-                <button 
-                    @click="modelValue=true" 
-                    v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')" 
-                    class="w-[100px] h-[100px] rounded-full bg-[var(--fave)] font-black flex items-center justify-center"
-                >
-                    Write in text
-                </button>
                 <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
     </div>
+
+    <button
+        @click="handleSubmit(data.game.id, data.task.id)"
+        v-if="isEmpty(isStarted)"
+        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] font-black flex items-center justify-center leading-tight"
+    >
+        Start task
+    </button>
+
+    <button 
+        @click="modelValue=true" 
+        v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')" 
+        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] font-black flex items-center justify-center leading-tight"
+    >
+        Write in text
+    </button>
 </template>
 
 <script setup>

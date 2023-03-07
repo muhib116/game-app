@@ -1,8 +1,8 @@
 <template>
-    <aside class='h-[100vh] py-4 border-r text-white text-opacity-60 bg-[#222244] sticky top-14 left_aside'>
+    <aside class='h-[100vh] py-4 border-r text-white text-opacity-60 bg-[#222244] sticky top-14 left_aside !text-md font-semibold'>
         <Link :href="route('dashboard')" class="flex gap-2 items-center py-1 px-4 hover:text-white" :class="component == 'Backend/Dashboard' && 'text-white bg-[#222266]'">
-        <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
-        Dashboard
+            <i class="w-5 fa fa-pie-chart" aria-hidden="true"></i>
+            Dashboard
         </Link>
         <button @click="handleSave(defaultGamePayload)" class="flex gap-2 items-center py-1 px-4 hover:text-white">
             <Preloader v-if="loading.save" />

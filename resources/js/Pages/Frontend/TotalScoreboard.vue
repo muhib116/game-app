@@ -5,7 +5,6 @@
                 Total Score 
             </div>
             <div class="py-5">
-                <!-- {{ result }} -->
                 <template v-for="(team, index) in result" :key="index">
                     <div v-if="team.point > 0" class="flex justify-between py-2 px-2 font-bold text-lg" :class="index==0 ? 'text-white' : ''">
                         <div class="flex gap-3">
@@ -15,7 +14,7 @@
                         <span>{{ team.point }}</span>
                     </div>
                 </template>
-                <div v-if="resultTotal == 0" class="font-bold text-gray-200 text-center">
+                <div v-if="resultTotal == 0" class="text-black text-opacity-40 text-center">
                     No score found
                 </div>
             </div>
@@ -24,7 +23,7 @@
 </template>
 <script setup>
 import Master from './Master.vue'
-import { isArray, forEach, sortBy } from 'lodash';
+import { isArray, forEach } from 'lodash';
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
@@ -36,7 +35,6 @@ const resultTotal = ref(0);
 
 onMounted(()=>{
     let teams = props.gameData.login.team;
-    console.log(props.gameData);
     forEach(teams, item => {
         let data = {
             name: item.teamName,

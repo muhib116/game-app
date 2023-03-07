@@ -74,15 +74,24 @@
                     Task Completed
                 </span>
             </div>
-            <button
-                @click="handleSubmit(data.game.id, data.task.id)"
-                v-if="!start"
-                class="py-1 px-4 mb-4 mt-2 bg-[var(--fave)] rounded"
-            >
-                Start task
-            </button>
-            <Button v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" @click="modelValue=true" label='OPEN CAMERA AND SCAN QR' />
         </div>
+    </div>
+
+    <div class="">
+
+        <button
+            @click="handleSubmit(data.game.id, data.task.id)"
+            v-if="!start"
+            class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        >
+            Start task
+        </button>
+        <button 
+            v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" @click="modelValue=true"
+            class="absolute bottom-4 p-1 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        >
+            Scan QR
+        </button>
     </div>
 </template>
 

@@ -6,10 +6,16 @@
             </div>
             <div class="py-5">
                 <template v-for="(team, index) in result" :key="index">
-                    <div class="flex flex-wrap mt-4">
+                    <div class="flex flex-wrap mt-4 myDiv">
                         <template v-for="(task, index) in gameData.tasks" :key="index">
-                            <div v-if="team.teamCode == get(getTeamAns(task.userAnswer, team.teamCode), 'team')" class="w-full border-b">
-                                <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'value')" class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-white">
+                            <div 
+                                v-if="
+                                    (team.teamCode == get(getTeamAns(task.userAnswer, team.teamCode), 'team'))
+                                    && get(getTeamAns(task.userAnswer, team.teamCode), 'value')
+                                " 
+                                class="w-full border-b"
+                            >
+                                <div class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-white">
                                     <div>
                                         {{ task.data.title }}
                                     </div>
@@ -28,7 +34,7 @@
 <script setup>
 import Master from './Master.vue'
 import { isArray, forEach, sortBy, findIndex, get } from 'lodash';
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/inertia-vue3'
 const props = defineProps({
@@ -37,17 +43,21 @@ const props = defineProps({
 
 const result = ref([]);
 
-
+let interValId = null
 onMounted(()=>{
     generateResult()
 
-    setInterval(() => {
+    interValId = setInterval(() => {
         Inertia.reload({
             onSuccess() {
                 generateResult()
             }
         })
     }, 5000)
+})
+
+onUnmounted(() => {
+    clearInterval(interValId)
 })
 
 const generateResult = () => {
@@ -88,3 +98,11 @@ const getTotalPoint = (teamCode, tasks) => {
 }
 
 </script>
+
+<style scoped>
+.myDiv:empty::before{
+    content: 'No score found!';
+    color: #0005;
+    font-size: 15px;
+}
+</style>

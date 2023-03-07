@@ -18,7 +18,7 @@
         </form>
       </div>
     </div>
-    <div @click.self="asideActive = false" class="absolute z-40 top-0 left-0 right-0 bottom-0 text-sm bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
+    <div @click.self="asideActive = false" class="absolute z-40 top-0 left-0 right-0 bottom-0 text-md bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
       <div class="bg-[var(--fave)] h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
         <button @click="asideActive = false" class='absolute right-4 top-4 cursor-pointer'>
           <svg class='w-4 h-4' width="20" height="20" viewBox="0 0 20 20" fill='currentColor'>
@@ -69,9 +69,9 @@
   import Dropdown from './Dropdown.vue'
   import { get } from 'lodash'
   import useGameHandle from '@/Pages/Frontend/useGameHandle';
-import { useGlobalSetting } from '@/helper';
-import { Inertia } from '@inertiajs/inertia';
-import { Link } from '@inertiajs/inertia-vue3';
+  import { useGlobalSetting } from '@/helper';
+  import { Inertia } from '@inertiajs/inertia';
+  import { Link } from '@inertiajs/inertia-vue3';
   const showDrawer = ref(false)
   const { asideActive, closeAside } = useGlobalSetting();
   const { componentList, index, selectSteap, nextSteap, shouldShow, showIndex } = useGameHandle();
@@ -80,7 +80,3 @@ import { Link } from '@inertiajs/inertia-vue3';
     Inertia.post(route('game_exit'));
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
