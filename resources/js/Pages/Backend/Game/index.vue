@@ -57,7 +57,7 @@
                                         v-else
                                         :disabled="game.start_time"
                                         class="py-px rounded px-3 
-                                        bg-transparent font-bold flex items-center
+                                        bg-transparent font-bold flex items-center mx-auto
                                         text-green-700"
                                     >
                                         Published <span v-if="game.start_time">(Game started)</span>
@@ -89,7 +89,7 @@
                                         <span
                                             v-if="game.start_time"
                                             class="py-px rounded px-3 
-                                            flex items-center font-bold
+                                            flex items-center font-bold justify-center
                                             text-green-700"
                                         >
                                             Complete

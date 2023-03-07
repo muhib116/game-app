@@ -14,10 +14,12 @@
                 </Link> -->
             </div>
             <div class="flex gap-1 justify-between mt-4 px-5 z-20">
-                <button v-if="index > 0" class=' w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
+                <!-- <button v-if="index > 0" class=' w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
                     Prev
                 </button>
-                <span v-else></span>
+                <span v-else></span> -->
+                <div></div>
+                <span></span>
 
                 <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks)">
                     Next

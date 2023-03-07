@@ -53,7 +53,7 @@
                 <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
                     <Preloader v-if="adminImageLoading" />
                     UPLOAD IMAGE
-                    <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden />
+                    <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
                 </label>
                 <div class='text-black text-opacity-80'>
                     <div v-if="controlBy=='admin'">
@@ -91,15 +91,16 @@
                 </button>
                 
                 <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
-                    <label v-if="controlBy!='admin'" class='px-4 py-1 bg-[var(--fave)] shadow rounded flex justify-center w-full relative mt-14'>
+                    
+                    <label v-if="controlBy!='admin'" class='w-[100px] h-[100px] rounded-full bg-[var(--fave)] font-black flex items-center justify-center'>
                         <Preloader v-if="adminImageLoading" />
                         <template v-if="imgLink">
                             Use another
                         </template>
                         <template v-else>
-                            UPLOAD IMAGE
+                            Upload Image
                         </template>
-                        <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden />
+                        <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden accept="image/*" />
                     </label>
                 </div>
                 <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">

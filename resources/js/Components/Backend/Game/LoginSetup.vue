@@ -36,6 +36,7 @@
                                 v-if="!uploadingImg"
                                 type="file" 
                                 class="hidden"
+                                accept="image/*"
                                 @change="(e)=>{
                                     handleUpload(e.target.files[0], e);
                                 }"
@@ -174,11 +175,11 @@ const handleUpload = async (file, e) => {
     uploadingImg.value = true;
     const data = await handleImageUpload(file, 'loginSetup');
     uploadingImg.value = false;
-    if (data.status == 'error') {
+    if (data?.status == 'error') {
         console.log('error');
         toast.error('Opps! Something went wrong.');
     }
-    if (data.status == 'success') {
+    if (data?.status == 'success') {
         toast.success('Image Uploaded successfully');
         let old = gamePayload.value.login.image;
         if (old) {

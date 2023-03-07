@@ -69,11 +69,13 @@
                 >
                     Start task
                 </button> 
-                <Button 
+                <button 
                     @click="modelValue=true" 
                     v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')" 
-                    label="WRITE IN TEXT" class="mt-14 border" 
-                />
+                    class="w-[100px] h-[100px] rounded-full bg-[var(--fave)] font-black flex items-center justify-center"
+                >
+                    Write in text
+                </button>
                 <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
