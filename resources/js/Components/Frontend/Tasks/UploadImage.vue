@@ -53,7 +53,7 @@
                 <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
                     <Preloader v-if="adminImageLoading" />
                     UPLOAD IMAGE
-                    <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
+                    <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
                 </label>
                 <div class='text-black text-opacity-80'>
                     <div v-if="controlBy=='admin'">
@@ -171,9 +171,13 @@ import { Inertia } from "@inertiajs/inertia";
     const adminImageLoading = ref(false);
     const inputFile = ref(null)
     const emit = defineEmits(['skip'])
-    const handleAdminImage = async (file, tasks) => {
+    const handleAdminImage = async (file, tasks, event) => {
         adminImageLoading.value = true;
         const response = await handleImageUpload(file);
+        adminImageLoading.value = false;
+        file=null
+        event.target.value = null;
+        console.log(event.target.value);
         if (response.status == 'error') {
             console.log('error');
         }
