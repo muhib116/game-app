@@ -68,7 +68,7 @@
             default: {}
         },
     })
-    const result = ref('asdf');
+    const result = ref('');
     const camera = ref(props.isCameraOpen);
     const selectedCamera = ref('rear');
     const showScanConfirmation = ref(false);
@@ -80,7 +80,7 @@
         error: 'bg-red-500'
     }
     const initError = ref('')
-    const content = ref('asdf');
+    const content = ref('');
     
     const emit = defineEmits(['skip'])
     const switchCamera = () => {
