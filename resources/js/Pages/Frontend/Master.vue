@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-200">
-    <div class='max-w-[768px] mx-auto bg-white h-[100vh] overflow-y-auto relative'>
+  <div class="bg-gray-200 h-full">
+    <div class='max-w-[768px] mx-auto bg-white h-full overflow-y-auto relative'>
       <Nav v-if="showNavigation" />
       <div :class="showNavigation && 'mt-[48px]'" style="height: calc(100% - 48px)"> 
         <slot></slot>

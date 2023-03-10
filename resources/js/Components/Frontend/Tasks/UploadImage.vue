@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 
-                <div v-if="get(isStarted(data.game, data.task), 'end_at') && !isEmpty(isStarted(data.game, data.task))" class="flex justify-center">
+                <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center">
                     <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -94,11 +94,10 @@
             </div>
         </div>
     </div>
-
     <button
         @click="handleSubmit(data.game.id, data.task.id)"
-        v-if="!start && controlBy != 'admin'"
-        class="absolute bottom-4 p-1 left-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        v-if="!isStarted && controlBy != 'admin'"
+        class="absolute bottom-4 p-1 right-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
     >
         Start task
     </button>
@@ -107,7 +106,7 @@
         class="absolute left-4 bottom-4 z-40 flex gap-5"
         :class="isLastTask ? 'right-4 justify-between' : ''"
     >
-        <div v-if="!isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')">
+        <div v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')">
                     
             <label v-if="controlBy!='admin'" 
                 class="p-2 cursor-pointer left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
@@ -126,6 +125,7 @@
         <template v-if="controlBy!='admin'">
             <div>
                 <button 
+                    v-if="isStarted && !get(isStarted, 'end_at')"
                     @click="handleSave(game.id, task.id)" 
                     class="p-1 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
                 >
@@ -143,7 +143,7 @@
     import gameDrain from "@/Components/Backend/Game/gameDrain";
     import useFileUpload from '@/useFileUpload';
     import Preloader from "@/Components/Global/Preloader.vue";
-    import { onMounted, ref } from 'vue'
+    import { onMounted, ref, computed } from 'vue'
     import moment from "moment";
     import { Inertia } from "@inertiajs/inertia";
 
@@ -234,17 +234,26 @@
         }
     }
 
-    
-    const isStarted = (game, task) => {
+    const isStarted = computed(() => {
+        let game = props.game;
+        let task = props.task
+        
         let answer = find(task.userAnswer, item => {
             return item.team == game.session.team && game.ip == item.ip;
         })
-        if (answer) {
-            start.value=true
-        }
-        
         return answer;
-    }
+    })    
+    // const isStarted = (game, task) => {
+    //     let answer = find(task.userAnswer, item => {
+    //         return item.team == game.session.team && game.ip == item.ip;
+    //     })
+
+    //     if (answer) {
+    //         start.value=true
+    //     }
+        
+    //     return answer;
+    // }
 
     const handleSubmit = async (gameId, taskId) => {
         const responseData = await saveUserData({

@@ -13,6 +13,11 @@ body {
     font-weight: 400;
     color: #444;
 }
+html,
+body,
+#app {
+    height: 100%;
+}
 button {
     font-size: inherit !important;
 }
@@ -64,3 +69,4 @@ button {
 .el-picker-panel__footer .el-button {
     color: #000 !important;
 }
+

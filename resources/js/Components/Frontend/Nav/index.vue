@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='flex justify-between px-6 py-3 bg-[var(--fave)] shadow absolute top-0 left-0 right-0'>
+    <div class='flex justify-between px-6 py-3 bg-[var(--fave)] shadow absolute top-0 left-0 right-0 z-[9999]'>
       <button @click="asideActive = true">
         <svg class='w-5 h-5' width="24px" height="24px" viewBox="0 0 24 24">
             <g>
@@ -29,7 +29,7 @@
         <template v-if="get($page.props, 'gameData.instruction')">
           <Dropdown label="Instructions">
             <Link 
-              :href="`${$page.props.ziggy.url}/instruction/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameTitle')}?q=${index}`" 
+              :href="`${$page.props.ziggy.url}/instruction/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}?q=${index}`" 
               class='text-left py-1 block' 
               v-for="(item, index) in get($page.props, 'gameData.instruction')" 
               :key="index + Math.random() * 50000"

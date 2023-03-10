@@ -1,6 +1,6 @@
 <template>
     <Master  :showNavigation="true" :gameData="gameData">
-        <div class="py-5 px-5 bg-[var(--fave)] h-[calc(100vh-48px)] overflow-y-auto">
+        <div class="py-5 px-5 bg-[var(--fave)] h-full overflow-y-auto">
             <div class="font-bold text-xl">
                 Scoreboard 
             </div>
