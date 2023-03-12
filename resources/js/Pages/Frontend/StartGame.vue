@@ -1,7 +1,7 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
         <div class="h-full relative">
-            <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[80%]'>
+            <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[calc(100%-148px)]'>
                 <component 
                     @skip="(value) => handleEmittedSkip(gameData.tasks, value)" 
                     :is="componentList[selectTask(gameData.tasks).component]" 

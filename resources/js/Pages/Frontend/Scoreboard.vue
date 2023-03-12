@@ -68,11 +68,9 @@ const generateResult = () => {
             name: item.teamName,
             point: getTotalPoint(item.teamCode, usePage().props.value.gameData.tasks),
             teamCode: item.teamCode,
-            // point: Math.random() * 200,
         } 
         result.value.push(data);
     })
-    console.log(result.value);
     result.value.sort((a, b) => b.point  - a.point)
 }
 

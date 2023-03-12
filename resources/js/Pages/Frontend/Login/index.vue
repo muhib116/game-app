@@ -11,8 +11,12 @@
         </form>
       </div>
     </div>
-    <FlashScreen @close="handleCloseFlash" v-model="showFlash" />
-    <PresentedByScreen @closePresent="(e) => handlePresentedBy(e)" v-model="showPresentedBy" :game="game" />
+    <template v-if="showFlash">
+      <FlashScreen @close="handleCloseFlash" v-model="showFlash" />
+    </template>
+    <template v-if="showPresentedBy">
+      <PresentedByScreen @closePresent="(e) => handlePresentedBy(e)" v-model="showPresentedBy" :game="game" />
+    </template>
   </Master>
 </template>
 
@@ -41,16 +45,14 @@ defineProps({
 
 const showFlash = ref(true)
 const showPresentedBy = ref(false)
+
 const handleCloseFlash = () => {
   showFlash.value=false
   showPresentedBy.value=true
 }
 
 const handlePresentedBy = (e) => {
-  console.log(e);
   showPresentedBy.value = false
-  // setTimeout(()=>{
-  // },3000)
 }
 
 const handleAuthorize = () => {

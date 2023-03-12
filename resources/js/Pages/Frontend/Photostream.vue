@@ -53,7 +53,6 @@ const generateResult = () => {
     forEach(tasks, item => {
         if (item.component == "UploadImage") {
             forEach(item.userAnswer, ans => {
-                // console.log(ans);
                 result.value.push(ans);
             })
         }
