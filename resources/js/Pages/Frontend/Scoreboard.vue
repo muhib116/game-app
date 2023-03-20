@@ -6,7 +6,7 @@
             </div>
             <div class="py-5">
                 <template v-for="(team, index) in result" :key="index">
-                    <div class="flex flex-wrap mt-4 myDiv">
+                    <div class="flex flex-wrap mt-4 ">
                         <template v-for="(task, index) in gameData.tasks" :key="index">
                             <div 
                                 v-if="

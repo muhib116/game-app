@@ -326,14 +326,9 @@ class GameController extends Controller
             return redirect('/');
         }
         if ($session && $session['gamecode'] == $game->login->gameCode) {
-            // $session
-            // dd($session['gamecode'], $game->login->gameCode, $session['team']);
-            return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameTitle));
-            // $game
-            // ${game.user.username}/${game.login.gameTitle}`
+            return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameCode));
         }
 
-        // dd($game);
         return Inertia::render('Frontend/Login/index', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

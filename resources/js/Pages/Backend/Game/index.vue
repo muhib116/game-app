@@ -128,31 +128,33 @@
                 class="fixed z-[999] bg-white/70 w-full h-full left-0 top-0 flex items-center justify-center"
             >
                 
-                <div class="w-full relative max-w-[400px] min-h-[100px] mx-2 bg-white/50 border-[var(--faveDark)] border-2 rounded py-4 px-2 backdrop-blur-sm shadow-2xl">
+                <div class="w-full relative max-w-[600px] min-h-[100px] max-h-[90vh] mx-2 bg-white/50 border-[var(--faveDark)] border-2 rounded py-4 px-2 backdrop-blur-sm shadow-2xl">
                     <button
                         @click="closeCopyPopup"
                         class="w-[30px] h-[30px] flex items-center justify-center bg-red-200 text-red-700 rounded-full absolute -top-5 -right-5"
                     >
                         <i class="fa fa-times"></i>
                     </button>
-                    <h2 class="text-xl font-bold text-center mb-2">Team list</h2>
-                    <div class="divide-y">
-                        <template v-for="(item, index) in teamList" :key="index">
-                            <div class="py-4 flex justify-between items-center gap-1">
-                                <div>
+                    <div class="w-full max-h-[90vh] overflow-y-auto">
+                        <h2 class="text-xl font-bold text-center mb-2">Team list</h2>
+                        <div class="divide-y">
+                            <template v-for="(item, index) in teamList" :key="index">
+                                <div class="py-4 flex justify-between items-center gap-1">
                                     <div>
-                                        Name: <strong class="font-bold">{{ item.teamName }}</strong>
+                                        <div>
+                                            Name: <strong class="font-bold">{{ item.teamName }}</strong>
+                                        </div>
+                                        <div>
+                                            Code: <strong class="font-bold">{{ item.teamCode }}</strong>
+                                        </div>
+                                        <div>
+                                            URL: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
+                                        </div>
                                     </div>
-                                    <div>
-                                        Code: <strong class="font-bold">{{ item.teamCode }}</strong>
-                                    </div>
-                                    <div>
-                                        URL: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
-                                    </div>
+                                    <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">Copy</button>
                                 </div>
-                                <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">Copy</button>
-                            </div>
-                        </template>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
