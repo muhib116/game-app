@@ -128,7 +128,7 @@
                 class="fixed z-[999] bg-white/70 w-full h-full left-0 top-0 flex items-center justify-center"
             >
                 
-                <div class="w-full relative max-w-[400px] min-h-[100px] mx-2 bg-white/50 border-green-500 border-2 rounded py-4 px-2 backdrop-blur-sm shadow-2xl">
+                <div class="w-full relative max-w-[400px] min-h-[100px] mx-2 bg-white/50 border-[var(--faveDark)] border-2 rounded py-4 px-2 backdrop-blur-sm shadow-2xl">
                     <button
                         @click="closeCopyPopup"
                         class="w-[30px] h-[30px] flex items-center justify-center bg-red-200 text-red-700 rounded-full absolute -top-5 -right-5"
@@ -146,8 +146,11 @@
                                     <div>
                                         Code: <strong class="font-bold">{{ item.teamCode }}</strong>
                                     </div>
+                                    <div>
+                                        URL: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
+                                    </div>
                                 </div>
-                                <button @click="copyLink(teamList[index], copyGame)" class="text-green-800 bg-green-200 rounded py-px px-2">Copy</button>
+                                <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">Copy</button>
                             </div>
                         </template>
                     </div>
@@ -204,7 +207,7 @@ const closeCopyPopup = () => {
 
 // copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle} \nGame code: ${game.login.gameCode} \nGame password: ${game.login.gamePassword}`)
 const copyLink = (team, game) => {  
-    let link = `${page.props.value.ziggy.url}/${game.user.username}/${game.login.gameTitle}\nTeam code: ${team.teamCode}\nGame code: ${game.login.gameCode}\nGame password: ${game.login.gamePassword}`;
+    let link = `Team Name: ${team.teamName}\n${page.props.value.ziggy.url}/${game.user.username}/${game.login.gameTitle}\nTeam code: ${team.teamCode}\nGame code: ${game.login.gameCode}\nGame password: ${game.login.gamePassword}`;
     navigator.clipboard.writeText(link);
     toast.success('Game data is copyied!');
     closeCopyPopup();

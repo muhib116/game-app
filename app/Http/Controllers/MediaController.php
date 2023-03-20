@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\MediaLib;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -9,13 +10,17 @@ use Inertia\Inertia;
 class MediaController extends Controller
 {
     public function index() {
-        $query = MediaLib::query();
-        if (auth()->user()->type = 'gamehost') {
+        // $query = MediaLib::query();
+        // if (auth()->user()->type = 'gamehost') {
+        //     $query->where('user_id', auth()->id());
+        // }
+        // $media = $query->get();
+        $query = Game::query()->with(['user']);
+        if (auth()->user()->type != 'admin') {
             $query->where('user_id', auth()->id());
         }
-        $media = $query->get();
         return Inertia::render('Backend/Files/Index', [
-            'files' => $media
+            'games' => $query->get(),
         ]);
     }
 

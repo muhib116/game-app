@@ -8,12 +8,12 @@ const login = {
     gameTitle: null,
     gameCode: null,
     gamePassword: null,
-    showScoreboard: false,
-    showTeamScore: false,
-    photoStream: false,
+    showScoreboard: true,
+    showTeamScore: true,
+    photoStream: true,
     team: [{
         teamName: 'Default team',
-        teamCode: 'code1' // Unique team code.
+        teamCode: 'teamcode-1' // Unique team code.
     }],
 }
 

@@ -3,6 +3,10 @@
         <div class="max-w-[500px] mx-auto">
             <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
                 Deadline
+                <input type="datetime-local" v-model="getSelected(gamePayload.tasks).data.deadline" class="border-slate-400 rounded">
+            </label>
+            <!-- <label v-if="controlBy=='admin'" class="my-4 mt-5 flex-col flex justify-center">
+                Deadline
                 <el-date-picker
                     v-model="getSelected(gamePayload.tasks).data.deadline"
                     type="datetime"
@@ -14,7 +18,7 @@
                         value: new Date(),
                     }]"
                 />
-            </label> 
+            </label>  -->
             <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
                 <label v-if="controlBy=='admin'" class="my-4 mt-5 flex flex-col justify-center">
                     Point

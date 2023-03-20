@@ -87,17 +87,17 @@
             </div>
             <div class="px-4 pb-4">
                 <div class="flex flex-wrap gap-2">
-                    <label>
+                    <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.photoStream">
                         Photo Stream
                     </label>
-                    <label>
+                    <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.showScoreboard">
                         Show Scoreboard
                     </label>
-                    <label>
+                    <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.showTeamScore">
-                        Show Scoreboard
+                        Team Scoreboard
                     </label>
                 </div>
                 <!-- team -->

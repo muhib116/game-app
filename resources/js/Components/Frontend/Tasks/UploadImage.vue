@@ -5,27 +5,28 @@
             <div v-if="controlBy=='admin'" class="max-w-[500px] mx-auto">
                 <label class="my-4 mt-5 flex-col flex justify-center">
                     Deadline
-                    <el-date-picker
-                        v-model="getSelected(gamePayload.tasks).data.deadline"
-                        type="datetime"
-                        placeholder="Pick a day"
-                        size="large"
-                        class="w-full"
-                        :shortcuts="[{
-                            text: 'Today',
-                            value: new Date(),
-                        }]"
-                    />
+                    <input type="datetime-local" v-model="getSelected(gamePayload.tasks).data.deadline" class="border-slate-400 rounded">
                 </label>
+                <!-- <el-date-picker
+                    v-model="getSelected(gamePayload.tasks).data.deadline"
+                    type="datetime"
+                    placeholder="Pick a day"
+                    size="large"
+                    class="w-full"
+                    :shortcuts="[{
+                        text: 'Today',
+                        value: new Date(),
+                    }]"
+                /> -->
                 
                 <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
                     <label class="my-4 mt-5 flex flex-col justify-center">
                         Point
-                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4" placeholder="Task point">
+                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4 border-slate-400 rounded" placeholder="Task point">
                     </label>
                     <label class="my-4 mt-5 flex flex-col justify-center">
                         Extra Point
-                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4" placeholder="Extra point">
+                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4 border-slate-400 rounded" placeholder="Extra point">
                     </label>
                 </div>
             </div>
@@ -50,8 +51,11 @@
             </template>
             
             <div class="px-5">
-                <label v-if="controlBy=='admin'" class='px-4 py-1 bg-blue-300 shadow rounded w-full relative mt-14 flex items-center justify-center'>
+                <label v-if="controlBy=='admin'" class='px-4 py-1 bg-slate-300 cursor-pointer max-w-[300px] mx-auto shadow rounded w-full relative mt-14 mb-4 flex gap-2 items-center justify-center'>
                     <Preloader v-if="adminImageLoading" />
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
+                    </svg>
                     UPLOAD IMAGE
                     <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
                 </label>
@@ -146,6 +150,8 @@
     import { onMounted, ref, computed } from 'vue'
     import moment from "moment";
     import { Inertia } from "@inertiajs/inertia";
+    import VueDatePicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css'
 
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();

@@ -61,16 +61,21 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
             <div>
-                <label class="relative flex gap-4 items-center border px-5 py-2 rounded-lg w-fit bg-sky-400 text-white font-bold shadow-lg cursor-pointer">
+                <label class="relative flex gap-4 items-center border px-5 py-2 rounded w-fit bg-slate-200 shadow cursor-pointer">
                     Upload Logo/Profile
-                    <svg class="w-6 h-6" width="800" height="800" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M21 16a1 1 0 0 1 .993.883L22 17v2a3 3 0 0 1-2.824 2.995L19 22H5a3 3 0 0 1-2.995-2.824L2 19v-2a1 1 0 0 1 1.993-.117L4 17v2a1 1 0 0 0 .883.993L5 20h14a1 1 0 0 0 .993-.883L20 19v-2a1 1 0 0 1 1-1ZM11.852 2.011l.058-.007L12 2l.075.003.126.017.111.03.111.044.098.052.104.074.082.073 3 3a1 1 0 1 1-1.414 1.414L13 5.414V15a1 1 0 0 1-2 0V5.414L9.707 6.707a1 1 0 0 1-1.414-1.414l3-3a.927.927 0 0 1 .112-.097l.11-.071.114-.054.105-.035.118-.025Z"/></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
+                    </svg>
                     <input
                         id="logo"
                         type="file"
-                        class="mt-1 block w-full opacity-0 absolute"
+                        class="mt-1 block w-full opacity-0 absolute cursor-pointer"
                         @change="(e)=> form.logo = e.target.files[0]"
                     />
                 </label>
+                <div class="text-red-500 mt-1">
+                    Recommended Image size should be square (1:1)
+                </div>
 
                 <InputError class="mt-2" :message="form.errors.logo" />
             </div>

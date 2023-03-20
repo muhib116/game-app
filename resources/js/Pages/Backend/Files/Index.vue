@@ -2,7 +2,7 @@
     <Master>
         <div className="flex justify-between p-5 bg-white shadow">
             <h4 className="text-xl font-bold text-black">Media</h4>
-            <label
+            <!-- <label
                 class="bg-gray-100 rounded-md py-2 px-4 active:scale-95 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
                 @click="modelValue=true"
             >
@@ -15,20 +15,32 @@
                         handleMedia(e.target.files[0])
                     }"
                 />
-            </label>
+            </label> -->
         </div>
-        <div className="p-5">
-            <div class="grid gap-4 grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-                <div
-                    class="bg-white p-2 shadow-md rounded-md aspect-square"
-                    v-for="(file, index) in uploadedFiles"
-                    :key="index"
-                >
-                    <img class="w-full h-full object-cover" :src="file.path" alt="">
-                    <button @click="handleDelete(file)" class="p-2 text-red-600"><i class="fa fa-trash"></i></button>
+        <div className="p-5 flex flex-col">
+            <template
+                v-for="(game, index) in games"
+                :key="index"
+            >
+                <div v-if="!isEmpty(findImages(game.tasks))">
+                    <div class="py-4 mb-2 my-3">
+                        <div class="font-bold text-xl bg-sky-100 text-sky-900 px-3 py-1 rounded flex justify-between">
+                            {{ game.login.gameTitle }}
+                            <span>
+                                {{ size(findImages(game.tasks)) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div v-if="!isEmpty(findImages(game.tasks))" class="grid gap-4 grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+                        <div
+                            class="bg-white p-2 shadow-md rounded-md aspect-square"
+                            v-for="(image, index) in findImages(game.tasks)"
+                        >
+                            <img :src="image" alt="Image">
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <!-- <FilePopup v-model:modelValue="modelValue" /> -->
+            </template>
         </div>
     </Master>
 </template>
@@ -40,45 +52,26 @@ import FilePopup from '@/Components/Backend/Files/FilePopup.vue';
 import useMedia from '@/useMedia';
 import { toast } from '@/helper';
 import { Inertia } from '@inertiajs/inertia';
-import { findIndex } from 'lodash';
+import { findIndex, size, each, isEmpty } from 'lodash';
 
 const { mediaUpload, deleteMedia } = useMedia();
 const props = defineProps({
-    files: {
+    games: {
         type: Array,
         default: []
     }
 });
 
-const modelValue = ref(false);
-
-const uploadedFiles = ref(props.files)
-
-const handleMedia = async (file) => {
-    const data = await mediaUpload(file);
-    if (data.status == 'error') {
-        toast.error('Opps! Something wrong')
-    }
-    if (data.status == 'success') {
-        uploadedFiles.value.push(data.data);
-    }
-}
-
-const handleDelete = async (file) => {
-    if (confirm('Are you sure to delete?')) {
-        const data = await deleteMedia(file.id);
-        if (data.status == 'error') { 
-            toast.error('Opps! Something wrong')
-            return
+const findImages = (tasks) => {
+    let images = []
+    each(tasks, item => {
+        if (item.name == "UploadImage") {
+            each(item.userAnswer, answer => {
+                images.push(answer.image)
+            });
         }
-
-        if (data.status == 200) {
-            toast.success('Delete successfully')
-            let index = findIndex(uploadedFiles.value, item => item.id == file.id)
-            uploadedFiles.value.splice(index, 1)  
-        }
-    }
+    })
+    return images
 }
-
 
 </script>

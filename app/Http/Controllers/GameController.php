@@ -12,6 +12,11 @@ use Inertia\Inertia;
 
 class GameController extends Controller
 {
+    protected function permissionCheck(Game $game) {
+        if(auth()->user()->type == 'admin') return true;
+        if($game->user_id == auth()->id()) return true;
+        return false;
+    }
     public function gameHost() {
         if (auth()->user()->type != 'admin') {
             return redirect()->route('dashboard');
@@ -23,7 +28,7 @@ class GameController extends Controller
     }
     public function setup($id) {
         $game = Game::find($id);
-        if (!$game) {
+        if (!$game || !$this->permissionCheck($game)) {
             return redirect()->route('dashboard');
         }
         return Inertia::render('Backend/Game/Create', [
@@ -33,7 +38,7 @@ class GameController extends Controller
 
     public function gameDashboard($id) {
         $game = Game::find($id);
-        if (!$game) {
+        if (!$game || !$this->permissionCheck($game)) {
             return redirect()->route('dashboard');
         }
         return Inertia::render('Backend/Game/Dashboard', [
@@ -45,7 +50,6 @@ class GameController extends Controller
     public function save_user_data(Request $request) {
         $game = Game::find($request->id);
         if ($game) {
-            // return $request->all();
             $isFinished = [];
             $newTask = collect($game->tasks)->map(function($item) use($request, $isFinished) {
                 $session = session()->get('login');
@@ -61,9 +65,6 @@ class GameController extends Controller
                         }
                         if ($request->answer) {
                             $item['isStarted'] = true;
-                            // $temp_item = collect($item['userAnswer'])->filter(function($item) {
-                            //     return $item['team']
-                            // });
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($session, $request) {
                                 if ($session['team'] == $ans['team']) {
                                     $ans['answer'] = $request->answer;
@@ -73,7 +74,6 @@ class GameController extends Controller
                                 return $ans;
                             });
                             
-                            // $item['userAnswer'][] = $request->answer;
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -121,7 +121,6 @@ class GameController extends Controller
                     }
                 }
                 if ($request->QRCodeFinder == true) {
-                    // dd($request->all());
                     if ($item['id'] == $request->taskId) {
                         if ($request->startTime) {
                             $item['userAnswer'][] = [
@@ -174,10 +173,6 @@ class GameController extends Controller
                                 }
                                 return $ans;
                             });
-                            // $item['userAnswer'][] = [
-                            //     'team' => $session['team'],
-                            //     'image' => $request->image
-                            // ];
                         }
                         if ($request->value) {
                             $item['userAnswer'] = collect($item['userAnswer'])->map(function($ans) use($request) {
@@ -217,7 +212,7 @@ class GameController extends Controller
     
     public function save(Request $request) {
         $data = $request->all(); 
-
+        
         $game_title = $request->login['gameTitle'];
         $game_code = $request->login['gameCode'];
 
@@ -271,10 +266,19 @@ class GameController extends Controller
     }
 
     public function delete(Game $game) {
+        if(!$this->permissionCheck($game)) {
+            return back();
+        }
         $game->delete();
         return back();
     }
     public function publish(Game $game) {
+        if (!$this->permissionCheck($game)) {
+            return response([
+                'status' => 'failed',
+                'message' => 'Permission denied'
+            ]);
+        }
         if ($game->status == 'draft') {
             if (
                 count($game->tasks) == 0 ||
