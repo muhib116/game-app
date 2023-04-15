@@ -45,7 +45,10 @@ Route::get('/{user:username}/{gamecode}/task', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('task');
+
 Route::get('{user:username}/{gamecode}/scoreboard', [GameController::class, 'scoreboard'])->name('scoreboard');
+Route::get('{user:username}/{gamecode}/get-scoreboard', [GameController::class, 'getScoreboard'])->name('getScoreboard');
+
 Route::get('{user:username}/{gamecode}/photostream', [GameController::class, 'photostream'])->name('photostream');
 Route::get('{user:username}/{gamecode}/totalScoreboard', [GameController::class, 'totalScoreboard'])->name('totalScoreboard');
 

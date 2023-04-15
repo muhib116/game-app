@@ -4,7 +4,7 @@
             {{ index }}
         </td>
         <td class="py-3 px-2 text-center">
-            <input class="border-gray-300 flex-1 py-1" type="text" v-model="teamLocalName" />
+            <input class="border-gray-300 flex-1 py-1" type="text" v-model="props.item.teamName" />
         </td>
         <td class="py-3 px-2 text-center">
             <!-- <input class="border-gray-300 flex-1 py-1" type="text" v-model="gamePayload.login.team[index].teamCode" /> -->

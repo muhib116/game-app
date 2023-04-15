@@ -413,6 +413,7 @@ class GameController extends Controller
             // 'gameData' => $this->filterGame($game),
         ]);
     }
+
     public function scoreboard(User $user, $gameCode) {
         $session = session()->get('login');
         if (!$session) return redirect()->route('home');
@@ -431,6 +432,26 @@ class GameController extends Controller
             'gameData' => $game,
         ]);
     }
+
+    public function getScoreboard(User $user, $gameCode) {
+        $session = session()->get('login');
+        if (!$session) return redirect()->route('home');
+        if (!isset($session['gamecode']) && $session['gamecode'] != $gameCode) return redirect()->route('home');
+        
+        $game = Game::where('login->gameCode', $gameCode)->where('user_id', $user->id)->first();
+        
+        if (!$game) return redirect()->route('home');
+
+        $game->username = $game->user->username;
+        return [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'gameData' => $game,
+        ];
+    }
+
     public function photostream(User $user, $gameCode) {
         $session = session()->get('login');
         if (!$session) return redirect()->route('home');

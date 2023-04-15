@@ -6,25 +6,35 @@
             </div>
             <div class="py-5">
                 <template v-for="(team, index) in result" :key="index">
-                    <div class="flex flex-wrap mt-4 ">
-                        <template v-for="(task, index) in gameData.tasks" :key="index">
-                            <div 
-                                v-if="
-                                    (team.teamCode == get(getTeamAns(task.userAnswer, team.teamCode), 'team'))
-                                    && get(getTeamAns(task.userAnswer, team.teamCode), 'value')
-                                " 
-                                class="w-full border-b"
-                            >
-                                <div class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-white">
-                                    <div>
-                                        {{ task.data.title }}
+                    <div class="flex flex-wrap mt-4">
+                        <div>
+                            <span class="text-xl bg-slate-100/30 rounded px-2">
+                                Team: <strong>{{ team.name }}</strong>
+                            </span>
+                        </div>
+                        <div class="relative w-full">
+                            <template v-for="(task, index) in gameData.tasks" :key="index">
+                                <div 
+                                    v-if="
+                                        (team.teamCode == get(getTeamAns(task.userAnswer, team.teamCode), 'team'))
+                                        && get(getTeamAns(task.userAnswer, team.teamCode), 'value')
+                                    " 
+                                    class="w-full border-b"
+                                >
+                                    <div class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-white">
+                                        <div>
+                                            {{ task.data.title }}
+                                        </div>
+                                        <span>
+                                            {{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }}
+                                        </span>
                                     </div>
-                                    <span>
-                                        {{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }}
-                                    </span>
                                 </div>
-                            </div>
-                        </template>
+                                <div v-else class="w-full absolute mt-4">
+                                    No data found
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -37,22 +47,26 @@ import { isArray, forEach, sortBy, findIndex, get } from 'lodash';
 import { onMounted, onUnmounted, ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/inertia-vue3'
-const props = defineProps({
-    gameData: Object
-})
+import axios from 'axios';
+// const props = defineProps({
+//     gameData: Object
+// })
 
 const result = ref([]);
+const gameData = ref({});
+
 
 let interValId = null
 onMounted(()=>{
     generateResult()
 
     interValId = setInterval(() => {
-        Inertia.reload({
-            onSuccess() {
-                generateResult()
-            }
-        })
+        generateResult()
+        // Inertia.reload({
+        //     onSuccess() {
+        //         generateResult()
+        //     }
+        // })
     }, 5000)
 })
 
@@ -61,6 +75,10 @@ onUnmounted(() => {
 })
 
 const generateResult = () => {
+    axios.get(String(location.href).replace('scoreboard', 'get-scoreboard'))
+            .then(res => {
+                gameData.value = res.data.gameData;
+            })
     result.value = [];
     let teams = usePage().props.value.gameData.login.team;
     forEach(teams, item => {
