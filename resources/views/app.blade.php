@@ -21,7 +21,26 @@
             <button onclick="toogleTranslator()" class="clos_trans fixed right-2 top-5 z-[9990] w-[40px] h-[40px] bg-slate-50 text-red-500 rounded-full">
                 &times;
             </button>
-            <div id='translatorWrapper' class="w-[100px]">
+            <div class="bg-white rounded-md p-5 max-w-[400px] w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div class="text-black z-[99990] text-center">
+                    <svg class="w-14 h-14 mx-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"></path>
+                    </svg>
+                </div>
+
+                <div class="flex gap-5 !justify-center mt-5 select-none">
+                    <label class="flex gap-2 !text-black select-none">
+                        <input class="lan_inp l1" type="radio" value="English" name="lang" checked />
+                        English
+                    </label>
+                    <label class="flex gap-2 !text-black select-none">
+                        <input class="lan_inp l2" type="radio" value="Norwegian" name="lang" />
+                        Norwegian
+                    </label>
+                </div>
+
+            </div>
+            <div id='translatorWrapper' class="w-[100px] opacity-0 pointer-events-none">
                 <div id="google_translate_element"></div>
             </div>
         </div>
@@ -39,7 +58,33 @@
                 // translatorWrapper.classList.toggle('-right-[0px]')
                 document.querySelector('.trans_wrap').classList.toggle('active')
                 initListener()
+                
             }
+            if (localStorage.getItem('lng')) {
+                if (localStorage.getItem('lng') == 'en') {
+                    document.querySelector('.l1').checked = true
+                    document.querySelector('.l2').checked = false
+                } else {
+                    document.querySelector('.l1').checked = false
+                    document.querySelector('.l2').checked = true
+                }
+            }
+            document.querySelectorAll('.lan_inp').forEach(item => {
+                item.addEventListener('change', function() {
+                    if(this.value == 'Norwegian') {
+                        localStorage.setItem('lng', 'no')
+                        document.querySelector('.goog-te-combo').value = 'no';
+                        document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                        // new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                    } else {
+                        localStorage.setItem('lng', 'en')
+                        document.querySelector('.goog-te-combo').value = 'en';
+                        document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                        // new google.translate.TranslateElement({pageLanguage: 'no'}, 'google_translate_element');
+                    }
+                })
+            })
+
             function initListener() {
                 if (document.querySelector('#translatorWrapper select')) {
                     document.querySelector('#translatorWrapper select').addEventListener('change', ()=> {
@@ -77,6 +122,9 @@
             }
             .trans_btn {
                 display: block !important;
+            }
+            #goog-gt- {
+                display: none !important;
             }
         </style>
     </body>

@@ -49,45 +49,14 @@
                     PlayTours makes it easy for anyone to build and run scavenger hunts of any size, anywhere. We're great for Event Gamification & Self-Guided Tours too! We will guide you from start to end.
                 </p>
                 <div class="banner_btn">
-                    <button class="btn1">Start Now</button>
-                    <button class="btn2">Watch Demo</button>
+                    <a href="/login" class="btn1 flex items-center justify-center">Start Now</a>
+                    <a href="/register" class="btn2 flex items-center justify-center text-center">Register</a>
                 </div>
             </div>
             <img class="banner_img" src="/assets/img/banner-img.png" alt="">
         </div>
     </div>
     <!-- banner end -->
-    <!-- video section start -->
-    <div class="video_main_wraper container">
-        <div class="video_wraper ">
-            <div class="video_contant">
-                <a href="#" class="vedio_icon"><i class="fa fa-play" aria-hidden="true"></i></a>
-            </div>
-        </div>
-        <div class="banner_btn btn_video">
-            <button class="btn1">Start Now</button>
-            <button class="btn2">Watch Demo</button>
-        </div>
-    </div>
-
-
-    <!-- video section end -->
-    <!-- google_iceon_wraper start -->
-    <div class="google_iceon_wraper container">
-        <div class="google_iceon_wraper_text">
-            <h2 class="goole_title"><span>Our</span> Happy <span>Users</span></h2>
-        </div>
-        <div class="google_iceon_wraper_img_icon">
-            <img src="/assets/img/google.jpg" alt="">
-            <img src="/assets/img/wells.png" alt="">
-            <img src="/assets/img/frens.png" alt="">
-            <img src="/assets/img/make.gif" alt="">
-            <img src="/assets/img/ey.png" alt="">
-            <img src="/assets/img/agor.webp" alt="">
-        </div>
-    </div>
-    <!-- google_iceon_wraper end -->
-
 
     <!-- card_wraper start -->
     <div class="card_wraper container">
@@ -185,104 +154,6 @@
     <!-- Features end -->
 
 
-    <!-- amazing start -->
-    <div class="amazing ">
-        <h2 class="title_amazing">Amazing Features <span> for </span> Amazing Events</h2>
-        <div class="amazing_wraper container">
-            <div class="amazing_1">
-                <div class="amazing_text">
-                    <h3 class="phone_amazing"><span> 📱 </span> One team, multiple devices</h3>
-                    <p class="amazing_para">
-                        Don't be limited by physical maps and puzzle pieces — players can use separate devices to play the game at the same time.
-                    </p>
-                </div>
-                <div class="amazing_text">
-                    <h3 class="phone_amazing"><span> 🔗 </span> Synchronised in real-time </h3>
-                    <p class="amazing_para">
-                        When a player of the same team completes a task, it is shown as completed for everyone.
-                    </p>
-                </div>
-                <div class="amazing_text">
-                    <h3 class="phone_amazing"><span> 💬 </span> In-app team chat </h3>
-                    <p class="amazing_para">
-                        Chat among team members via the in-app chat room — no need to switch between game and messaging apps.
-                    </p>
-                </div>
-            </div>
-            <div class="amazing_video">
-                <div class="amazing_video_content">
-                    <img src="https://c1.wallpaperflare.com/preview/427/745/192/notebook-natural-laptop-macbook.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- amazing_1 end -->
-
-
-    <!-- amazing 2 start -->
-    <div class="amazing_wraper container">
-        <div class="amazing_video">
-            <div class="amazing_video_content">
-                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="">
-            </div>
-        </div>
-        <div class="amazing_1">
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> 📍 </span> Location-based tasks</h3>
-                <p class="amazing_para">
-                    Create "physical stations" across the map where players have to go before being able to see a task.
-                </p>
-                <p class="amazing_para">
-                    The stations can be configured to be hidden from the map too.
-                </p>
-            </div>
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> ✨ </span> Multiple task types </h3>
-                <p class="amazing_para">
-                    PlayTours support a variety of answer types: text, integers, numbers, QR/barcodes, location and check-in.
-                </p>
-                <p class="amazing_para">
-                    You can also accept images and videos and have them verified manually by a facilitator.
-                </p>
-            </div>
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> 📈 </span> Infinitely extensible </h3>
-                <p class="amazing_para">
-                    Embed anything you can find online — Google documents, 360 virtual walks, crossword & jigsaw puzzles, etc.
-                </p>
-            </div>
-        </div>
-    </div>
-    <!-- amazing 2 end -->
-
-    <div class="amazing_wraper container">
-        <div class="amazing_1">
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> ⚡ </span> No installs required</h3>
-                <p class="amazing_para">
-                    No app installs are required. Players just need to open a URL using any modern web browser.
-                </p>
-            </div>
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> ❓ </span> Let players "buy" hints </h3>
-                <p class="amazing_para">
-                    Players stuck for too long? Let them buy hints with limited credits. Alternatively, drop a hint after a predefined time if they are stuck for too long.
-                </p>
-            </div>
-            <div class="amazing_text">
-                <h3 class="phone_amazing"><span> 📢 </span> In-app announcements </h3>
-                <p class="amazing_para">
-                    Our in-app messaging allows you to broadcast important updates to all players instantly. No need for a separate messaging app.
-                </p>
-            </div>
-        </div>
-        <div class="amazing_video">
-            <div class="amazing_video_content">
-                <img src="https://media.istockphoto.com/id/1353553203/photo/forest-wooden-table-background-summer-sunny-meadow-with-green-grass-forest-trees-background.jpg?b=1&s=170667a&w=0&k=20&c=-jvR1WDwcloLXRgRTGeyG3frvrhPIbegdemeL6vY2Pk=" alt="">
-            </div>
-        </div>
-    </div>
-    <!-- </div> -->
     <!-- amazing_3 end -->
     <div class="bottom_amazing">
         <div class="amazing_wraper container">
@@ -331,82 +202,6 @@
     </div>
     <!-- amazing end -->
 
-
-    <!-- feature post start -->
-    <div class="feature_post container">
-        <h2 class="feature_post_title"><span> Featured </span> Posts</h2>
-        <div class="feature_post_wraper">
-            <div class="feature_post_wraper_1">
-                <div class="feature_post_img">
-                    <img src="/assets/img/post.jpg" alt="">
-                </div>
-                <div class="feature_post_text">
-                    <p class="post_para">Event Engagement</p>
-                    <h4 class="post_title">A Major eSports Organisation used PlayTours to engage die-hard fans</h4>
-                    <button class="post_btn">Read More</button>
-                </div>
-            </div>
-            <div class="feature_post_wraper_1">
-                <div class="feature_post_img">
-                    <img src="/assets/img/post_2.png" alt="">
-                </div>
-                <div class="feature_post_text">
-                    <p class="post_para">Virtual Team-building</p>
-                    <h4 class="post_title">Luwjistik used PlayTours to run an engaging virtual team-building experience</h4>
-                    <button class="post_btn">Read More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="watch ">
-        <p>Our free version supports an unlimited number of players, with 2 devices at any one time.</p>
-        <p>It takes less than 10 seconds to sign up.</p>
-        <p>What are you waiting for?</p>
-        <div class="banner_btn center_btn">
-            <button class="btn1">Start Now</button>
-            <button class="btn2">Watch Demo</button>
-        </div>
-    </div>
-    <!-- feature post end -->
-
-    <!-- Questions starrt -->
-    <div class="quaestion_wraper container">
-        <h2 class="question_title">Questions <span> ? </span></h2>
-        <p class="question_para">Send us a message. We reply within 24 hours!</p>
-        <div class="action_wraper">
-            <div class="location_wraper">
-                <h6><i class="fa fa-envelope" aria-hidden="true"></i> mahsin@gmail.com</h6>
-                <h6><i class="fa fa-phone" aria-hidden="true"></i> +880 16032 83901</h6>
-                <h6><i class="fa fa-map-marker" aria-hidden="true"></i> Nandail , Mymensingh , Dhaka , Bangladesh</h6>
-            </div>
-            <form action="#" class="contect">
-                <div class="action">
-                    <h5>NAME : </h5>
-                    <input type="text">
-                    <h5>EMAIL : </h5>
-                    <input type="email">
-                    <h5>COMPANY : </h5>
-                    <input type="text">
-                </div>
-                <textarea name="" class="area" cols="30" rows="10"></textarea>
-            </form>
-        </div>
-        <div class="banner_btn action_btn">
-            <button class="btn1">Submit</button>
-        </div>
-    </div>
-    <!-- Questions end -->
-    <div class="app_wraper container">
-        <div class="app_1">
-            <h3 class="app_title">The Best Scavenger Hunt App for 2023?</h3>
-        </div>
-        <div class="app_text">
-            <p class="app_para">
-                Scavenger hunts are a great way to get people of all ages engaged in an activity that encourages exploration and creativity. With the rise of technology, there are now a variety of apps available that allow users to create their own scavenger hunts. In this article, we will review some of the most popular scavenger hunt apps and discuss the pros and cons of using them to build your own scavenger hunt.
-            </p>
-            <a href="#">Read more...</a>
-        </div>
-    </div>
     <!-- question end -->
     <!-- footer start -->
     <div class="footer_wraper">
