@@ -129,3 +129,11 @@
         </style>
     </body>
 </html>
+
+
+
+{{-- Team Name: Default team
+http://127.0.0.1:8000/first-gamehost/first-title
+Team code: teamcode-1
+Game code: gamecode1
+Game password: game --}}

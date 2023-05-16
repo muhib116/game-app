@@ -186,7 +186,10 @@ const publishLoading = ref(false);
 
 const handleSave = async (payload) => {
     gamePayload.value.id = null;
-    const data = await saveGame(payload);
+    const data = await saveGame({
+        ...payload,
+        newGame: 'new'
+    });
     if (data.id) {
         toast.success('Game create successfully');
         Inertia.replace(route('game.setup', data.id));

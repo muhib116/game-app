@@ -1,7 +1,7 @@
 import { ref, watch, watchEffect } from 'vue'
 import gameDrain from '@/Components/Backend/Game/gameDrain';
 import { cloneDeep } from 'lodash'
-const { saveGame } = gameDrain();
+const { saveGame, loading } = gameDrain();
 
 const login = {
     image: null,
@@ -79,7 +79,9 @@ export default function useConnfiguration() {
     watch(gamePayload, ()=>{
         clearTimeout(timeOutId);
         timeOutId = setTimeout(()=>{
-            saveGame(gamePayload.value);
+            if (!loading.value.save) {
+                saveGame(gamePayload.value);
+            }
         },1000)
     }, {deep: true});
 

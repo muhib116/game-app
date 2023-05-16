@@ -59,7 +59,10 @@ const { saveGame, gameList, loading } = gameDrain();
 
 const handleSave = async (payload) => {
     if (confirm('Are you sure to create new game?')) {
-        const data = await saveGame(payload);
+        const data = await saveGame({
+            ...payload,
+            newGame: 'new',
+        });
         if (data.id) {
             toast.success('Game create successfully');
             gamePayload.value = defaultGamePayload

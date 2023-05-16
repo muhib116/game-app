@@ -30,7 +30,7 @@
             <span class='absolute top-0 z-[-1] left-0 w-full h-full bg-white bg-opacity-[var(--bgOpacity)] pointer-events-none' :style="`--bgOpacity: ${(data.settings.opacity / 100).toFixed(3)}`"></span>
             <img v-if="data.settings.image" :src="data.settings.image" class='h-full z-[-2] top-0 left-0 bottom-0 right-0 absolute block w-full object-cover object-center' />
 
-            <div v-if="controlBy!='admin'" class="font-black text-left text-xl mb-9 mt-4">
+            <div v-if="controlBy!='admin'" class="font-black text-left text-xl mb-9 mt-4 text-[var(--dbg)]">
                 Instructions
             </div>
             <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full text-[var(--dbg)] min-h-[300px]"></textarea>

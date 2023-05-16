@@ -32,7 +32,7 @@ export default function gameDrain() {
                         // timeout: 200,
                         maxToasts: 2,
                     });
-                }, 3000);
+                }, 300);
             }
         }
         loading.value.save = false;

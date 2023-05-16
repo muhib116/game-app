@@ -216,23 +216,26 @@ class GameController extends Controller
         $game_title = $request->login['gameTitle'];
         $game_code = $request->login['gameCode'];
         $game_password = $request->login['gamePassword'];
-        if (empty($game_title)) {
-            return response([
-                'status' => 'failed',
-                'message' => 'Game title is required.',
-            ], 200);
-        }
-        if (empty($game_code)) {
-            return response([
-                'status' => 'failed',
-                'message' => 'Game code is required',
-            ], 200);
-        }
-        if (empty($game_password)) {
-            return response([
-                'status' => 'failed',
-                'message' => 'Game password is required',
-            ], 200);
+
+        if(!$request->newGame == 'new') {
+            if (empty($game_title)) {
+                return response([
+                    'status' => 'failed',
+                    'message' => 'Game title is required.',
+                ], 200);
+            }
+            if (empty($game_code)) {
+                return response([
+                    'status' => 'failed',
+                    'message' => 'Game code is required',
+                ], 200);
+            }
+            if (empty($game_password)) {
+                return response([
+                    'status' => 'failed',
+                    'message' => 'Game password is required',
+                ], 200);
+            }
         }
 
         $gameExist = Game::where('login->gameCode', $game_code)->orWhere('login->gameTitle', $game_title)->get();
