@@ -10,10 +10,10 @@
             Create new game
         </button>
         <Link :href="route('game')" class="flex gap-2 items-center py-1 px-4 hover:text-white" :class="component == 'Backend/Game/index' && 'text-white bg-[#222266]'">
-        <i class="w-5 fa fa-gamepad" aria-hidden="true"></i>
-        Existing game
+            <i class="w-5 fa fa-gamepad" aria-hidden="true"></i>
+            Existing game
         </Link>
-        <!-- <template v-if="get($page.props, 'auth.user.type') == 'admin'">
+        <template v-if="get($page.props, 'auth.user.type') == 'admin'">
             <Link 
                 :href="route('gamehosts')"
                 class="flex gap-2 items-center py-1 px-4 hover:text-white"
@@ -22,7 +22,7 @@
                 <i class="w-5 fa fa-users" aria-hidden="true"></i>
                 Gamehost
             </Link>
-        </template> -->
+        </template>
         <Link :href="route('files')" class='flex gap-2 items-center py-1 px-4 hover:text-white' :class="component == 'Backend/Files/Index' && 'text-white bg-[#222266]'">
         <i class="w-5 fa fa-folder-open" aria-hidden="true"></i>
         Files

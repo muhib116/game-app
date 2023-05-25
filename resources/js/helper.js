@@ -22,3 +22,15 @@ export function useGlobalSetting() {
         closeAside
     }
 }
+
+export function slug(text){
+    const separator = '-';
+
+    // Convert the string to lowercase and replace non-word characters with the separator
+    const op = String(text ? text : '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, separator)
+        .replace(new RegExp(`^${separator}|${separator}$`, 'g'), '');
+
+    return op;
+}

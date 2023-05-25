@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +26,27 @@ class GameController extends Controller
         return Inertia::render('Backend/Gamehost/Index', [
             'gamehosts' => $gamehosts
         ]);
+    }
+    public function createGameHost() {
+        if (auth()->user()->type != 'admin') {
+            return redirect()->route('dashboard');
+        }
+        return Inertia::render('Backend/Gamehost/Create');
+    }
+    public function storeGameHost(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:'.User::class,
+            'email' => 'required|unique:'.User::class,
+            'password' => 'required',
+        ]);
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->route('gamehosts')->with('success', 'Gamehost created successfully');
     }
     public function setup($id) {
         $game = Game::find($id);

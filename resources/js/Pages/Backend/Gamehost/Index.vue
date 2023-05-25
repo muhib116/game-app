@@ -1,7 +1,8 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Gamehost</p>
+            <p className="text-2xl font-bold text-black">Game host</p>
+            <Link :href="route('createGameHost')" class="py-1 px-4 bg-slate-800 text-white rounded">+ Create</Link>
         </div>
         <div class="px-5 py-5">
             <div class="mt-5 bg-white py-5 px-5 rounded max-w-screen-xl mx-auto shadow-md"> 
@@ -39,7 +40,9 @@
 </template>
 
 <script setup>
+import { Link } from '@inertiajs/inertia-vue3';
 import Master from '../Master.vue'
+
 defineProps({
     gamehosts: Array,
 });

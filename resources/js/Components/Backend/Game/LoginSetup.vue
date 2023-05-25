@@ -147,7 +147,7 @@ import Warning from '../Warning.vue'
 import useFileUpload from '@/useFileUpload';
 import useConnfiguration from './useConnfiguration';
 import TeamSetup from './TeamSetup.vue';
-import { toast } from "@/helper";
+import { toast, slug } from "@/helper";
 import { get } from 'lodash'
 
 defineProps({
@@ -158,6 +158,11 @@ const { gamePayload } = useConnfiguration();
 const { handleImageUpload, deleteImage } = useFileUpload();
 const uploadingImg = ref(false);
 
+watch(()=> gamePayload, ()=>{
+    gamePayload.value.login.gameTitle = slug(gamePayload.value.login.gameTitle)
+}, {
+    deep: true
+})
 
 
 const addTeam = (teamAray) => {

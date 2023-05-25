@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <a href="/login">Login</a>
-                <a href="/register">Register</a>
+                <!-- <a href="/register">Register</a> -->
             </div>
         </nav>
     </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="flex !flex-row !justify-end text-black gap-3 flex-1">
             <a href="/login" class="block !text-black">Login</a>
-            <a href="/register" class="block !text-black">Register</a>
+            <!-- <a href="/register" class="block !text-black">Register</a> -->
         </div>
     </div>
     <div class="project_outer">
