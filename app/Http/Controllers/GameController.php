@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,16 @@ class GameController extends Controller
             'gamehosts' => $gamehosts
         ]);
     }
+    public function editGameHost($id) {
+        $gamehost = User::find($id);
+        if (auth()->user()->type != 'admin') {
+            return redirect()->route('dashboard');
+        }
+        
+        return Inertia::render('Backend/Gamehost/Create', [
+            'gamehost' => $gamehost
+        ]);
+    }
     public function createGameHost() {
         if (auth()->user()->type != 'admin') {
             return redirect()->route('dashboard');
@@ -44,9 +55,42 @@ class GameController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
+            'status' => $request->status ? 1 : 0,
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
         ]);
         return redirect()->route('gamehosts')->with('success', 'Gamehost created successfully');
+    }
+    public function updateGameHost(Request $request, User $user) {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users,username,'.$user->id,
+            'email' => 'required|unique:users,email,'.$user->id,
+        ]);
+        
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'status' => $request->status ? 1 : 0,
+        ];
+        if($request->password) {
+            $data['password'] = Hash::make($request->password);
+        }
+        $user->update($data);
+        return redirect()->route('gamehosts')->with('success', 'Gamehost updated successfully');
+    }
+    public function deleteGameHost(User $user) {
+        DB::beginTransaction();
+        try {
+            Game::where('user_id', $user->id)->delete();
+            $user->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('gamehosts')->with('success', 'Opps! Something wrong.');
+        }
+        return redirect()->route('gamehosts')->with('success', 'Gamehost deleted successfully');
     }
     public function setup($id) {
         $game = Game::find($id);

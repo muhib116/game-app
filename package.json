@@ -24,6 +24,7 @@
         "element-plus": "^2.2.33",
         "moment": "^2.29.4",
         "qrcode.vue": "^3.3.3",
+        "sweetalert2": "^11.7.5",
         "vue-toastification": "^2.0.0-rc.5",
         "vue3-apexcharts": "^1.4.1",
         "vue3-qrcode-reader": "^0.0.1"

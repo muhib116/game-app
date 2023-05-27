@@ -14,8 +14,11 @@ Route::middleware(['auth', 'verified'])->group(function(){
         return Inertia::render('Backend/Game/index');
     })->name('game');
     Route::get('/gamehosts', [GameController::class, 'gameHost'])->name('gamehosts');
+    Route::get('/gamehosts/{id}/edit', [GameController::class, 'editGameHost'])->name('editGameHost');
     Route::get('/create-gamehosts', [GameController::class, 'createGameHost'])->name('createGameHost');
     Route::post('/store-gamehosts', [GameController::class, 'storeGameHost'])->name('storeGameHost');
+    Route::post('/update-gamehosts/{user}', [GameController::class, 'updateGameHost'])->name('updateGameHost');
+    Route::post('/delete-gamehosts/{user}', [GameController::class, 'deleteGameHost'])->name('deleteGameHost');
     Route::get('/game/setup/{id}', [GameController::class, 'setup'])->name('game.setup');
     Route::get('/game/dashboard/{id}', [GameController::class, 'gameDashboard'])->name('game.dashboard');
     

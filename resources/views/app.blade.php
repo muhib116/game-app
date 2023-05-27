@@ -58,8 +58,17 @@
             }
 
             function toogleTranslator(){
+                console.log(document.querySelector('.trans_wrap'));
                 // translatorWrapper.classList.toggle('-right-[0px]')
-                document.querySelector('.trans_wrap').classList.toggle('active')
+                let wrap = document.querySelector('.trans_wrap');
+                if (wrap) {
+                    wrap.classList.toggle('active')
+                    if (wrap.style.display == 'none') {
+                        wrap.style.display = 'block'
+                    } else {
+                        wrap.style.display = 'none'
+                    }
+                }
                 initListener()
                 
             }
@@ -97,11 +106,12 @@
             }
         </script>
         <style>
+            
             .skiptranslate {
-                display: none;
+                display: none !important;
             }
             #google_translate_element .skiptranslate {
-                display: block;
+                display: block !important;
             }
             .trans_wrap {
                 display: none;
@@ -129,14 +139,9 @@
             #goog-gt- {
                 display: none !important;
             }
+            html body {
+                top: 0 !important;
+            }
         </style>
     </body>
 </html>
-
-
-
-{{-- Team Name: Default team
-http://127.0.0.1:8000/first-gamehost/first-title
-Team code: teamcode-1
-Game code: gamecode1
-Game password: game --}}

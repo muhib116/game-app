@@ -23,14 +23,26 @@
                     </div>
                     <div class="w-full grid gap-1">
                         <div>Password</div>
-                        <input type="text" v-model="form.password" placeholder="username" class="w-full" required />
+                        <input type="text" v-model="form.password" placeholder="Password" class="w-full" :required="!form.id" />
                         <span class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</span>
+                    </div>
+                    <div class="w-full grid gap-1">
+                        <label class="flex gap-2 items-center">
+                            <input type="checkbox" v-model="form.status" />
+                            Game host status
+                        </label>
+                        <span class="text-red-500" v-if="form.errors.status">{{ form.errors.status }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <div>
                             <button type="submit" class="py-2 px-5 bg-slate-800 text-white flex items-center" :disabled="form.processing">
                                 <Preloader v-if="form.processing" />
-                                Save
+                                <template v-if="form.id">
+                                    Update
+                                </template>
+                                <template v-else>
+                                    Save
+                                </template>
                             </button>
                         </div>
                     </div>
@@ -44,19 +56,46 @@
 import { useForm } from '@inertiajs/inertia-vue3';
 import Master from '../Master.vue'
 import Preloader from '@/Components/Global/Preloader.vue';
-import { watch } from 'vue'
+import { watch, onMounted } from 'vue'
 
 import { slug } from '@/helper'
+import { get, isEmpty } from 'lodash';
+
+const props = defineProps({
+    gamehost: {
+        type: Object,
+        default: {}
+    }
+})
 
 const form = useForm({
+    id: null,
     name: null,
     username: null,
     email: null,
     password: null,
+    status: true,
+})
+
+
+onMounted(()=> {
+    if (get(props.gamehost, 'id')) {
+        let gamehost = props.gamehost;
+        form.id = gamehost.id;
+        form.name = gamehost.name;
+        form.username = gamehost.username;
+        form.email = gamehost.email;
+        form.status = gamehost.status;
+        console.log(gamehost.status);
+    }
 })
 
 const saveGameHost = () => {
-    form.post(route('storeGameHost'))
+    if (form.id) {
+        form.post(route('updateGameHost', form.id))
+    } else {
+        form.post(route('storeGameHost'))
+    }
 }
 
 watch(()=> form.username, ()=>{

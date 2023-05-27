@@ -74,7 +74,7 @@
     padding: 15px;
 }
 .banner_wraper .banner_img {
-    height: 100vh;
+    height: auto;
     flex: 1;
 }
 .banner_text{
