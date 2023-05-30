@@ -12,7 +12,7 @@
                                 Team: <strong>{{ team.name }}</strong>
                             </span>
                         </div>
-                        <div class="relative w-full">
+                        <div class="relative w-full myDiv">
                             <template v-for="(task, index) in gameData.tasks" :key="index">
                                 <div 
                                     v-if="
@@ -30,9 +30,9 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div v-else class="w-full absolute mt-4">
+                                <!-- <div v-else class="w-full mt-4">
                                     No data found
-                                </div>
+                                </div> -->
                             </template>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ const getTotalPoint = (teamCode, tasks) => {
 <style scoped>
 .myDiv:empty::before{
     content: 'No score found!';
-    color: #0005;
+    color: #00000081;
     font-size: 15px;
 }
 </style>
