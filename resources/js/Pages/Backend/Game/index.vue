@@ -142,14 +142,20 @@
                                 <div class="py-4 flex justify-between items-center gap-1">
                                     <div>
                                         <div>
-                                            Name: <strong class="font-bold">{{ item.teamName }}</strong>
-                                        </div>
-                                        <div>
-                                            Code: <strong class="font-bold">{{ item.teamCode }}</strong>
-                                        </div>
-                                        <div>
                                             URL: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
                                         </div>
+                                        <div>
+                                            Teamcode: <strong class="font-bold">{{ item.teamCode }}</strong>
+                                        </div>
+                                        <div>
+                                            Gamecode: <strong class="font-bold">{{ copyGame.login.gameCode }}</strong>
+                                        </div>
+                                        <div>
+                                            Password: <strong class="font-bold">{{ copyGame.login.gamePassword }}</strong>
+                                        </div>
+                                        <div>
+                                            Teamname: <strong class="font-bold">{{ item.teamName }}</strong>
+                                        </div> 
                                     </div>
                                     <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">Copy</button>
                                 </div>

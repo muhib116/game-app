@@ -20,62 +20,62 @@
         
         
 
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        {{-- <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> --}}
         <script type="text/javascript">
-            window.onload = function() {
-                document.querySelector('.trans_btn').style.display = 'block';
-            }
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-            }
+            // window.onload = function() {
+            //     document.querySelector('.trans_btn').style.display = 'block';
+            // }
+            // function googleTranslateElementInit() {
+            //     new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+            // }
 
-            function toogleTranslator(){
-                console.log(document.querySelector('.trans_wrap'));
-                // translatorWrapper.classList.toggle('-right-[0px]')
-                let wrap = document.querySelector('.trans_wrap');
-                if (wrap) {
-                    wrap.classList.toggle('active')
-                    if (wrap.style.display == 'none') {
-                        wrap.style.display = 'block'
-                    } else {
-                        wrap.style.display = 'none'
-                    }
-                }
-                initListener()
+            // function toogleTranslator(){
+            //     console.log(document.querySelector('.trans_wrap'));
+            //     // translatorWrapper.classList.toggle('-right-[0px]')
+            //     let wrap = document.querySelector('.trans_wrap');
+            //     if (wrap) {
+            //         wrap.classList.toggle('active')
+            //         if (wrap.style.display == 'none') {
+            //             wrap.style.display = 'block'
+            //         } else {
+            //             wrap.style.display = 'none'
+            //         }
+            //     }
+            //     initListener()
                 
-            }
-            if (localStorage.getItem('lng')) {
-                if (localStorage.getItem('lng') == 'en') {
-                    document.querySelector('.l1').checked = true
-                    document.querySelector('.l2').checked = false
-                } else {
-                    document.querySelector('.l1').checked = false
-                    document.querySelector('.l2').checked = true
-                }
-            }
-            document.querySelectorAll('.lan_inp').forEach(item => {
-                item.addEventListener('change', function() {
-                    if(this.value == 'Norwegian') {
-                        localStorage.setItem('lng', 'no')
-                        document.querySelector('.goog-te-combo').value = 'no';
-                        document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
-                        // new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-                    } else {
-                        localStorage.setItem('lng', 'en')
-                        document.querySelector('.goog-te-combo').value = 'en';
-                        document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
-                        // new google.translate.TranslateElement({pageLanguage: 'no'}, 'google_translate_element');
-                    }
-                })
-            })
+            // }
+            // if (localStorage.getItem('lng')) {
+            //     if (localStorage.getItem('lng') == 'en') {
+            //         document.querySelector('.l1').checked = true
+            //         document.querySelector('.l2').checked = false
+            //     } else {
+            //         document.querySelector('.l1').checked = false
+            //         document.querySelector('.l2').checked = true
+            //     }
+            // }
+            // document.querySelectorAll('.lan_inp').forEach(item => {
+            //     item.addEventListener('change', function() {
+            //         if(this.value == 'Norwegian') {
+            //             localStorage.setItem('lng', 'no')
+            //             document.querySelector('.goog-te-combo').value = 'no';
+            //             document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+            //             // new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+            //         } else {
+            //             localStorage.setItem('lng', 'en')
+            //             document.querySelector('.goog-te-combo').value = 'en';
+            //             document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+            //             // new google.translate.TranslateElement({pageLanguage: 'no'}, 'google_translate_element');
+            //         }
+            //     })
+            // })
 
-            function initListener() {
-                if (document.querySelector('#translatorWrapper select')) {
-                    document.querySelector('#translatorWrapper select').addEventListener('change', ()=> {
-                        toogleTranslator()
-                    })
-                }
-            }
+            // function initListener() {
+            //     if (document.querySelector('#translatorWrapper select')) {
+            //         document.querySelector('#translatorWrapper select').addEventListener('change', ()=> {
+            //             toogleTranslator()
+            //         })
+            //     }
+            // }
         </script>
         <style>
             

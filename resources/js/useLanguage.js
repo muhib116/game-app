@@ -20,6 +20,7 @@ const languageList = ref([
     },
 ]);
 
+const showLanguageModal = ref(false)
 
 export default function useLanguage() {
     const translate = (text, lan_from) => {
@@ -39,6 +40,7 @@ export default function useLanguage() {
         translate,
         selectedLanguage,
         languageList,
+        showLanguageModal,
         languageChanger
     };
 }

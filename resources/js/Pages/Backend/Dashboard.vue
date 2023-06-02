@@ -6,9 +6,8 @@
       </div>
       <Widgets />
 
-      <div class="py-5">
+      <!-- <div class="py-5">
         <div class="bg-white px-5 py-10 shadow-md rounded flex flex-col items-center justify-center gap-2">
-          <!-- <div class="text-xl">No item found</div> -->
           <svg xmlns="http://www.w3.org/2000/svg" class="w-44 h-44 text-slate-500" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <circle cx="9" cy="12" r="1"></circle>
@@ -19,7 +18,7 @@
             <path d="M8.5 17c0 1 -1.356 3 -1.832 3c-1.429 0 -2.698 -1.667 -3.333 -3c-.635 -1.667 -.476 -5.833 1.428 -11.5c1.388 -1.015 2.782 -1.34 4.237 -1.5l1 2.5"></path>
           </svg>
         </div>
-      </div>
+      </div> -->
     </div>
   </Master>
 </template>
