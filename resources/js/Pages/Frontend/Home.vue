@@ -1,24 +1,29 @@
 <template>
     <GlobalLayout>
-        <div class="bg-slate-100 min-h-full">
-            <nav class="w-full bg-white py-2 px-4">
-                <div class="container mx-auto flex justify-between items-center">
-                    <div>
-                        <img src="/logo.jpg" alt="" class="h-[50px] w-auto object-contain block" />
-                    </div>
-                    <div class="flex gap-5">
-                        <a href="#" class="py-1 px-5">Login</a>
-                        <button class="bg-[var(--fave)] text-white py-2 px-10 rounded-md">Login</button>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <Navigation />
+        <Banner />
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Section4 />
+        <Section5 />
+        <FormSection />
+        <Footer />
     </GlobalLayout>
 </template>
 
 <script setup>
 import GlobalLayout from '@/Components/GlobalLayout.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import Navigation from './fragment/Navigation.vue';
+import Banner from './fragment/Banner.vue';
+import Section1 from './fragment/Section1.vue';
+import Section2 from './fragment/Section2.vue';
+import Section3 from './fragment/Section3.vue';
+import Section4 from './fragment/Section4.vue';
+import Section5 from './fragment/Section5.vue';
+import FormSection from './fragment/FormSection.vue';
+import Footer from './fragment/Footer.vue';
 
 </script>
 

@@ -22,13 +22,14 @@ const languageList = ref([
 
 const showLanguageModal = ref(false)
 
+export const translate = (text, lan_from) => {
+    let lan = languages.find(item => {
+        return item[lan_from].toLowerCase() == text.toLowerCase();
+    });
+    return lan ? lan[selectedLanguage.value] : text;
+};
+
 export default function useLanguage() {
-    const translate = (text, lan_from) => {
-        let lan = languages.find(item => {
-            return item[lan_from].toLowerCase() == text.toLowerCase();
-        });
-        return lan ? lan[selectedLanguage.value] : text;
-    };
 
     const languageChanger = (lan) => {
         localStorage.setItem('language', lan);
