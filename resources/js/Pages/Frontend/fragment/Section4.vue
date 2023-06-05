@@ -1,11 +1,11 @@
 <template>
-    <section class="pb-[100px] p-5 bg-white">
+    <section class="pb-[50px] p-5 bg-white">
         <div class="max-w-[1280px] m-auto">
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 items-center">
+            <div class="mt-10 lg:mt-0 grid grid-cols-1 md:grid-cols-2 items-center">
                 <div>
                     <img class="min-w-full min-h-full" src="../img/section4_1.png" alt="">
                 </div>
-                <div class="  gap-4">
+                <div class="pt-5 lg:pt-0 gap-4">
                     <div class="flex items-center gap-4 mb-[60px]">
                         <img src="../img/section4_2.png" alt="">
                         <div>

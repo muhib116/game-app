@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,6 +23,13 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::post('/delete-gamehosts/{user}', [GameController::class, 'deleteGameHost'])->name('deleteGameHost');
     Route::get('/game/setup/{id}', [GameController::class, 'setup'])->name('game.setup');
     Route::get('/game/dashboard/{id}', [GameController::class, 'gameDashboard'])->name('game.dashboard');
+
+    Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
+    Route::post('/contacts/filter', [ContactController::class, 'filter'])->name('contacts.filter');
+    Route::post('/contacts/{contact}/seen', [ContactController::class, 'seen'])->name('contacts.seen');
+    // Route::get('/language', [LanguageController::class, 'index'])->name('language.index');
+    // Route::get('/get-language', [LanguageController::class, 'all'])->name('language.get');
+    // Route::post('/language', [LanguageController::class, 'store'])->name('language.store');
     
     Route::post('/game/save/{game?}', [GameController::class, 'save'])->name('game.save');
     Route::post('/game/list', [GameController::class, 'list'])->name('game.list');

@@ -3,7 +3,7 @@
             <div class="pb-[100px]">
                 <img class="h-[120px] m-auto" src="../img/footer.png" alt="">
             </div>
-            <div class="bg-[#000d1a]">
+            <div class="bg-[#000d1a] px-5">
                 <div class="max-w-[1200px] m-auto">
                     <div class="flex lg:justify-between  justify-center py-[40px]">
                         <div>

@@ -1,7 +1,7 @@
 <template>
     <section class="bg-white">
-        <div class="max-w-[1200px] m-auto">
-            <h1 class="text-center text-black font-[700] text-[70px] leading-[75px] ">
+        <div class="max-w-[1200px] m-auto px-4 lg:px-0">
+            <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
                 Alle elementer klare <br>
                 <span class="text-[#5ABB85]">for et fantastiske rebusløp </span>
             </h1>
@@ -31,7 +31,7 @@
 
 
                 <div>
-                    <img class="min-w-full min-h-[600px]" src="../img/section3_4.png" alt="">
+                    <img class="w-full" src="../img/section3_4.png" alt="">
                 </div>    
             </div>      
         </div>

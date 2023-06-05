@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GameController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,8 @@ Route::get('{user:username}/{gamecode}', [GameController::class, 'gameLogin']);
 Route::post('/authorizeGame', [GameController::class, 'authorizeGame'])->name('authorizeGame');
 
 Route::post('exit-game', [GameController::class, 'game_exit'])->name('game_exit');
+
+Route::post('/contact-send', [ContactController::class, 'save'])->name('saveContact');
 
 // Route::get('user/login', function () {
 //     return Inertia::render('Frontend/Login/index', [

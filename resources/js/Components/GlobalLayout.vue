@@ -15,12 +15,12 @@
             </div>
 
             <div class="flex gap-5 !justify-center mt-5 select-none">
-                <label class="flex gap-2 !text-black select-none">
-                    <input class="lan_inp l1" type="radio" value="English" name="lang" checked />
+                <label class="flex gap-2 !text-black select-none items-center">
+                    <input v-model="selectedLanguage" @change="e => languageChanger(e.target.value)" class="lan_inp l1" type="radio" value="en" name="lang" checked />
                     English
                 </label>
-                <label class="flex gap-2 !text-black select-none">
-                    <input class="lan_inp l2" type="radio" value="Norwegian" name="lang" />
+                <label class="flex gap-2 !text-black select-none items-center">
+                    <input  v-model="selectedLanguage" @change="e => languageChanger(e.target.value)" class="lan_inp l2" type="radio" value="no" name="lang" />
                     Norwegian
                 </label>
             </div>

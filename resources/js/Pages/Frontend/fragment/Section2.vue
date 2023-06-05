@@ -1,7 +1,7 @@
 <template>
     <section class="py-24 bg-white">
         <div class="m-auto grid grid-cols-1 lg:grid-cols-2 justify-center items-center">
-            <div class="bg-slate-100 relative p-4 z-10 flex justify-center lg:justify-end py-10 rounded-tr-3xl rounded-br-3xl">
+            <div class="bg-slate-100 relative p-4 z-10 flex justify-center lg:justify-end py-10 lg:rounded-tr-3xl lg:rounded-br-3xl">
                 <div class="pr-10">
                     <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
                         Hvor mange<br> 
