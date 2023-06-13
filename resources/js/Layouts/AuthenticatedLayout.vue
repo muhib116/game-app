@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import { translate } from '@/useLanguage';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -33,7 +34,7 @@ const showingNavigationDropdown = ref(false);
                                 :class="route().current('dashboard') && 'bg-[var(--fave)]'"
                             >
                                 <NavLink :href="route('dashboard')">
-                                    Dashboard
+                                    {{ translate('Dashboard') }}
                                 </NavLink>
                             </div>
                         </div>
@@ -67,9 +68,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')"> {{ translate('Profile') }} </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            {{ translate('Log Out') }}
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -116,7 +117,7 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                            {{ translate('Dashboard') }}
                         </ResponsiveNavLink>
                     </div>
 
@@ -130,9 +131,9 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('profile.edit')"> {{ translate('Profile') }} </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                {{ translate('Log Out') }}
                             </ResponsiveNavLink>
                         </div>
                     </div>

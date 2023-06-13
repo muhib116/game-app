@@ -1,35 +1,35 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Create game host</p>
+            <p className="text-2xl font-bold text-black">{{ translate('Create game host') }}</p>
         </div>
         <div class="px-5 py-5">
             <div class="bg-white p-5 rounded-md shadow-md">
                 <form class="max-w-[500px] grid gap-4" @submit.prevent="saveGameHost">
                     <div class="w-full grid gap-1">
-                        <div>Game host name</div>
-                        <input type="text" v-model="form.name" placeholder="Name" class="w-full" required />
+                        <div>{{ translate('Game host name') }}</div>
+                        <input type="text" v-model="form.name" :placeholder="translate('Name')" class="w-full" required />
                         <span class="text-red-500" v-if="form.errors.name">{{ form.errors.name }}</span>
                     </div>
                     <div class="w-full grid gap-1">
-                        <div>Unique game host username</div>
-                        <input type="text" v-model="form.username" placeholder="username" class="w-full" required />
+                        <div>{{ translate('Unique game host username') }}</div>
+                        <input type="text" v-model="form.username" :placeholder="translate('Username')" class="w-full" required />
                         <span class="text-red-500" v-if="form.errors.username">{{ form.errors.username }}</span>
                     </div>
                     <div class="w-full grid gap-1">
-                        <div>Unique email</div>
+                        <div>{{ translate('Unique email') }}</div>
                         <input type="email" v-model="form.email" placeholder="Email" class="w-full" required />
                         <span class="text-red-500" v-if="form.errors.email">{{ form.errors.email }}</span>
                     </div>
                     <div class="w-full grid gap-1">
-                        <div>Password</div>
-                        <input type="text" v-model="form.password" placeholder="Password" class="w-full" :required="!form.id" />
+                        <div>{{ translate('Password') }}</div>
+                        <input type="text" v-model="form.password" :placeholder="translate('Password')" class="w-full" :required="!form.id" />
                         <span class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <label class="flex gap-2 items-center">
                             <input type="checkbox" v-model="form.status" />
-                            Game host status
+                            {{ translate('Game host status') }}
                         </label>
                         <span class="text-red-500" v-if="form.errors.status">{{ form.errors.status }}</span>
                     </div>
@@ -38,10 +38,10 @@
                             <button type="submit" class="py-2 px-5 bg-slate-800 text-white flex items-center" :disabled="form.processing">
                                 <Preloader v-if="form.processing" />
                                 <template v-if="form.id">
-                                    Update
+                                    {{ translate('Update') }}
                                 </template>
                                 <template v-else>
-                                    Save
+                                    {{ translate('Save') }}
                                 </template>
                             </button>
                         </div>
@@ -60,6 +60,7 @@ import { watch, onMounted } from 'vue'
 
 import { slug } from '@/helper'
 import { get, isEmpty } from 'lodash';
+import { translate } from '@/useLanguage';
 
 const props = defineProps({
     gamehost: {

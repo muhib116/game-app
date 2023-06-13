@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::post('/contacts/filter', [ContactController::class, 'filter'])->name('contacts.filter');
     Route::post('/contacts/{contact}/seen', [ContactController::class, 'seen'])->name('contacts.seen');
+
     // Route::get('/language', [LanguageController::class, 'index'])->name('language.index');
     // Route::get('/get-language', [LanguageController::class, 'all'])->name('language.get');
     // Route::post('/language', [LanguageController::class, 'store'])->name('language.store');

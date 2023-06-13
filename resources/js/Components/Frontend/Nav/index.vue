@@ -10,11 +10,11 @@
         </svg>
       </button>
       <div>
-        GAME INFO
+        {{ translate('GAME INFO') }}
       </div>
       <div>
         <form @submit.prevent="quiteGame" method="POST">
-          <button class="text-white bg-red-500 px-3 rounded">Quit</button>
+          <button class="text-white bg-red-500 px-3 rounded">{{ translate('Quit') }}</button>
         </form>
       </div>
     </div>
@@ -50,14 +50,14 @@
           </Dropdown> 
         </template> 
         <Link v-if="get($page, 'props.gameData.login.showTeamScore')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
-          Your team score
+          {{ translate('Your team score') }}
         </Link>
         <!-- {{ get($page, 'props.gameData.login.photoStream') }} -->
         <Link v-if="get($page, 'props.gameData.login.photoStream')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/photostream`" class='text-left'>
-          Photostream
+          {{ translate('Photostream') }}
         </Link>
         <Link v-if="get($page, 'props.gameData.login.showScoreboard')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/totalScoreboard`" class='text-left'>
-          Total Scores
+          {{ translate('Total Scores') }}
         </Link>
       </div>
     </div>
@@ -72,6 +72,7 @@
   import { useGlobalSetting } from '@/helper';
   import { Inertia } from '@inertiajs/inertia';
   import { Link } from '@inertiajs/inertia-vue3';
+import { translate } from '@/useLanguage';
   const showDrawer = ref(false)
   const { asideActive, closeAside } = useGlobalSetting();
   const { componentList, index, selectSteap, nextSteap, shouldShow, showIndex } = useGameHandle();

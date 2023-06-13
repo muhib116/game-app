@@ -1,7 +1,7 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Games</p> 
+            <p className="text-2xl font-bold text-black">{{ translate('Games') }}</p> 
         </div>
         <Nav :options="options" :setOptions="options" @handleNav="handleNav" />
         <component :is="activeComponent" :next="nextComponent" /> 
@@ -18,6 +18,7 @@
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
     import gameDrain from '@/Components/Backend/Game/gameDrain'
     import { findIndex } from 'lodash'
+import { translate } from '@/useLanguage'
 
     const { gamePayload } = useConnfiguration();
     const { gameList } = gameDrain();
@@ -27,19 +28,19 @@
     const options = ref([
         {
             id: 'LoginSetup',
-            title: 'Login Page Setup',
+            title: translate('Login Page Setup'),
             component: LoginSetup,
             isActive: true
         },
         {
             id: 'InstructionSetup',
-            title: 'Instruction Setup',
+            title: translate('Instruction Setup'),
             component: InstructionSetup,
             isActive: false
         },
         {
             id: 'TaskCreate',
-            title: 'Task Create',
+            title: translate('Task Create'),
             component: TaskCreate,
             isActive: false
         }

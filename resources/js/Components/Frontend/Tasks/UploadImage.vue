@@ -4,7 +4,7 @@
             
             <div v-if="controlBy=='admin'" class="max-w-[500px] mx-auto">
                 <label class="my-4 mt-5 flex-col flex justify-center">
-                    Deadline
+                    {{ translate('Deadline') }}
                     <input type="datetime-local" v-model="getSelected(gamePayload.tasks).data.deadline" class="border-slate-400 rounded">
                 </label>
                 <!-- <el-date-picker
@@ -21,12 +21,12 @@
                 
                 <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
                     <label class="my-4 mt-5 flex flex-col justify-center">
-                        Point
-                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4 border-slate-400 rounded" placeholder="Task point">
+                        {{ translate('Point') }}
+                        <input v-model="getSelected(gamePayload.tasks).data.point" type="number" class="py-2 px-4 border-slate-400 rounded" :placeholder="translate('Task point')">
                     </label>
                     <label class="my-4 mt-5 flex flex-col justify-center">
-                        Extra Point
-                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4 border-slate-400 rounded" placeholder="Extra point">
+                        {{ translate('Extra Point') }}
+                        <input v-model="getSelected(gamePayload.tasks).data.extraPoint" type="number" class="py-2 px-4 border-slate-400 rounded" :placeholder="translate('Extra point')">
                     </label>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
                     </svg>
-                    UPLOAD IMAGE
+                    {{ translate('UPLOAD IMAGE') }}
                     <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
                 </label>
                 <div class='text-black text-opacity-80'>
@@ -74,15 +74,15 @@
                 </div>
                 <div class="text-left w-full py-4">
                     <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
-                        Deadline: 
+                        {{ translate('Deadline') }}: 
                         {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
                     </div>
                     <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
-                        Points: 
+                        {{ translate('Points') }}: 
                         {{ get(task, 'data.point') }}
                     </div>
                     <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.extraPoint')">
-                        Extra point: 
+                        {{ translate('Extra point') }}: 
                         {{ get(task, 'data.extraPoint') }}
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        Task Completed
+                        {{ translate('Task Completed') }}
                     </span>
                 </div>
             </div>
@@ -103,7 +103,7 @@
         v-if="!isStarted && controlBy != 'admin'"
         class="absolute bottom-4 p-1 right-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
     >
-        Start task
+        {{ translate('Start task') }}
     </button>
 
     <div 
@@ -117,10 +117,10 @@
             >
                 <Preloader v-if="adminImageLoading" />
                 <template v-if="imgLink">
-                    Use another
+                    {{ translate('Use another') }}
                 </template>
                 <template v-else>
-                    Upload Image
+                    {{ translate('Upload Image') }}
                 </template>
                 <input @change="(e) => handleUpload(e.target.files[0])" type='file' hidden accept="image/*" />
             </label>
@@ -133,7 +133,7 @@
                     @click="handleSave(game.id, task.id)" 
                     class="p-1 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
                 >
-                    Submit
+                    {{ translate('Submit') }}
                 </button>
             </div>
         </template>
@@ -152,6 +152,7 @@
     import { Inertia } from "@inertiajs/inertia";
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css'
+import { translate } from "@/useLanguage";
 
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
@@ -236,7 +237,7 @@
                 emit('skip', true)
             }
         } else {
-            alert('Cannot submit empty value');
+            alert(translate('Cannot submit empty value'));
         }
     }
 

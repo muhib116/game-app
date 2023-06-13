@@ -3,16 +3,16 @@
         <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy=='admin'">
             <div className='flex items-center gap-3'>
             <label className='flex gap-2 text-xs items-center'>
-                Color: 
+                {{ translate('Color') }}: 
                 <span className="w-6 h-3 bg-[var(--dbg)] border-[1px] cursor-pointer" :style="`--dbg: ${data.settings.color}`"></span>
                 <input v-model="data.settings.color" type="color" className='w-4 h-4 absolute opacity-0' />
             </label>
             <label className='flex gap-2 items-center text-xs'>
-                Opacity: 
+                {{ translate('Opacity') }}: 
                 <input type="number" v-model="data.settings.opacity" min="0" max="100" className='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
             </label>
             <label className='cursor-pointer flex gap-2 text-xs items-center'>
-                Image
+                {{ translate('Image') }}
                 <input type='file' hidden @change="(e) => {
                     handleUpload(e.target.files[0], e);
                 }" accept="image/*" />
@@ -20,7 +20,7 @@
             </label>
             </div>
             <label className='cursor-pointer flex gap-2 text-xs items-center'>
-                Show
+                {{ translate('Show') }}
                 <input type="checkbox" v-model="data.show" />
             </label>
         </div>
@@ -31,19 +31,20 @@
             <img v-if="data.settings.image" :src="data.settings.image" class='h-full z-[-2] top-0 left-0 bottom-0 right-0 absolute block w-full object-cover object-center' />
 
             <div v-if="controlBy!='admin'" class="font-black text-left text-xl mb-9 mt-4 text-[var(--dbg)]">
-                Instructions
+                {{ translate('Instructions') }}
             </div>
             <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full text-[var(--dbg)] min-h-[300px]"></textarea>
             <p v-else class="bg-transparent border-0 w-full text-[var(--dbg)] overflow-y-auto h-[68%]" v-html="data.text"></p>
         </div>
         <template v-if="controlBy=='admin'">
-            <button v-if="data.settings.image" @click="handleRemove(data.settings.image)" className='bg-red-500 py-2 px-4 w-full text-white font-bold self-end'>Remove Image</button>
+            <button v-if="data.settings.image" @click="handleRemove(data.settings.image)" className='bg-red-500 py-2 px-4 w-full text-white font-bold self-end'>{{ translate('Remove Image') }}</button>
         </template>
     </div>
 </template>
 
 <script setup>
     import useFileUpload from '@/useFileUpload';
+import { translate } from '@/useLanguage';
     import { get } from 'lodash';
 
     const { handleImageUpload, deleteImage } = useFileUpload();

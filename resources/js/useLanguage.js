@@ -2,26 +2,87 @@ import { ref, onMounted } from "vue";
 
 const languages = [
     {
-        en: 'Rebus run made',
-        no: 'Rebusløp gjort'
+        en: "en",
+        no: "non-en",
     },
     {
-        en: 'easy!',
-        no: 'enkelt'
+        en: "Email",
+        no: "Epost",
     },
     {
-        en: 'This is the super simple puzzle app that works',
-        no: 'Dette er den super enkle rebusløp-appen som fungerer'
+        en: "Password",
+        no: "Passord",
     },
     {
-        en: 'without you or the participants needing to download and install',
-        no: 'uten at du eller deltagerne trenger å laste ned og installere'
+        en: "Remember me",
+        no: "Husk meg neste gang!",
     },
     {
-        en: 'without you or the participants needing to download and install',
-        no: 'software or provide personal information.'
+        en: "Forgot your password?",
+        no: "Glemt ditt passord?",
+    },
+    {
+        en: "LOG IN",
+        no: "Logg inn",
+    },
+    {
+        en: "Dashboard",
+        no: "Hjem",
+    },
+    {
+        en: "Welcome to Gamehost",
+        no: "Velkommen til rebusløp.no",
+    },
+    {
+        en: "Create new game",
+        no: "Lag nytt rebusløp",
+    },
+    {
+        en: "=? Existing game",
+        no: "Se eksisterende rebusløp",
+    },
+    {
+        en: "+? Existing game",
+        no: "Se eksisterende rebusløp",
+    },
+    {
+        en: "Files",
+        no: "Filer",
+    },
+    {
+        en: "Profile",
+        no: "Din profil",
+    },
+    {
+        en: "Logout",
+        no: "Logg ut",
+    },
+    {
+        en: "PUBLISHED GAME",
+        no: "Antall aktive rebusløp",
+    },
+    {
+        en: "UN PUBLISHED GAME TOTAL",
+        no: "Ikke aktiverte rebusløp",
+    },
+    {
+        en: "COMPLETE GAME",
+        no: "Ferdige/avsluttede rebusløp",
+    },
+    {
+        en: "Login Page Setup",
+        no: "Innloggings side",
+    },
+    {
+        en: "Instruction Setup",
+        no: "Rebus instruksjon",
+    },
+    {
+        en: "Task Create",
+        no: "Legg til oppgaver",
     },
 ]
+
 
 const selectedLanguage = ref('en');
 
@@ -38,15 +99,17 @@ const languageList = ref([
 
 const showLanguageModal = ref(false)
 
-
+const translate = (text, lan_from='en') => {
+    let lan = languages.find(item => {
+        return item[lan_from].toLowerCase() == text.toLowerCase();
+    });
+    return lan ? lan[selectedLanguage.value] : text;
+};
+export {
+    translate
+}
 export default function useLanguage() {
 
-    const translate = (text, lan_from) => {
-        let lan = languages.find(item => {
-            return item[lan_from].toLowerCase() == text.toLowerCase();
-        });
-        return lan ? lan[selectedLanguage.value] : text;
-    };
     const languageChanger = (lan) => {
         localStorage.setItem('language', lan);
         showLanguageModal.value = false;

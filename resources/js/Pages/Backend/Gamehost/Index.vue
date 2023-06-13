@@ -1,7 +1,7 @@
 <template>
     <Master>
         <div className="flex justify-between p-5 bg-white">
-            <p className="text-2xl font-bold text-black">Game host</p>
+            <p className="text-2xl font-bold text-black">{{ translate('Game host') }}</p>
             <Link :href="route('createGameHost')" class="py-1 px-4 bg-slate-800 text-white rounded">+ Create</Link>
         </div>
         <div class="px-5 py-5">
@@ -10,12 +10,12 @@
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="text-left font-bold bg-slate-100">
-                                <th class="py-2 px-2 text-center">Index</th>
-                                <th class="py-2 px-2 text-center">Host Name</th>
-                                <th class="py-2 px-2 text-center">Email</th>
-                                <th class="py-2 px-2 text-center">Total game</th> 
-                                <th class="py-2 px-2 text-center">Status</th> 
-                                <th class="py-2 px-2 text-center">Action</th> 
+                                <th class="py-2 px-2 text-center">{{ translate('Index') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Host Name') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Email') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Total game') }}</th> 
+                                <th class="py-2 px-2 text-center">{{ translate('Status') }}</th> 
+                                <th class="py-2 px-2 text-center">{{ translate('Action') }}</th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -33,8 +33,8 @@
                                     {{ host.game_count }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="py-px px-2 bg-green-200 rounded text-green-700" v-if="host.status">Active</span>
-                                    <span class="py-px px-2 bg-red-200 rounded text-red-700" v-else>Inactive</span>
+                                    <span class="py-px px-2 bg-green-200 rounded text-green-700" v-if="host.status">{{ translate('Active') }}</span>
+                                    <span class="py-px px-2 bg-red-200 rounded text-red-700" v-else>{{ translate('Inactive') }}</span>
                                 </td>
                                 <td class="text-center">
                                     <div class="flex items-center">
@@ -64,6 +64,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 import Master from '../Master.vue'
 import { Inertia } from '@inertiajs/inertia';
 import Swal from 'sweetalert2'
+import { translate } from '@/useLanguage';
 
 defineProps({
     gamehosts: Array,
@@ -72,8 +73,8 @@ defineProps({
 const deleteGameHost = (id) => {
     Swal.fire({
         icon: 'info',
-        title: 'Are you sure to delete this gamehost?',
-        text: 'This action cannot be undone. All game of this gamehost will be deleted.',
+        title: translate('Are you sure to delete this gamehost?'),
+        text: translate('This action cannot be undone. All game of this gamehost will be deleted.'),
         showCancelButton: true,
         cancelButtonColor: '#f00',
     }).then(res => {

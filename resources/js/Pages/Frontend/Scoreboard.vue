@@ -2,17 +2,17 @@
     <Master  :showNavigation="true" :gameData="gameData">
         <div class="py-5 px-5 bg-[var(--fave)] h-full overflow-y-auto">
             <div class="font-bold text-xl">
-                Scoreboard 
+                {{ translate('Scoreboard', 'en') }} 
             </div>
             <div class="py-5">
                 <template v-for="(team, index) in result" :key="index">
                     <div class="flex flex-wrap mt-4">
                         <div>
                             <span class="text-xl bg-slate-100/30 rounded px-2">
-                                Team: <strong>{{ team.name }}</strong>
+                                {{ translate('Team', 'en') }}: <strong>{{ team.name }}</strong>
                             </span>
                         </div>
-                        <div class="relative w-full myDiv">
+                        <div class="relative w-full myDiv" :style="`--cont:${translate('No score found!', 'en')}`">
                             <template v-for="(task, index) in gameData.tasks" :key="index">
                                 <div 
                                     v-if="
@@ -48,10 +48,11 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/inertia-vue3'
 import axios from 'axios';
+import useLanguage from '@/useLanguage';
 // const props = defineProps({
 //     gameData: Object
 // })
-
+const { translate } = useLanguage()
 const result = ref([]);
 const gameData = ref({});
 
@@ -117,7 +118,7 @@ const getTotalPoint = (teamCode, tasks) => {
 
 <style scoped>
 .myDiv:empty::before{
-    content: 'No score found!';
+    content: var(--cont);
     color: #00000081;
     font-size: 15px;
 }

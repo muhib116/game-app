@@ -2,7 +2,7 @@
     <Master  :showNavigation="true" :gameData="gameData">
         <div class="py-5 px-5 bg-[var(--fave)] h-full overflow-y-auto">
             <div class="font-bold text-xl">
-                Photo Stream 
+                {{ translate('Photo Stream', 'en') }} 
             </div>
             <div class="py-5 myDiv flex flex-col gap-1" v-if="get(gameData, 'login.photoStream')">
                 <template v-if="!isEmpty(byGroup())">
@@ -25,12 +25,13 @@ import { isEmpty, forEach, get, find } from 'lodash';
 import { onMounted, ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/inertia-vue3'
+import useLanguage from '@/useLanguage';
 const props = defineProps({
     gameData: Object
 })
 
 const result = ref([]);
-
+const {translate} = useLanguage()
 
 onMounted(()=>{
     generateResult()

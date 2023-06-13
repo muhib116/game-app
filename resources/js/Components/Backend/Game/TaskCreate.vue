@@ -2,10 +2,10 @@
     <div class='p-5'>
         <div class="bg-white shadow rounded mt-5">
             <div class="p-4 bg-[#fefefe] border-b font-bold text-black">
-                Task Create
+                {{ translate('Task Create') }}
             </div>
             <div class="p-4 flex gap-2 flex-wrap items-center">
-                <span class='font-bold'>Add Template: </span> 
+                <span class='font-bold'>{{ translate('Add Template') }}: </span> 
                 <button 
                     v-for="item in components" 
                     :key="item.name" 
@@ -25,7 +25,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"></path>
                     </svg>
-                    {{ item.name }}
+                    {{ translate(item.name) }}
                 </button>
             </div>
         </div>
@@ -42,14 +42,14 @@
                     <button class='absolute top-2 right-2' @click="removeItem(index, gamePayload.tasks)">
                         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="m7 7 10 10M7 17 17 7"/></svg>
                     </button>
-                    {{ item.name }}
+                    {{ translate(item.name) }}
                 </h1> 
             </div>
             <div class="w-full p-4">
                 <component :is="getSelectedComponent(gamePayload.tasks)" controlBy="admin" />
                 <div class="flex">
                     <Link :href="route('game')" v-if="gamePayload.tasks[gamePayload.tasks.length-1]?.isSelected" class="bg-[var(--faveDark)] text-white py-2 px-3 rounded ml-auto block">
-                        Finish Up
+                        {{ translate('Finish Up') }}
                     </Link>
                 </div>
             </div>
@@ -63,6 +63,7 @@
     import QRCodeFinder from '@/Components/Frontend/Tasks/QRCodeFinder.vue'
     import { onMounted } from '@vue/runtime-core'
     import { Link } from '@inertiajs/inertia-vue3';
+import { translate } from '@/useLanguage';
 
     const { components, componentList, makeSelected, addTemplate, removeItem } = useTaskCreate() 
     const { config, gamePayload } = useConnfiguration();

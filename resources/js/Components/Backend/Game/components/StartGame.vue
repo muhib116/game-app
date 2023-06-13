@@ -3,7 +3,7 @@
         <div className="py-0 px-2 h-[40px] bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy == 'admin'">
             <div className='flex items-center gap-3'></div>
             <label className='cursor-pointer flex gap-2 text-xs items-center py-2.5'>
-                Show
+                {{ translate('Show') }}
                 <input type="checkbox" v-model="data.show" />
             </label>
         </div>
@@ -15,8 +15,8 @@
         <iframe :src="`https://maps.google.com/maps?q=${data.settings.longtide},${data.settings.lattitude}&z=19&output=embed`" height="400" class='w-full' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg h-full'>
-            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.longtide" placeholder="Longtide" />
-            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.lattitude" placeholder="Lattitude" />            
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.longtide" :placeholder="translate('Longtide')" />
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.lattitude" :placeholder="translate('Lattitude')" />            
             <textarea class='w-full block text-center bg-transparent border-none mb-2' v-model="data.description" rows="3" v-if="controlBy == 'admin'" />
             <p v-else class="w-full block text-center bg-transparent border-none mb-2 h-[168px] overflow-y-auto ">{{ data.description }}</p>
         </div>
@@ -27,6 +27,7 @@
 <script setup>
 import { get } from 'lodash'
 import useFileUpload from '@/useFileUpload';
+import { translate } from '@/useLanguage';
 const { handleImageUpload, deleteImage } = useFileUpload();
 
 const props = defineProps({

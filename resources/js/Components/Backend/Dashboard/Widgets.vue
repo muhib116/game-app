@@ -5,7 +5,7 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-blueGray-400 uppercase font-bold text-xs">Total Gamehost</h5>
+							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('Total Gamehost') }}</h5>
 							<span class="font-bold text-xl">{{ get($page.props, 'totalGamehost') }}</span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
@@ -28,7 +28,7 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-blueGray-400 uppercase font-bold text-xs">Published game</h5>
+							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('Published game') }}</h5>
 							<span class="font-bold text-xl">{{ get($page.props, 'publishedGame') }}</span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
@@ -53,7 +53,7 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-blueGray-400 uppercase font-bold text-xs">Un Published game</h5>
+							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('Un Published game') }}</h5>
 							<span class="font-bold text-xl">{{ get($page.props, 'unPublishedGame') }}</span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
@@ -73,7 +73,7 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-blueGray-400 uppercase font-bold text-xs">Total Complete Game</h5>
+							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('Total Complete Game') }}</h5>
 							<span class="font-bold text-xl">{{ get($page.props, 'completeGame') }}</span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
@@ -95,5 +95,6 @@
 </template>
 
 <script setup>
+import { translate } from '@/useLanguage';
 import { get } from 'lodash'
 </script>

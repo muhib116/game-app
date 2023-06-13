@@ -2,12 +2,12 @@
   <Master :showNavigation="false">
     <div class="py-4 px-8 h-[100vh] grid items-center bg-no-repeat bg-cover relative text-white text-opacity-80 wrapper" :style="`background-image: url(${game.image})`">
       <div class="relative z-10 box grid max-h-[400px] h-full">
-        <h1 class='text-4xl font-black text-center self-start'>Sign In</h1>
+        <h1 class='text-4xl font-black text-center self-start'>{{ translate('Sign In', 'en') }}</h1>
         <form class="grid gap-10 self-end" @submit.prevent="handleAuthorize"> 
-          <input class="text-black" label='Game code' type='text' v-model="gameForm.team" placeholder="Team Code" required /> 
-          <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" placeholder="Game Code" required /> 
-          <input class="text-black" label='Password' type='text' v-model="gameForm.password" placeholder="Game Password" required /> 
-          <Button type="submit" label='SIGN IN' />
+          <input class="text-black" label='Game code' type='text' v-model="gameForm.team" :placeholder="translate('Team Code', 'en')" required /> 
+          <input class="text-black" label='Game code' type='text' v-model="gameForm.gameCode" :placeholder="translate('Game Code', 'en')" required /> 
+          <input class="text-black" label='Password' type='text' v-model="gameForm.password" :placeholder="translate('Game Password', 'en')" required /> 
+          <Button type="submit" :label="translate('SIGN IN', 'en')" />
         </form>
       </div>
     </div>
@@ -28,6 +28,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3';
 import FlashScreen from '@/Components/Frontend/Popup/FlashScreen.vue';
 import PresentedByScreen from '@/Components/Frontend/Popup/PresentedByScreen.vue';
+import useLanguage from '@/useLanguage';
 import {ref} from 'vue'
 
 const gameForm = useForm({
@@ -35,6 +36,8 @@ const gameForm = useForm({
   password: '',
   team: '',
 });
+
+const { translate } = useLanguage()
 
 defineProps({
   game: {

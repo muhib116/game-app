@@ -2,7 +2,7 @@
     <Master  :showNavigation="true" :gameData="gameData">
         <div class="py-5 px-5 bg-[var(--fave)] h-[calc(100vh-48px)] overflow-y-auto">
             <div class="font-bold text-xl text-center">
-                Total Score 
+                {{ translate('Total Score', 'en') }}
             </div>
             <div class="py-5">
                 <template v-for="(team, index) in result" :key="index">
@@ -15,7 +15,7 @@
                     </div>
                 </template>
                 <div v-if="resultTotal == 0" class="text-black text-opacity-40 text-center">
-                    No score found
+                    {{ translate('No score found', 'en') }}
                 </div>
             </div>
         </div>
@@ -25,11 +25,12 @@
 import Master from './Master.vue'
 import { isArray, forEach } from 'lodash';
 import { onMounted, ref } from 'vue'
-
+import useLanguage from '@/useLanguage';
 const props = defineProps({
     gameData: Object
 })
 
+const { translate } = useLanguage()
 const result = ref([]);
 const resultTotal = ref(0);
 

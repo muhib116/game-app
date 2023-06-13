@@ -9,13 +9,14 @@
         ></i>
         <div class="w-full max-w-xl">
             <textarea class="w-full" v-model="answer" rows="3" placeholder="Write your answer"></textarea>
-            <button @click="() => handleSubmit(game.id, task.id)" class="mt-3 py-1 px-4 bg-[var(--fave)] text-black shadow-md rounded">Submit</button>
+            <button @click="() => handleSubmit(game.id, task.id)" class="mt-3 py-1 px-4 bg-[var(--fave)] text-black shadow-md rounded">{{ translate('Submit') }}</button>
         </div>
     </div>
 </template>
 
 <script setup>
     import gameDrain from '@/Components/Backend/Game/gameDrain';
+import { translate } from '@/useLanguage';
     import axios from 'axios'
     import { ref, onMounted } from 'vue'
     const { saveUserData } = gameDrain();

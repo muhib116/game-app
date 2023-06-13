@@ -3,16 +3,16 @@
       <div class="py-2 px-2 bg-white z-10 flex justify-between items-center gap-3 border-b" v-if="controlBy=='admin'">
         <div class='flex h-[25px] items-center gap-3'>
           <label class='flex gap-2 text-xs items-center'>
-            Color:
+            {{ translate('Color') }}:
             <span class="w-6 h-3 bg-[var(--dbg)] border-[1px] cursor-pointer" :style="`--dbg: ${data.settings.color}`"></span>
             <input v-model="data.settings.color" type="color" class='w-4 h-4 absolute opacity-0' />
           </label>
           <label class='flex gap-2 items-center text-xs'>
-            Opacity:
+            {{ translate('Opacity') }}:
             <input type="number" v-model="data.settings.opacity" min="0" max="100" class='w-12 h-4 bg-transparent block px-0 pl-1 text-xs border-1' />
           </label>
           <label class='cursor-pointer flex gap-2 text-xs items-center'>
-            Image
+            {{ translate('Image') }}
             <input type='file' hidden @change="(e) => {
               handleUpload(e.target.files[0], e);
             }" accept="image/*" />
@@ -22,7 +22,7 @@
           </label>
         </div>
         <label class='cursor-pointer flex gap-2 text-xs items-center'>
-          Show
+          {{ translate('Show') }}
           <input type="checkbox" v-model="data.show" />
         </label>
       </div>
@@ -53,6 +53,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import useFileUpload from '@/useFileUpload';
+import { translate } from '@/useLanguage';
 
 const { handleImageUpload, deleteImage } = useFileUpload();
 const props = defineProps({

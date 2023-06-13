@@ -7,7 +7,7 @@
                 class='bg-black text-white px-4 py-1 rounded flex gap-1' 
                 v-if="!loading.save"
             >
-                + Start Creating Game
+                + {{ translate('Start Creating Game') }}
             </button>
         <Preloader v-if="loading.save" />
         </div>
@@ -15,7 +15,7 @@
             <div class="flex items-center justify-center min-h-[400px]" v-if="loading.list">
                 <div class="flex flex-col items-center gap-4">
                     <Preloader />
-                    Loading...
+                    {{ translate('Loading') }}...
                 </div>
             </div>
             <div v-else class="mt-5 bg-white py-5 px-5 rounded shadow-md">
@@ -26,11 +26,11 @@
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="text-left font-bold bg-slate-100">
-                                <th class="py-2 px-2">Game host</th>
-                                <th class="py-2 px-2">Total task</th>
-                                <th class="py-2 px-2 text-center">Status</th>
-                                <th class="py-2 px-2 w-36 text-center">Info</th>
-                                <th class="py-2 px-2 text-center">Action</th>
+                                <th class="py-2 px-2">{{ translate('Game host') }}</th>
+                                <th class="py-2 px-2">{{ translate('Total task') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Status') }}</th>
+                                <th class="py-2 px-2 w-36 text-center">{{ translate('Info') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,7 +50,7 @@
                                         font-semibold
                                         text-white items-center"
                                     >
-                                        Click to Publish
+                                        {{ translate('Click to Publish') }}
                                     </button>
                                     <button 
                                         @click="handlePublish(game)"
@@ -60,7 +60,7 @@
                                         bg-transparent font-bold flex items-center mx-auto
                                         text-green-700"
                                     >
-                                        Published <span v-if="game.start_time">(Game started)</span>
+                                        {{ translate('Published') }} <span v-if="game.start_time">({{ translate('Game started') }})</span>
                                     </button>
                                 </td>
                                 <td class="text-center">
@@ -76,13 +76,13 @@
                                             <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"></path>
                                             </svg>
-                                            Copy
+                                            {{ translate('Copy') }}
                                         </button>
                                         <a v-if="game.status == 'published'" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`" class="py-px px-3 bg-[var(--fave)] text-white rounded">
-                                            View
+                                            {{ translate('View') }}
                                         </a>
                                         <button v-else class="py-px px-3 bg-[var(--fave)] text-white rounded">
-                                            View
+                                            {{ translate('View') }}
                                         </button>
                                     </div>
                                     <div v-else>
@@ -92,7 +92,7 @@
                                             flex items-center font-bold justify-center
                                             text-green-700"
                                         >
-                                            Complete
+                                            {{ translate('Complete') }}
                                         </span>
                                     </div>
                                 </td>
@@ -136,28 +136,28 @@
                         <i class="fa fa-times"></i>
                     </button>
                     <div class="w-full max-h-[90vh] overflow-y-auto">
-                        <h2 class="text-xl font-bold text-center mb-2">Team list</h2>
+                        <h2 class="text-xl font-bold text-center mb-2">{{ translate('Team list') }}</h2>
                         <div class="divide-y">
                             <template v-for="(item, index) in teamList" :key="index">
                                 <div class="py-4 flex justify-between items-center gap-1">
                                     <div>
                                         <div>
-                                            URL: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
+                                            {{ translate('URL') }}: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
                                         </div>
                                         <div>
-                                            Teamcode: <strong class="font-bold">{{ item.teamCode }}</strong>
+                                            {{ translate('Teamcode') }}: <strong class="font-bold">{{ item.teamCode }}</strong>
                                         </div>
                                         <div>
-                                            Gamecode: <strong class="font-bold">{{ copyGame.login.gameCode }}</strong>
+                                            {{ translate('Gamecode') }}: <strong class="font-bold">{{ copyGame.login.gameCode }}</strong>
                                         </div>
                                         <div>
-                                            Password: <strong class="font-bold">{{ copyGame.login.gamePassword }}</strong>
+                                            {{ translate('Password') }}: <strong class="font-bold">{{ copyGame.login.gamePassword }}</strong>
                                         </div>
                                         <div>
-                                            Teamname: <strong class="font-bold">{{ item.teamName }}</strong>
+                                            {{ translate('Teamname') }}: <strong class="font-bold">{{ item.teamName }}</strong>
                                         </div> 
                                     </div>
-                                    <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">Copy</button>
+                                    <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">{{ translate('Copy') }}</button>
                                 </div>
                             </template>
                         </div>
@@ -179,6 +179,7 @@ import Master from '../Master.vue'
 import { Inertia } from '@inertiajs/inertia';
 import { useToast } from "vue-toastification";
 import axios from 'axios';
+import { translate } from '@/useLanguage';
 
 const toast = useToast();
 const { gamePayload, defaultGamePayload } = useConnfiguration();
@@ -218,9 +219,9 @@ const closeCopyPopup = () => {
 
 // copyLink(`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle} \nGame code: ${game.login.gameCode} \nGame password: ${game.login.gamePassword}`)
 const copyLink = (team, game) => {  
-    let link = `Team Name: ${team.teamName}\n${page.props.value.ziggy.url}/${game.user.username}/${game.login.gameTitle}\nTeam code: ${team.teamCode}\nGame code: ${game.login.gameCode}\nGame password: ${game.login.gamePassword}`;
+    let link = `${translate('Team Name')}: ${team.teamName}\n${page.props.value.ziggy.url}/${game.user.username}/${game.login.gameTitle}\n${translate('Team code')}: ${team.teamCode}\n${translate('Game code')}: ${game.login.gameCode}\n${translate('Game password')}: ${game.login.gamePassword}`;
     navigator.clipboard.writeText(link);
-    toast.success('Game data is copyied!');
+    toast.success(translate('Game data is copyied!'));
     closeCopyPopup();
 }
 // http://127.0.0.1:8000/username/another 
@@ -228,7 +229,7 @@ const copyLink = (team, game) => {
 // Game code: another 
 // Game password: another
 const handleDelete = (game) => {
-    if (confirm('Are you sure?')) {
+    if (confirm(translate('Are you sure?'))) {
         loading.value.list = true;
         axios.post(route('game.delete', game.id))
             .then(res => res.data)
@@ -236,7 +237,7 @@ const handleDelete = (game) => {
                 loading.value.list = false;
                 const data = await gameList();
                 games.value = data;
-                toast.success('Game delete successfully!', {
+                toast.success(translate('Game delete successfully'), {
                     position: 'top-center',
                 });
             });
@@ -249,7 +250,7 @@ const handleDelete = (game) => {
 }
 
 const handlePublish = (game) => {
-    if (confirm('Are you sure?')) {
+    if (confirm(translate('Are you sure?'))) {
         publishLoading.value = true;
         axios.post(route('game.publish', game.id))
             .then(res => res.data)

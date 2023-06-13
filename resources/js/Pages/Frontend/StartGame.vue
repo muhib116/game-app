@@ -20,7 +20,7 @@
                 <span></span>
 
                 <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-black' @click="skipTask(gameData.tasks)">
-                    Next
+                    {{ translate('Next', 'en') }}
                 </button>
             </div>
 
@@ -36,8 +36,9 @@ import { Link } from '@inertiajs/inertia-vue3'
 import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
 import { ref, onMounted } from 'vue';
 import FlashSuccess from '@/Components/Frontend/Popup/FlashSuccess.vue';
-
+import useLanguage from '@/useLanguage';
 const { componentList } = useTaskCreate();
+const { translate } = useLanguage();
 
 defineProps({
     gameData: Object

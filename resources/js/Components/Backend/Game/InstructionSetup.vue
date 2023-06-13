@@ -2,7 +2,7 @@
     <div className='p-5'>
         <div className="bg-white shadow rounded mt-5">
             <div className="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
-                Game Instruction
+                {{ translate('Game Instruction') }}
                 <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">Next</button>
             </div>
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -21,6 +21,7 @@
     import image_one from '@/Assets/image-one.jpg'
     import useConnfiguration from './useConnfiguration'
     import { ref } from 'vue'
+import { translate } from '@/useLanguage'
 
     defineProps({
         next: Function

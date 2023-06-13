@@ -17,21 +17,21 @@
                     class="py-2 px-4 bg-black text-white rounded"
                     @click="switchCamera"
                 >
-                    Switch camera
+                    {{ translate('Switch camera') }}
                 </button>
                 <qrcode-stream :camera="selectedCamera" @decode="onDecode" @init="onInit" class="border border-slate-400 mt-4">
                     <div v-show="showScanConfirmation"></div>
                 </qrcode-stream>
             </div>
-            <p v-if="result" class="decode-result text-center mt-4">Last result: <b>{{ result }}</b></p>
+            <p v-if="result" class="decode-result text-center mt-4">{{ translate('Last result') }}: <b>{{ result }}</b></p>
             <div>
                 <p class=" text-center mt-2 text-white py-2 px-4 w-full text-lg font-bold" :class="status[apiResponse.type]">
                     {{ apiResponse.message }}
                 </p>
             </div>
             <div v-if="!isEmpty(content)" class="flex flex-col justify-center">
-                <p><strong>Wr code result is: </strong>{{ content }}</p>
-                <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">Submit</button>
+                <p><strong>{{ translate('Wr code result is') }}: </strong>{{ content }}</p>
+                <button @click="handleSave(game.id, task.id)" class="mt-4 py-1.5 px-5 bg-green-600 text-white rounded">{{ translate('Submit') }}</button>
             </div>
             <!-- task.id -->
             <!-- <audio ref="errorAudioElement">
@@ -52,6 +52,7 @@
     // import successAudio from '@/assets/audio/success.mp3'
     import { isEmpty } from 'lodash'
     import gameDrain from '@/Components/Backend/Game/gameDrain';
+import { translate } from '@/useLanguage';
     const { saveUserData } = gameDrain();
 
     const props = defineProps({
@@ -136,7 +137,7 @@
                 emit('skip', true)
             }
         } else {
-            alert('Cannot submit empty value');
+            alert(translate('Cannot submit empty value'));
         }
     }
     const unpause = () => {

@@ -55,7 +55,6 @@ watch(teamLocal, ()=>{
         props.payload[props.index-1].teamCode = teamLocal.value
         props.payload[props.index-1].teamName = teamLocalName.value
         error.value = false;
-        console.log('not exist', exist);
     }
 })
 

@@ -6,13 +6,13 @@
         />
         <div class="bg-white shadow rounded mt-5">
             <div class="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
-                Game Details & Welcome Screen
+                {{ translate('Game Details & Welcome Screen') }}
                 <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">Next</button>
             </div>
             <div class="p-4 flex gap-5">
                 <div>
-                    <h2 class='font-bold'>Login Cover photo*</h2>
-                    <h3 class='mb-2'>Shown to players before starting the game.</h3>
+                    <h2 class='font-bold'>{{ translate('Login Cover photo*') }}</h2>
+                    <h3 class='mb-2'>{{ translate('Shown to players before starting the game.') }}</h3>
                     <img :src="gamePayload.login.image" alt="" v-if="gamePayload.login.image">
                 </div>
                 <div class='w-full'>
@@ -31,7 +31,7 @@
                                 </svg>
                             </div>
                             <i v-else class="fa fa-upload"></i>
-                            Cover Photo Upload
+                            {{ translate('Cover Photo Upload') }}
                             <input
                                 v-if="!uploadingImg"
                                 type="file" 
@@ -89,15 +89,15 @@
                 <div class="flex flex-wrap gap-2">
                     <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.photoStream">
-                        Photo Stream
+                        {{ translate('Photo Stream') }}
                     </label>
                     <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.showScoreboard">
-                        Show Scoreboard
+                        {{ translate('Show Scoreboard') }}
                     </label>
                     <label class="flex gap-1 items-center">
                         <input type="checkbox" v-model="gamePayload.login.showTeamScore">
-                        Team Scoreboard
+                        {{ translate('Team Scoreboard') }}
                     </label>
                 </div>
                 <!-- team -->
@@ -113,12 +113,12 @@
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="text-left font-bold bg-slate-100">
-                                <th class="py-2 px-2 text-center">SL</th>
-                                <th class="py-2 px-2 text-center">Team name</th>
+                                <th class="py-2 px-2 text-center">{{ translate('SL') }}</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Team name') }}</th>
                                 <th class="py-2 px-2 text-center">Team code</th>
                                 <th class="py-2 px-2 w-36 text-center">
                                     <div class="flex items-center gap-1">
-                                        Action
+                                        {{ translate('Action') }}
                                     </div>
                                 </th>
                             </tr>
@@ -149,6 +149,7 @@ import useConnfiguration from './useConnfiguration';
 import TeamSetup from './TeamSetup.vue';
 import { toast, slug } from "@/helper";
 import { get } from 'lodash'
+import { translate } from '@/useLanguage';
 
 defineProps({
     next: Function
@@ -182,10 +183,10 @@ const handleUpload = async (file, e) => {
     uploadingImg.value = false;
     if (data?.status == 'error') {
         console.log('error');
-        toast.error('Opps! Something went wrong.');
+        toast.error(translate('Opps! Something went wrong.'));
     }
     if (data?.status == 'success') {
-        toast.success('Image Uploaded successfully');
+        toast.success(translate('Image Uploaded successfully'));
         let old = gamePayload.value.login.image;
         if (old) {
             deleteImage(old);
