@@ -7,11 +7,11 @@
         <div class="bg-white shadow rounded mt-5">
             <div class="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
                 {{ translate('Game Details & Welcome Screen') }}
-                <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">Next</button>
+                <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">{{ translate('Next') }}</button>
             </div>
             <div class="p-4 flex gap-5">
                 <div>
-                    <h2 class='font-bold'>{{ translate('Login Cover photo*') }}</h2>
+                    <h2 class='font-bold'>{{ translate('Login Cover photo') }}*</h2>
                     <h3 class='mb-2'>{{ translate('Shown to players before starting the game.') }}</h3>
                     <img :src="gamePayload.login.image" alt="" v-if="gamePayload.login.image">
                 </div>
@@ -54,7 +54,9 @@
                             autocomplete="off"
                             required
                         />
-                        <label for="floating_game_title" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Game Title*</label>
+                        <label for="floating_game_title" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            {{ translate('Game Title') }}*
+                        </label>
                     </div>
                     <div class="relative z-0 mb-6 w-full group">
                         <input 
@@ -65,7 +67,9 @@
                             name="asldkfjasdasdfkfjalksdfj"
                             autocomplete="asdfasdfasd"
                             required />
-                        <label for="game_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Game Code*</label>
+                        <label for="game_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            {{ translate('Game Code') }}*
+                        </label>
                     </div>
                     <div class="relative z-0 mb-6 w-full group">
                         <input 
@@ -78,12 +82,14 @@
                             autocomplete="ofasdfasdff"
                             required 
                         />
-                        <label for="game_password" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Game Password*</label>
+                        <label for="game_password" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            {{ translate('Game Password') }}*
+                        </label>
                     </div>
                 </div>
             </div>
             <div class="text-center border-t mt-2 border-gray-400">
-                <h2 class="font-bold py-2 text-xl">Game team</h2>
+                <h2 class="font-bold py-2 text-xl">{{ translate('Game team') }}</h2>
             </div>
             <div class="px-4 pb-4">
                 <div class="flex flex-wrap gap-2">
@@ -115,7 +121,7 @@
                             <tr class="text-left font-bold bg-slate-100">
                                 <th class="py-2 px-2 text-center">{{ translate('SL') }}</th>
                                 <th class="py-2 px-2 text-center">{{ translate('Team name') }}</th>
-                                <th class="py-2 px-2 text-center">Team code</th>
+                                <th class="py-2 px-2 text-center">{{ translate('Team code') }}</th>
                                 <th class="py-2 px-2 w-36 text-center">
                                     <div class="flex items-center gap-1">
                                         {{ translate('Action') }}
