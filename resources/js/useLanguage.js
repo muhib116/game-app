@@ -17,6 +17,7 @@ const languageList = ref([
 const showLanguageModal = ref(false)
 
 const translate = (text, lan_from='en') => {
+    if(!text) return text;
     let lan = languages.find(item => {
         return item[lan_from].toLowerCase() == text.toLowerCase();
     });

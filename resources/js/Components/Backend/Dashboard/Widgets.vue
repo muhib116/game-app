@@ -53,7 +53,7 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('Un Published game') }}</h5>
+							<h5 class="text-blueGray-400 uppercase font-bold text-xs">{{ translate('UN PUBLISHED GAME TOTAL') }}</h5>
 							<span class="font-bold text-xl">{{ get($page.props, 'unPublishedGame') }}</span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">

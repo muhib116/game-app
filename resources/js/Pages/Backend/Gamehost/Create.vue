@@ -9,29 +9,29 @@
                     <div class="w-full grid gap-1">
                         <div>{{ translate('Game host name') }}</div>
                         <input type="text" v-model="form.name" :placeholder="translate('Name')" class="w-full" required />
-                        <span class="text-red-500" v-if="form.errors.name">{{ form.errors.name }}</span>
+                        <span class="text-red-500" v-if="form.errors.name">{{ translate(form.errors.name) }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <div>{{ translate('Unique game host username') }}</div>
                         <input type="text" v-model="form.username" :placeholder="translate('Username')" class="w-full" required />
-                        <span class="text-red-500" v-if="form.errors.username">{{ form.errors.username }}</span>
+                        <span class="text-red-500" v-if="form.errors.username">{{ translate(form.errors.username) }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <div>{{ translate('Unique email') }}</div>
-                        <input type="email" v-model="form.email" placeholder="Email" class="w-full" required />
-                        <span class="text-red-500" v-if="form.errors.email">{{ form.errors.email }}</span>
+                        <input type="email" v-model="form.email" :placeholder="translate('Email')" class="w-full" required />
+                        <span class="text-red-500" v-if="form.errors.email">{{ translate(form.errors.email) }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <div>{{ translate('Password') }}</div>
                         <input type="text" v-model="form.password" :placeholder="translate('Password')" class="w-full" :required="!form.id" />
-                        <span class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</span>
+                        <span class="text-red-500" v-if="form.errors.password">{{ translate(form.errors.password) }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <label class="flex gap-2 items-center">
                             <input type="checkbox" v-model="form.status" />
                             {{ translate('Game host status') }}
                         </label>
-                        <span class="text-red-500" v-if="form.errors.status">{{ form.errors.status }}</span>
+                        <span class="text-red-500" v-if="form.errors.status">{{ translate(form.errors.status) }}</span>
                     </div>
                     <div class="w-full grid gap-1">
                         <div>

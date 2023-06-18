@@ -20,8 +20,16 @@ const languages = [
         no: "Glemt ditt passord?",
     },
     {
+        en: "Already registered?",
+        no: "Allerede registrert?",
+    },
+    {
         en: "LOG IN",
         no: "Logg inn",
+    },
+    {
+        en: "Register",
+        no: "Registrere",
     },
     {
         en: "Dashboard",
@@ -56,8 +64,24 @@ const languages = [
         no: "Logg ut",
     },
     {
+        en: "Published",
+        no: "Publisert",
+    },
+    {
+        en: "Team list",
+        no: "Lagliste",
+    },
+    {
+        en: "Game started",
+        no: "Spillet startet",
+    },
+    {
         en: "PUBLISHED GAME",
         no: "Antall aktive rebusløp",
+    },
+    {
+        en: "TOTAL GAMEHOST",
+        no: "TOTAL SPILLVERT",
     },
     {
         en: "UN PUBLISHED GAME TOTAL",
@@ -89,7 +113,27 @@ const languages = [
     },
     {
         en: "Shown to players before starting the game.",
-        no: "Shown to players before starting the game.",
+        no: "Vist til spillere før du starter spillet.",
+    },
+    {
+        en: "Are you sure to create new game?",
+        no: "Er du sikker på at du vil lage et nytt spill?",
+    },
+    {
+        en: "Welcome to Admin dashboard",
+        no: "Velkommen til Admin-oversikten",
+    },
+    {
+        en: "TOTAL COMPLETE GAME",
+        no: "TOTALT KOMPLETT SPILL",
+    },
+    {
+        en: "Welcome to Gamehost dashboard",
+        no: "Velkommen til Gamehost-dashbordet",
+    },
+    {
+        en: "These credentials do not match our records.",
+        no: "Disse legitimasjonene samsvarer ikke med opplysningene våre.",
     },
     {
         en: "Cover Photo Upload",
@@ -140,8 +184,132 @@ const languages = [
         no: "Handling",
     },
     {
+        en: "Click to Publish",
+        no: "Klikk for å publisere",
+    },
+    {
         en: "Default team",
         no: "Lag#1",
+    },
+    {
+        en: "Game start at",
+        no: "Spillstart kl",
+    },
+    {
+        en: "Start at",
+        no: "Start ved",
+    },
+    {
+        en: "End at",
+        no: "Slutt kl",
+    },
+    {
+        en: "Submitted answer",
+        no: "Innsendt svar",
+    },
+    {
+        en: "User answer",
+        no: "Brukersvar",
+    },
+    {
+        en: "Active",
+        no: "Aktiv",
+    },
+    {
+        en: "Game host name",
+        no: "Spillvertsnavn",
+    },
+    {
+        en: "Unique game host username",
+        no: "Unikt brukernavn for spillvert",
+    },
+    {
+        en: "Unique email",
+        no: "Unik e-post",
+    },
+    {
+        en: "Game host status",
+        no: "Spillvertsstatus",
+    },
+    {
+        en: "Inactive",
+        no: "Inaktiv",
+    },
+    {
+        en: "Update",
+        no: "Oppdater",
+    },
+    {
+        en: "DATE",
+        no: "DATO",
+    },
+    {
+        en: "FIRST NAME",
+        no: "FORNAVN",
+    },
+    {
+        en: "LAST NAME",
+        no: "ETTERNAVN",
+    },
+    {
+        en: "MESSAGE",
+        no: "BESKJED",
+    },
+    {
+        en: "Showing",
+        no: "Viser",
+    },
+    {
+        en: "to",
+        no: "til",
+    },
+    {
+        en: "of",
+        no: "av",
+    },
+    {
+        en: "Entries",
+        no: "Innganger",
+    },
+    {
+        en: "Prev",
+        no: "Forrige",
+    },
+    {
+        en: "COMPANY",
+        no: "SELSKAP",
+    },
+    {
+        en: "Limit",
+        no: "Grense",
+    },
+    {
+        en: "Qr code scan result",
+        no: "QR-kode skanningsresultat",
+    },
+    {
+        en: "Done",
+        no: "Ferdig",
+    },
+    {
+        en: "Media",
+        no: "Ferdig",
+    },
+    {
+        en: "Pending",
+        no: "Avventer",
+    },
+    {
+        en: "Teamcode",
+        no: "Lagkode",
+    },
+    {
+        en: "Teamname",
+        no: "Lag navn",
+    },
+    {
+        en: "Gamecode",
+        no: "Spillkode",
     },
     {
         en: "teamcode-1",
@@ -220,12 +388,28 @@ const languages = [
         no: "Last opp bilde",
     },
     {
+        en: "Task Status",
+        no: "Oppgavestatus",
+    },
+    {
         en: "Deadline",
         no: "Frist for levering",
     },
     {
         en: "Point",
         no: "Poeng",
+    },
+    {
+        en: "Points",
+        no: "Poeng",
+    },
+    {
+        en: "Max point",
+        no: "Maks poeng",
+    },
+    {
+        en: "Game Dashboard",
+        no: "Spill Dashboard",
     },
     {
         en: "Task point",
@@ -272,6 +456,14 @@ const languages = [
         no: "Informasjon om din profil",
     },
     {
+        en: "Recommended Image size should be square (1:1)",
+        no: "Anbefalt bildestørrelse bør være kvadratisk (1:1)",
+    },
+    {
+        en: "Ensure your account is using a long, random password to stay secure.",
+        no: "Sørg for at kontoen din bruker et langt, tilfeldig passord for å være sikker.",
+    },
+    {
         en: "Update your account's profile information and email address.",
         no: "Her kan du oppdatere ulike informasjon på din problem",
     },
@@ -284,12 +476,76 @@ const languages = [
         no: "Epost",
     },
     {
+        en: "Instructions",
+        no: "Bruksanvisning",
+    },
+    {
+        en: "WriteText",
+        no: "Skriv tekst",
+    },
+    {
+        en: "UploadImage",
+        no: "Last opp bilde",
+    },
+    {
+        en: "Your team score",
+        no: "Lagets poengsum",
+    },
+    {
+        en: "Photostream",
+        no: "bildestrøm",
+    },
+    {
+        en: "Total Scores",
+        no: "Totale poeng",
+    },
+    {
+        en: "QRCodeFinder",
+        no: "QR-kodesøker",
+    },
+    {
+        en: "Instruction",
+        no: "Instruksjon",
+    },
+    {
+        en: "StartGame",
+        no: "Start spill",
+    },
+    {
+        en: "Tasks",
+        no: "Oppgaver",
+    },
+    {
+        en: "Home",
+        no: "Hjem",
+    },
+    {
+        en: "GAME INFO",
+        no: "SPILLINFO",
+    },
+    {
         en: "Upload Logo/Profile",
         no: "last opp profil logo",
     },
     {
         en: "SAVE",
         no: "lagre",
+    },
+    {
+        en: "Presented By",
+        no: "Presentert av",
+    },
+    {
+        en: "Quit",
+        no: "Slutte",
+    },
+    {
+        en: "cancel",
+        no: "Avbryt",
+    },
+    {
+        en: "SIGN IN",
+        no: "LOGG INN",
     },
     {
         en: "Update Password",
@@ -299,6 +555,18 @@ const languages = [
         en: "Ensure your account is using a long, random password to stay secure",
         no: "(Vi anbefaler langt password med bokstaver, tall og spesialtegn)",
     },
+    {
+        en: "Are you sure you want to delete your account?",
+        no: "Er du sikker på at du vil slette kontoen din?",
+    },
+    {
+        en: "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+        no: "Når kontoen din er slettet, slettes alle ressursene og dataene permanent. Skriv inn passordet ditt for å bekrefte at du ønsker å slette kontoen din permanent.",
+    },
+    {
+        en: "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+        no: `Når kontoen din er slettet, slettes alle ressursene og dataene permanent. Før du sletter kontoen din, last ned data eller informasjon du ønsker å beholde.`,
+    }, 
     {
         en: "Current Password",
         no: "Nåværende password",

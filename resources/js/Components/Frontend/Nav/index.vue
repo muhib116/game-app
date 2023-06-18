@@ -34,7 +34,7 @@
               v-for="(item, index) in get($page.props, 'gameData.instruction')" 
               :key="index + Math.random() * 50000"
             >
-              {{ item.component }}
+              {{ translate(item.component) }}
             </Link>
           </Dropdown>
         </template>
@@ -45,7 +45,7 @@
               class='text-left py-1 block' 
               v-for="(item, index) in get($page.props, 'gameData.tasks')" :key="index + Math.random() * 50000"
             >
-              {{ item.component }} 
+              {{ translate(item.component) }} 
             </Link>
           </Dropdown> 
         </template> 

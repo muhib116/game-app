@@ -1,5 +1,5 @@
 <template>
-  <!-- <GlobalLayout>
+  <GlobalLayout>
     <div class="bg-gray-200 h-full">
     <div class='max-w-[768px] mx-auto bg-white h-full overflow-y-auto relative'>
       <Nav v-if="showNavigation" />
@@ -8,7 +8,7 @@
       </div>
     </div>
   </div>
-  </GlobalLayout> -->
+  </GlobalLayout>
 </template>
 
 <script setup>

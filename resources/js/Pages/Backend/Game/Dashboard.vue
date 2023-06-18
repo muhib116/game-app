@@ -25,19 +25,19 @@
                             <div class="p-4">
                                 <div class="mb-5 flex gap-2 items-center">
                                     {{ translate('Task Status') }}: 
-                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="px-3 block w-fit bg-green-100 text-green-500 font-black rounded">Done</span>
+                                    <span v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="px-3 block w-fit bg-green-100 text-green-500 font-black rounded">{{ translate('Done') }}</span>
                                     <span v-else class="px-3 block w-fit bg-red-100 text-red-500 font-black rounded">{{ translate('Pending') }}</span>
                                 </div>
                                 <div v-if="get(getTeamAns(task.userAnswer, team.teamCode), 'start_at')" class="flex gap-1 mb-5">
                                     <div>
                                         <template v-if="!get(getTeamAns(task.userAnswer, team.teamCode), 'value')">
-                                            <input :max="get(task, 'data.point') + get(task, 'data.extraPoint')" type="number" class="border flex-1 py-1 px-2 border-black border-opacity-10" :placeholder="`Max point ${get(task, 'data.point') + get(task, 'data.extraPoint')}`" />
+                                            <input :max="get(task, 'data.point') + get(task, 'data.extraPoint')" type="number" class="border flex-1 py-1 px-2 border-black border-opacity-10" :placeholder="`${translate('Max point')} ${get(task, 'data.point') + get(task, 'data.extraPoint')}`" />
                                             <button @click="(e) => {
                                                 handleSubmit(e, game.id, task.id, team.teamCode, (task.data.point + task.data.extraPoint))
                                             }"
-                                            class="py-1 px-3 bg-[var(--fave)] border border-green-400 text-white ml-1 rounded">Save</button>
+                                            class="py-1 px-3 bg-[var(--fave)] border border-green-400 text-white ml-1 rounded">{{ translate('Save') }}</button>
                                         </template>
-                                        <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} Points</span>
+                                        <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} {{ translate('Points') }}</span>
                                     </div>
                                 </div>
                                 
@@ -53,13 +53,13 @@
                                     </div>
                                     <div class="flex gap-1 flex-wrap">
                                         <span v-if="get(task, 'data.extraPoint')" class="">
-                                            <span class="font-semibold">Extra Point: </span>
+                                            <span class="font-semibold">{{ translate('Extra Point') }}: </span>
                                             {{ get(task, 'data.extraPoint') }}
                                         </span>
                                     </div>
                                     <div class="flex gap-1 flex-wrap mb-5">
                                         <span v-if="get(task, 'data.deadline')">
-                                            <span class="font-semibold">Deadline: </span>
+                                            <span class="font-semibold">{{ translate('Deadline') }}: </span>
                                             {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
                                         </span>
                                     </div>

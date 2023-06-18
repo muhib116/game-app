@@ -406,6 +406,7 @@ class GameController extends Controller
     public function gameLogin(User $user, $gamename) {
         $session = session()->get('login');
         $game = Game::where('login->gameTitle', $gamename)->first();
+        
         if (!$game) {
             return redirect('/');
         }
