@@ -36,6 +36,7 @@ export default function useTaskCreate() {
         },
         {
             id: 2,
+            adminImage: null,
             name: 'Text',
             component: 'WriteText',
             isSelected: false,
@@ -52,6 +53,7 @@ export default function useTaskCreate() {
         },
         {
             id: 3,
+            adminImage: null,
             name: 'Quiz',
             component: 'Quiz',
             isSelected: false,
@@ -69,6 +71,7 @@ export default function useTaskCreate() {
         },
         {
             id: 4,
+            adminImage: null,
             name: 'QRCodeFinder',
             component: 'QRCodeFinder',
             isSelected: false,

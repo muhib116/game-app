@@ -164,6 +164,10 @@ const languages = [
         no: "Vis resultat tavle for alle rebuslag",
     },
     {
+        en: "Scoreboard",
+        no: "Resultattavle",
+    },
+    {
         en: "Team Scoreboard",
         no: "Vis resultat for rebuslag",
     },
@@ -202,6 +206,10 @@ const languages = [
     {
         en: "End at",
         no: "Slutt kl",
+    },
+    {
+        en: "Submit",
+        no: "Sende inn",
     },
     {
         en: "Submitted answer",
@@ -484,6 +492,14 @@ const languages = [
         no: "Skriv tekst",
     },
     {
+        en: "Start task",
+        no: "Start oppgaven",
+    },
+    {
+        en: "Scan QR",
+        no: "Skann QR",
+    },
+    {
         en: "UploadImage",
         no: "Last opp bilde",
     },
@@ -496,8 +512,12 @@ const languages = [
         no: "bildestrøm",
     },
     {
-        en: "Total Scores",
+        en: "Total Score",
         no: "Totale poeng",
+    },
+    {
+        en: "No score found",
+        no: "Ingen poengsum funnet",
     },
     {
         en: "QRCodeFinder",

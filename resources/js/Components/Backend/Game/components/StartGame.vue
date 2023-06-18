@@ -10,7 +10,7 @@
         <div class='text-sm mb-4 text-center leading-8 text-black text-opacity-75'>
             <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.title" />
             <div v-else class="pt-8 pb-4 font-black text-xl">
-                <p class="block w-full text-3xl mb-4 text-center">{{ data.title }}</p>
+                <p class="block w-full text-3xl mb-4 text-center">{{ translate(data.title) }}</p>
             </div>
         <iframe :src="`https://maps.google.com/maps?q=${data.settings.longtide},${data.settings.lattitude}&z=19&output=embed`" height="400" class='w-full' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>

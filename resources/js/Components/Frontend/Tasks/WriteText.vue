@@ -31,7 +31,22 @@
                 </div>
             </div>
         <div className='p-6 text-black text-opacity-80 text-center leading-8 text-lg'>
+            <label v-if="controlBy=='admin'" class='px-4 py-1 bg-slate-300 cursor-pointer max-w-[300px] mx-auto shadow rounded w-full relative mt-14 mb-4 flex gap-2 items-center justify-center'>
+                <Preloader v-if="adminImageLoading" />
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
+                </svg>
+                {{ translate('UPLOAD IMAGE') }}
+                <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
+            </label>
 
+            <img 
+                v-if="get(task, 'adminImage')"
+                :src='get(task, "adminImage")' 
+                alt=""
+                class='w-full block mb-6 mx-auto'
+            />
+            
             <input
                 v-model="getSelected(gamePayload.tasks).data.title"
                 v-if="controlBy=='admin'"
@@ -97,9 +112,13 @@
     import TextWritePopup from '../Popup/TextWritePopup.vue';
     import gameDrain from '@/Components/Backend/Game/gameDrain';
     import { get, find, isEmpty } from 'lodash'
-import { Inertia } from '@inertiajs/inertia';
+    import { Inertia } from '@inertiajs/inertia';
     import moment from 'moment'
-import { translate } from '@/useLanguage';
+    import { translate } from '@/useLanguage';
+    import useFileUpload from '@/useFileUpload';
+    import Preloader from '@/Components/Global/Preloader.vue';
+
+    const { handleImageUpload, deleteImage } = useFileUpload();
 
     const props = defineProps({
         controlBy: {
@@ -147,6 +166,25 @@ import { translate } from '@/useLanguage';
         })
         return answer;
     })
+    const adminImageLoading = ref(false)
+    const handleAdminImage = async (file, tasks, event) => {
+        adminImageLoading.value = true;
+        const response = await handleImageUpload(file);
+        adminImageLoading.value = false;
+        file=null
+        event.target.value = null;
+        if (response.status == 'error') {
+            console.log('error');
+        }
+        if (response.status == 'success') {
+            let old = getSelected(tasks).adminImage;
+            if (old) {
+                deleteImage(old);
+            }
+            getSelected(tasks).adminImage = response.path;
+        }
+        adminImageLoading.value = false;
+    }
 
     const handleSubmit = async (gameId, taskId) => {
         const responseData = await saveUserData({

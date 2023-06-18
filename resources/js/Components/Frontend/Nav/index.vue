@@ -57,7 +57,7 @@
           {{ translate('Photostream') }}
         </Link>
         <Link v-if="get($page, 'props.gameData.login.showScoreboard')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/totalScoreboard`" class='text-left'>
-          {{ translate('Total Scores') }}
+          {{ translate('Total Score') }}
         </Link>
       </div>
     </div>
