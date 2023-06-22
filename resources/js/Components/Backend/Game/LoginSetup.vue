@@ -174,8 +174,8 @@ watch(()=> gamePayload, ()=>{
 
 const addTeam = (teamAray) => {
     teamAray.push({
-        teamName: `team ${teamAray.length+1}`,
-        teamCode: `teamcode-${teamAray.length+1}`
+        teamName: `Lag#${teamAray.length+1}`,
+        teamCode: `Kode#${teamAray.length+1}`
     });
 }
 

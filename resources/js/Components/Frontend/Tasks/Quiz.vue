@@ -74,7 +74,7 @@
 
                 <button
                     @click="addOption(getSelected(gamePayload.tasks).data.options)" 
-                    class="p-1 bg-yellow-500 text-white text-sm inline-block max-w-[100px]"
+                    class="p-1 bg-yellow-500 text-white text-sm inline-block max-w-[200px]"
                 >
                     {{ translate('Add option') }}
                 </button>

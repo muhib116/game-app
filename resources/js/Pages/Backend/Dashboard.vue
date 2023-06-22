@@ -2,7 +2,13 @@
   <Master>
     <div class="px-4 py-5">
       <div class="grid justify-center pt-4 pb-8">
-        <h1 class="text-black text-2xl font-bold">{{ translate(`Welcome to ${get($page.props, 'auth.user.type') == 'gamehost' ? 'Gamehost' : 'Admin'} dashboard`) }}</h1>
+        <h1 v-if="get($page.props, 'auth.user.type') == 'gamehost'" class="text-black text-2xl font-bold">
+          {{ translate('Welcome to Gamehost') }}
+        </h1>
+        <h1 v-else class="text-black text-2xl font-bold">
+          {{ translate('Welcome to Gamehost') }}
+        </h1>
+        <!-- {{ translate(`Welcome to ${get($page.props, 'auth.user.type') == 'gamehost' ? 'Gamehost' : 'Admin'} dashboard`) }} -->
       </div>
       <Widgets />
 

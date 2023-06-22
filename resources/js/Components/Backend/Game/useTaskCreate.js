@@ -24,8 +24,8 @@ export default function useTaskCreate() {
             isSelected: true,
             adminImage: null,
             data: {
-                title: 'Task#1: Find the tower',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                title: 'Oppgave: Finn attraksjonen og ta et bilde',
+                description: '(Eksempel tekst: Du og ditt lag skal finne attraksjon X og ta et kreativt gruppefoto foran attraksjonen. Kreativiteten i foto vil avgjøre om dere får full pott eller ikke)',
                 image: null,
                 point: null,
                 extraPoint: null,
@@ -41,8 +41,8 @@ export default function useTaskCreate() {
             component: 'WriteText',
             isSelected: false,
             data: {
-                title: 'Task#1: Write text',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                title: 'Oppgave: Finn innskrift på vegg',
+                description: '(eksempel tekst: Dere skal finne frem til den kjente bymuren og ved hovedinngangen på sørsiden er et en stor innskrift på latinsk. Hva står det? Klarer dere oppgaven før kl 12:00 = 50 ekstra poeng)',
                 point: null,
                 extraPoint: null,
                 deadline: null,
@@ -59,8 +59,8 @@ export default function useTaskCreate() {
             isSelected: false,
             userOptions: [],
             data: {
-                title: 'Task#1: Quize',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                title: 'Oppgave: Hvilket alternativ er rett?',
+                description: '(eksempel tekst: Jens har 100 liter vann og gir 50 liter til Lisa. Morten drikke 4 liter av Jens sine 100 liter og Lisa gir bort 14 liter til en hjemmløskatt. Hvor mange liter vann har Ole i koppen sin?) ',
                 options: [],
                 point: null,
                 extraPoint: null,
@@ -76,8 +76,8 @@ export default function useTaskCreate() {
             component: 'QRCodeFinder',
             isSelected: false,
             data: {
-                title: 'Task#1: Qr code find',
-                description: 'You and your team should find the eiffel tower and take a creative photo of the group infront of the effiel tower. Once you have uploaded the image, next task will be served.',
+                title: 'Oppgave: Finn QR koden på damedoen.',
+                description: '(eksempel tekst: Vi har gjemt et QR kode på damedoen på Grand Kafe. Finn koden og skann den før kl 13:00. Dere får ekstra 100 poeng om hele laget får plass i ett av avlukkende og tar en bilde som dere sender inn)',
                 qrValue: 'value',
                 result: null,
                 point: null,

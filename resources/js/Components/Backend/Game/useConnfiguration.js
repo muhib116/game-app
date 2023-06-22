@@ -12,8 +12,8 @@ const login = {
     showTeamScore: true,
     photoStream: true,
     team: [{
-        teamName: 'Default team',
-        teamCode: 'teamcode-1' // Unique team code.
+        teamName: 'Lag#1',
+        teamCode: 'Kode#1' // Unique team code.
     }],
 }
 
@@ -21,9 +21,9 @@ const instruction = [
     {
         component: 'Home',
         show: true,
-        title: 'This is your game:',
-        subtitle: 'Get to know paris in 3 hours',
-        description: 'Grab items, take photos and taste the french cusine',
+        title: 'Mini overskrift:',
+        subtitle: 'Bli kjent med Narnia by',
+        description: 'fengende instruksjons tekst  som skaper begeistring.',
         settings: {
             image: null,
             opacity: 0,
@@ -34,8 +34,7 @@ const instruction = [
         component: 'Instruction',
         show: true,
         text: [
-            'Just text about the game, time limit and how to solve it.',
-            'this text should also be restrictied so is fits on maximum two screens scrollingdown.'
+            '(Her kan du skrive kort instruksjon om hvordan rebusløpet kan løses.)'
         ],
         settings: {
             image: null,
@@ -46,7 +45,7 @@ const instruction = [
     {
         component: 'StartGame',
         show: true,
-        title: ' Your start point',
+        title: ' Ditt startpunkt',
         description: 'lorem',
         settings: {
             longtide: null,

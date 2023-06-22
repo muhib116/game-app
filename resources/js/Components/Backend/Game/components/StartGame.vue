@@ -15,8 +15,8 @@
         <iframe :src="`https://maps.google.com/maps?q=${data.settings.longtide},${data.settings.lattitude}&z=19&output=embed`" height="400" class='w-full' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg h-full'>
-            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.longtide" :placeholder="translate('Longtide')" />
-            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.lattitude" :placeholder="translate('Lattitude')" />            
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.longtide" :placeholder="translate('Longitude')" />
+            <input v-if="controlBy == 'admin'" class="block w-full text-3xl mb-4 text-center" v-model="data.settings.lattitude" :placeholder="translate('Latitude')" />            
             <textarea class='w-full block text-center bg-transparent border-none mb-2' v-model="data.description" rows="3" v-if="controlBy == 'admin'" />
             <p v-else class="w-full block text-center bg-transparent border-none mb-2 h-[168px] overflow-y-auto ">{{ data.description }}</p>
         </div>
