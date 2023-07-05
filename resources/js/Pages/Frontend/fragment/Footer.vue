@@ -1,7 +1,7 @@
 <template>
       <section class="">
             <div class="pb-[100px]">
-                <img class="h-[120px] m-auto" src="../img/footer.png" alt="">
+                <img class="h-[120px] m-auto" src="/logo.png" alt="">
             </div>
             <div class="bg-[#000d1a] px-5">
                 <div class="max-w-[1200px] m-auto">

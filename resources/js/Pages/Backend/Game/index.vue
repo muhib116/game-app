@@ -145,16 +145,16 @@
                                             {{ translate('URL') }}: <strong class="font-bold">{{ `${$page.props.ziggy.url}/${copyGame.user.username}/${copyGame.login.gameTitle}` }}</strong>
                                         </div>
                                         <div>
-                                            {{ translate('Teamcode') }}: <strong class="font-bold">{{ item.teamCode }}</strong>
+                                            {{ translate('Team code') }}: <strong class="font-bold">{{ item.teamCode }}</strong>
                                         </div>
                                         <div>
-                                            {{ translate('Gamecode') }}: <strong class="font-bold">{{ copyGame.login.gameCode }}</strong>
+                                            {{ translate('Game code') }}: <strong class="font-bold">{{ copyGame.login.gameCode }}</strong>
                                         </div>
                                         <div>
-                                            {{ translate('Password') }}: <strong class="font-bold">{{ copyGame.login.gamePassword }}</strong>
+                                            {{ translate('Game password') }}: <strong class="font-bold">{{ copyGame.login.gamePassword }}</strong>
                                         </div>
                                         <div>
-                                            {{ translate('Teamname') }}: <strong class="font-bold">{{ item.teamName }}</strong>
+                                            {{ translate('Team Name') }}: <strong class="font-bold">{{ item.teamName }}</strong>
                                         </div> 
                                     </div>
                                     <button @click="copyLink(teamList[index], copyGame)" class="text-white bg-[var(--faveDark)] rounded py-px px-2">{{ translate('Copy') }}</button>

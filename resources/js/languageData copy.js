@@ -493,7 +493,7 @@ const languages = [
     },
     {
         en: "Start task",
-        no: "Start oppgaven",
+        no: "Start oppgave",
     },
     {
         en: "Scan QR",
@@ -565,7 +565,7 @@ const languages = [
     },
     {
         en: "SIGN IN",
-        no: "LOGG INN",
+        no: "Logg inn",
     },
     {
         en: "Update Password",

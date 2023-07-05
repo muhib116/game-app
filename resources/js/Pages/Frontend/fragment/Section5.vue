@@ -17,7 +17,7 @@
                     </div>
                 </div> 
                 <div>
-                    <img class="min-w-full min-h-[auto]" src="../img/section5_1.png" alt="">
+                    <img class="min-w-full min-h-[auto]" src="../img/picture-5.jpg" alt="">
                 </div>   
             </div>      
         </div>

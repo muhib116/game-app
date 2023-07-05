@@ -24,8 +24,28 @@ const languages = [
         no: "Logg inn",
     },
     {
+        en: "Tasks", //
+        no: "oppgaver",
+    },
+    {
+        en: "Instructions", //
+        no: "Instruks",
+    },
+    {
+        en: "Your team score", //
+        no: "ditt lags poeng",
+    },
+    {
         en: "Dashboard", // 
         no: "Hjem",
+    },
+    {
+        en: "Total Score", // 
+        no: "total poeng",
+    },
+    {
+        en: "Photostream", // 
+        no: "bildestrøm",
     },
     {
         en: "Welcome to Gamehost", // 
@@ -40,6 +60,18 @@ const languages = [
         no: "Se eksisterende rebusløp",
     },
     {
+        en: "SIGN IN",
+        no: "Logg inn",
+    },
+    {
+        en: "Quit",
+        no: "Avslutt",
+    },
+    {
+        en: "Start task",
+        no: "Start oppgave",
+    },
+    {
         en: "Files", // 
         no: "Filer",
     },
@@ -50,6 +82,10 @@ const languages = [
     {
         en: "Logout", // 
         no: "Logg ut",
+    },
+    {
+        en: "Submit",
+        no: "Lever inn oppgave",
     },
     {
         en: "PUBLISHED GAME", //

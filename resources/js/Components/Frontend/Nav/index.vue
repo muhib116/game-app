@@ -10,7 +10,7 @@
         </svg>
       </button>
       <div>
-        {{ translate('GAME INFO') }}
+        <!-- {{ translate('GAME INFO') }} -->
       </div>
       <div>
         <form @submit.prevent="quiteGame" method="POST">
