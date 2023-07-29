@@ -25,7 +25,7 @@ const languages = [
     },
     {
         en: "Tasks", //
-        no: "oppgaver",
+        no: "Oppgaver",
     },
     {
         en: "Instructions", //
@@ -33,19 +33,40 @@ const languages = [
     },
     {
         en: "Your team score", //
-        no: "ditt lags poeng",
+        no: "Ditt lag poengstatus",
     },
     {
         en: "Dashboard", // 
         no: "Hjem",
     },
     {
+        en: "Home", // 
+        no: "Hjem",
+    },
+    {
+        en: "Instruction", // 
+        no: "Retningslinjer",
+    },
+    {
+        en: "StartGame", // 
+        no: "Start",
+    },
+    {
         en: "Total Score", // 
-        no: "total poeng",
+        no: "Totale poeng",
+        // no: "total poeng",
+    },
+    {
+        en: "Task Completed", // 
+        no: "Oppgave fullført",
+    },
+    {
+        en: "Write your answer", // 
+        no: "Skriv inn ditt svar!",
     },
     {
         en: "Photostream", // 
-        no: "bildestrøm",
+        no: "Bildestrøm",
     },
     {
         en: "Welcome to Gamehost", // 
@@ -233,19 +254,25 @@ const languages = [
     },
     {
         en: "UploadImage",
-        no: "Oppgave med bilde svar",
+        // no: "Oppgave med bilde svar", // last up
+        no: "Oppgave med bildesvar",
     },
     {
         en: "Text",
-        no: "Oppgave med tekst svar",
+        no: "Oppgave med tekstsvar",
+    },
+    {
+        en: "Write Text",
+        no: "Tekst oppgave",
     },
     {
         en: "Quiz",
-        no: "Oppgave med svar alternativ",
+        // no: "Oppgave med svaralternativ",
+        no: "Flervalgsoppgave",
     },
     {
         en: "QRCodeFinder",
-        no: "Oppgave med skann av QR",
+        no: "Oppgave med skann QR",
     },
     {
         en: "upload image",
@@ -277,7 +304,7 @@ const languages = [
     },
     {
         en: "Scan QR code",
-        no: "Oppgave med skann av QR",
+        no: "Oppgave med skann QR",
     },
     {
         en: "Game host",

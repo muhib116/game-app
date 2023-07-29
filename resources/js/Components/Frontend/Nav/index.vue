@@ -50,14 +50,17 @@
           </Dropdown> 
         </template> 
         <Link v-if="get($page, 'props.gameData.login.showTeamScore')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/scoreboard`" class='text-left'>
-          {{ translate('Your team score') }}
+          <!-- {{ translate('Your team score') }} -->
+          Ditt lag poengstatus
         </Link>
         <!-- {{ get($page, 'props.gameData.login.photoStream') }} -->
         <Link v-if="get($page, 'props.gameData.login.photoStream')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/photostream`" class='text-left'>
-          {{ translate('Photostream') }}
+          <!-- {{ translate('Photostream') }} -->
+          Bildestrøm
         </Link>
         <Link v-if="get($page, 'props.gameData.login.showScoreboard')" :href="`${$page.props.ziggy.url}/${get($page, 'props.gameData.username')}/${get($page, 'props.gameData.login.gameCode')}/totalScoreboard`" class='text-left'>
-          {{ translate('Total Score') }}
+          <!-- {{ translate('Total Score') }} -->
+          Alle lag poengstatus
         </Link>
       </div>
     </div>
