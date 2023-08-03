@@ -15,12 +15,18 @@
                     som administrator holde full oversikt over de ulike lagene, tildele <br>
                     poeng og se løpende status over hvem som har løst oppgavene.<br>
                 </p>
-                <button class="font-semibold bg-fave-400 text-white px-8 py-3 rounded hover:opacity-80 duration-200 flex items-center gap-2">
+                <Link :href="route('login')" class="font-semibold bg-fave-400 text-white px-8 py-3 rounded hover:opacity-80 duration-200 inline-flex items-center gap-2">
+                    {{ translate('LOG IN', 'en') }}
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+                    </svg>
+                </Link>
+                <!-- <button class="font-semibold bg-fave-400 text-white px-8 py-3 rounded hover:opacity-80 duration-200 flex items-center gap-2">
                     Registrer deg
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
                     </svg>
-                </button>
+                </button> -->
             </div>
             <div class="w-full mt-20 lg:mt-0">
                 <img class="w-full object-cover object-center" src="../img/banner.png" alt="">
@@ -31,5 +37,6 @@
 
 <script setup>
 import useLanguage from '@/useLanguage'
+import { Link } from '@inertiajs/inertia-vue3';
 const { translate, selectedLanguage } = useLanguage()
 </script>

@@ -11,7 +11,7 @@
         <Footer />
     </GlobalLayout>
 </template>
-
+    
 <script setup>
 import GlobalLayout from '@/Components/GlobalLayout.vue';
 import { Link } from '@inertiajs/inertia-vue3';
