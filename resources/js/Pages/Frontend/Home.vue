@@ -1,5 +1,5 @@
 <template>
-    <GlobalLayout>
+    <!-- <GlobalLayout>
         <Navigation />
         <Banner />
         <Section1 />
@@ -9,21 +9,27 @@
         <Section5 />
         <FormSection />
         <Footer />
-    </GlobalLayout>
+    </GlobalLayout> -->
+    <div class="w-full h-full flex justify-center items-center">
+        <Link :href="route('login')">
+            <img class="h-[100px]" src="/logo.png" alt="">
+        </Link>
+    </div>
 </template>
-    
+
 <script setup>
-import GlobalLayout from '@/Components/GlobalLayout.vue';
 import { Link } from '@inertiajs/inertia-vue3';
-import Navigation from './fragment/Navigation.vue';
-import Banner from './fragment/Banner.vue';
-import Section1 from './fragment/Section1.vue';
-import Section2 from './fragment/Section2.vue';
-import Section3 from './fragment/Section3.vue';
-import Section4 from './fragment/Section4.vue';
-import Section5 from './fragment/Section5.vue';
-import FormSection from './fragment/FormSection.vue';
-import Footer from './fragment/Footer.vue';
+// import GlobalLayout from '@/Components/GlobalLayout.vue';
+// import { Link } from '@inertiajs/inertia-vue3';
+// import Navigation from './fragment/Navigation.vue';
+// import Banner from './fragment/Banner.vue';
+// import Section1 from './fragment/Section1.vue';
+// import Section2 from './fragment/Section2.vue';
+// import Section3 from './fragment/Section3.vue';
+// import Section4 from './fragment/Section4.vue';
+// import Section5 from './fragment/Section5.vue';
+// import FormSection from './fragment/FormSection.vue';
+// import Footer from './fragment/Footer.vue';
 
 </script>
 

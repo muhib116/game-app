@@ -127,3 +127,9 @@ Understand? :)
 <!-- 
 total poeng
 Totale poeng -->
+
+Navn på rebuslag: Lag#1
+http://127.0.0.1:8000/username/asdfa-sdf
+Kode for rebuslag: Kode#1
+Rebuskode: 12321
+Rebus passord: 12321

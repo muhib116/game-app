@@ -40,9 +40,20 @@
                 <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
             </label>
 
+            <template v-if="controlBy!='admin'">
+                <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center mb-4">
+                    <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ translate('Task Completed') }}
+                    </span>
+                </div>
+            </template>
+
             <img 
-                v-if="get(task, 'adminImage')"
-                :src='get(task, "adminImage")' 
+                v-if="get(getSelected(gamePayload.tasks), 'adminImage')"
+                :src='get(getSelected(gamePayload.tasks), "adminImage")' 
                 alt=""
                 class='w-full block mb-6 mx-auto'
             />
@@ -73,14 +84,14 @@
                 </div>
             </div>
             <template v-if="controlBy!='admin'">
-                <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center">
+                <!-- <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center">
                     <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         {{ translate('Task Completed') }}
                     </span>
-                </div>
+                </div> -->
                 <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>

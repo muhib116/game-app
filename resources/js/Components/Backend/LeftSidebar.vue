@@ -47,11 +47,12 @@
         <i class="w-5 fa fa-user" aria-hidden="true"></i>
         {{ translate('Profile') }}
         </Link>
-        <Link :href="route('logout')" method="POST" class='flex gap-2 items-center py-1 px-4 hover:text-white'>
-        <i class="fas fa-sign-out-alt"></i>
-        {{ translate('Logout') }}
-        </Link>
+        <button type="submit" form="logoutFormAside" class='flex gap-2 items-center py-1 px-4 hover:text-white'>
+            <i class="fas fa-sign-out-alt"></i>
+            {{ translate('Logout') }}
+        </button>
     </aside>
+    <form :action="route('logout')" method="post" class="hidden" id="logoutFormAside"></form>
 </template>
 
 <script setup>

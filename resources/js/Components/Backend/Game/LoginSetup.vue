@@ -7,7 +7,10 @@
         <div class="bg-white shadow rounded mt-5">
             <div class="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
                 {{ translate('Game Details & Welcome Screen') }}
-                <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">{{ translate('Next') }}</button>
+                <button v-if="!hasError" @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">{{ translate('Next') }}</button>
+                <span v-else class="text-red-500 text-base font-normal">
+                    {{ translate('Please change the duplicate game title or game code to continue.') }}
+                </span>
             </div>
             <div class="p-4 flex gap-5">
                 <div>
@@ -156,6 +159,7 @@ import TeamSetup from './TeamSetup.vue';
 import { toast, slug } from "@/helper";
 import { get } from 'lodash'
 import { translate } from '@/useLanguage';
+import { hasError } from './gameDrain';
 
 defineProps({
     next: Function

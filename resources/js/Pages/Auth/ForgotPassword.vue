@@ -25,8 +25,9 @@ const submit = () => {
         <Head title="Forgot Password" />
 
         <div class="mb-4 text-sm text-gray-600">
-            {{translate(`Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-            link that will allow you to choose a new one.`)}}
+            <!-- {{translate(`Forgot your password? No problem. Just let us know your email address and we will email you a password reset
+            link that will allow you to choose a new one.`)}} -->
+            Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-posta dresse, så sender vi deg en lenke for PlbakesPlling av passord.
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -52,7 +53,8 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    {{ translate('Email Password Reset Link') }}
+                    <!-- {{ translate('Email Password Reset Link') }} -->
+                    TilbakesPll passord
                 </PrimaryButton>
             </div>
         </form>

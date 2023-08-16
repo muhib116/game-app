@@ -304,12 +304,14 @@ class GameController extends Controller
             }
         }
 
-        $gameExist = Game::where('login->gameCode', $game_code)->orWhere('login->gameTitle', $game_title)->get();
+        $gameExist = Game::where('login->gameCode', $game_code)
+                            ->orWhere('login->gameTitle', $game_title)
+                            ->get()->where('user_id', auth()->id());
 
         if($game_code && count($gameExist) > 1) {
             return response([
                 'status' => 'failed',
-                'message' => 'Game title or code already exist',
+                'message' => 'Game title or game code already exist',
             ], 200);
         }
         if ($request->id) {
@@ -464,11 +466,11 @@ class GameController extends Controller
                 ]);
                 return redirect(url('instruction/'.$game->user->username.'/'.$game->login->gameCode));
             } else {
-                session()->flash('error', 'Game code or password not metch');
+                session()->flash('error', 'Game code or password not match');
                 return back();
             }
         } else {
-            session()->flash('error', 'Game code or password not metch');
+            session()->flash('error', 'Game code or password not match');
             return back();
         }
         // $game

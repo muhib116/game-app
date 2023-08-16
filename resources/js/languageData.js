@@ -65,6 +65,10 @@ const languages = [
         no: "Skriv inn ditt svar!",
     },
     {
+        en: "WriteText", // 
+        no: "Tekstoppgave",
+    },
+    {
         en: "Photostream", // 
         no: "Bildestrøm",
     },
@@ -107,6 +111,19 @@ const languages = [
     {
         en: "Submit",
         no: "Lever inn oppgave",
+    },
+    {
+        en: "POINTS",
+        no: "Poeng",
+    },
+    {
+        en: "Submit Task",
+        no: "Lever inn",
+    },
+    {
+        en: "Write in text",
+        // no: "Teksto-\nppgave",
+        no: "skriv inn",
     },
     {
         en: "PUBLISHED GAME", //
@@ -305,6 +322,10 @@ const languages = [
     {
         en: "Scan QR code",
         no: "Oppgave med skann QR",
+    },
+    {
+        en: "Scan QR",
+        no: "Skann QR",
     },
     {
         en: "Game host",

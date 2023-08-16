@@ -30,6 +30,16 @@
                     </label>
                 </div>
             </div>
+
+            <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center mt-6">
+                <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    {{ translate('Task Completed') }}
+                </span>
+            </div>
+            
             <h3 v-if="controlBy!='admin'" class='font-semi-bold text-2xl py-4 font-bold'>
                 {{ get(task, 'data.title') }}
             </h3>
@@ -87,14 +97,7 @@
                     </div>
                 </div>
                 
-                <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center">
-                    <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        {{ translate('Task Completed') }}
-                    </span>
-                </div>
+                
             </div>
         </div>
     </div>

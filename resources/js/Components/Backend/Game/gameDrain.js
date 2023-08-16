@@ -2,6 +2,7 @@ import axios from 'axios'
 import {ref} from 'vue'
 import { toast } from '@/helper';
 
+export const hasError = ref(true)
 
 export default function gameDrain() {
     const loading = ref({
@@ -16,6 +17,7 @@ export default function gameDrain() {
 
         clearTimeout(timeOut);
         if (data?.status == 'failed' && fromUser==false) {
+            hasError.value = true
             timeOut = setTimeout(() => {
                 toast.clear();
                 toast.error(data?.message, {
@@ -32,6 +34,7 @@ export default function gameDrain() {
                         // timeout: 200,
                         maxToasts: 2,
                     });
+                    hasError.value = false
                 }, 300);
             }
         }

@@ -38,13 +38,28 @@
                 <input @change="(e) => handleAdminImage(e.target.files[0], gamePayload.tasks, e)" type='file' :disabled="adminImageLoading" hidden accept="image/*" />
             </label>
         </div>
-        <img 
+
+        <!-- <img 
             v-if="get(task, 'adminImage')"
             :src="get(task, 'adminImage')"
             alt=""
             class='w-full block mb-6 mx-auto'
+        /> -->
+        <img 
+            v-if="get(getSelected(gamePayload.tasks), 'adminImage')"
+            :src="get(getSelected(gamePayload.tasks), 'adminImage')"
+            alt=""
+            class='w-full block mb-6 mx-auto'
         />
         <div class="">
+            <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
+                <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    {{ translate('Task Completed') }}
+                </span>
+            </div>
             <div class="qrCode w-[100px] h-[100px] grid items center object-fill object-center mx-auto mt-10">
                 <svg class='w-full h-full' width="512" height="512" viewBox="0 0 426.667 426.667"><g fill="#fdba74"><path d="M277.333 0v149.333h149.333V0H277.333zM384 106.667h-64v-64h64v64zM0 192h85.333v42.667H0zm128 0h64v42.667h-64zm64-42.667h42.667V192H192zm-42.667-64V0H0v149.333h192v-64h-42.667zm-42.666 21.334h-64v-64h64v64zM192 0h42.667v85.333H192zm106.667 234.667h42.666v64H384V192H234.667v42.667H256v42.666h42.667zm-85.334 42.666H256v64h-42.667zM384 298.667h42.667v42.667H384z" data-original="#000000"/><path data-original="#000000" d="M298.667 341.333H256V384h-42.667v42.667h85.334V384h42.666v42.667h64V384H384v-42.667h-42.667zm-149.334 0v-64H0v149.333h149.333V384h64v-42.667h-64zM106.667 384h-64v-64h64v64z"/></g><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/></svg>
             </div>
@@ -77,14 +92,7 @@
                     {{ get(task, 'data.extraPoint') }}
                 </div>
             </div>
-            <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
-                <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    {{ translate('Task Completed') }}
-                </span>
-            </div>
+            
         </div>
     </div>
 
@@ -169,6 +177,7 @@
                 deleteImage(old);
             }
             getSelected(tasks).adminImage = response.path;
+            console.log(getSelected(tasks).adminImage);
         }
         adminImageLoading.value = false;
     }
