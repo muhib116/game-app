@@ -124,6 +124,18 @@ in the navigation / menu on the field.
 
 Understand? :)
 
+
+webmail password: info.Rebuslop123
+
+MAIL_MAILER=smtp
+MAIL_HOST=mail.rebuslop.no
+MAIL_PORT=465
+MAIL_USERNAME=info@rebuslop.no
+MAIL_PASSWORD=info.Rebuslop123
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="info@rebuslop.no"
+MAIL_FROM_NAME="${APP_NAME}"
+
 <!-- 
 total poeng
 Totale poeng -->
@@ -133,3 +145,9 @@ http://127.0.0.1:8000/username/asdfa-sdf
 Kode for rebuslag: Kode#1
 Rebuskode: 12321
 Rebus passord: 12321
+
+
+Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-post adresse, så sender vi deg en lenke for tilbakestilling av passord.
+(boutton) Tilbakestill passord
+
+Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-posta dresse, så sender vi deg en lenke for PlbakesPlling av passord.

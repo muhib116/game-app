@@ -27,7 +27,9 @@ const submit = () => {
         <div class="mb-4 text-sm text-gray-600">
             <!-- {{translate(`Forgot your password? No problem. Just let us know your email address and we will email you a password reset
             link that will allow you to choose a new one.`)}} -->
-            Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-posta dresse, så sender vi deg en lenke for PlbakesPlling av passord.
+            <!-- Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-posta dresse, så sender vi deg en lenke for PlbakesPlling av passord. -->
+            Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-post adresse, så sender vi deg en lenke for tilbakestilling av passord.
+(boutton) Tilbakestill passord
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
