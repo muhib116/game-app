@@ -10,7 +10,7 @@
                     :isLastTask="!(index < gameData.tasks.length - 1)"
                 />
             </div>
-            
+
             <div class="fixed bottom-4 px-4 left-1/2 -translate-x-1/2 w-full flex gap-1 justify-between mt-4 h-[100px] max-w-[768px] z-20">
                 <!-- <button v-if="index > 0" class=' w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
                     Prev

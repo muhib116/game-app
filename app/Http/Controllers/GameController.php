@@ -352,7 +352,7 @@ class GameController extends Controller
         if ($request->getFirst) {
             return $query->first();
         }
-        return $query->get();
+        return $query->orderBy('id', 'DESC')->get();
     }
 
     public function delete(Game $game) {

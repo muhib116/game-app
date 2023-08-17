@@ -13,7 +13,8 @@
         <!-- {{ translate('GAME INFO') }} -->
       </div>
       <div>
-        <form @submit.prevent="quiteGame" method="POST">
+        <!-- <form @submit.prevent="quiteGame" method="POST"> -->
+        <form :action="route('game_exit')" method="POST">
           <button class="text-white bg-red-500 px-3 rounded">{{ translate('Quit') }}</button>
         </form>
       </div>

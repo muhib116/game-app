@@ -4,7 +4,7 @@
         <!-- <div class="text-xl text-center font-black pb-4">
             {{ translate('Presented By') }}
         </div> -->
-        <img class="w-[300px]" :src="`${$page.props.asset}${get(game, 'user.logo')}`" alt="">
+        <img v-if="get(game, 'user.logo')" class="w-[300px]" :src="`${$page.props.asset}${get(game, 'user.logo')}`" alt="">
     </div>
 </div>
 </template>
