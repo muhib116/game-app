@@ -8,9 +8,9 @@ import GlobalLayout from '@/Components/GlobalLayout.vue';
     <GlobalLayout>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
-                <Link href="/">
+                <a href="/">
                     <ApplicationLogo class="h-[100px] fill-current text-gray-500" />
-                </Link>
+                </a>
             </div>
     
             <div

@@ -15,6 +15,8 @@ use Inertia\Inertia;
 |
 */
 
+require __DIR__.'/auth.php';
+
 require_once('my-route/frontend.php');
 require_once('my-route/backend.php');
 
@@ -25,7 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
 
 
 // Route::get('/', function () {
