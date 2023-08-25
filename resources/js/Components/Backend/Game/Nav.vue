@@ -7,7 +7,6 @@
                         @click="$emit('handleNav', option)" 
                         class="bg-slate-200 py-2 px-3 rounded text-black"
                         :class="option.isActive ? '!text-white !bg-[var(--faveDark)]' : ''">
-                        <!-- {{ translate(option.title) }} -->
                         {{ option.title }}
                     </button>
                 </template>
@@ -17,15 +16,16 @@
                         @click="$emit('handleNav', option)" 
                         class="bg-slate-200 py-2 px-3 rounded text-black"
                         :class="option.isActive ? '!text-white !bg-[var(--faveDark)]' : ''">
-                        <!-- {{ translate(option.title) }} -->
                         {{ option.title }}
                     </button>
                 </template>
             </template>
         </div>
-        <!-- <button @click="saveGame(gamePayload)" class="bg-slate-200 py-2 px-3 rounded text-white !bg-[var(--faveDark)]">
+        
+        <button v-if="!hasError" @click="saveGame(gamePayload)" :disabled="loading.save" class="bg-slate-200 py-2 px-3 rounded text-white !bg-[var(--faveDark)] flex items-center">
+            <Preloader class="w-4 h-4" v-if="loading.save" />
             Save
-        </button> -->
+        </button>
     </nav>
 </template>
 
@@ -39,7 +39,7 @@ const props = defineProps({
     options: Array,
 })
 
-const { saveGame } = gameDrain()
+const { saveGame, loading } = gameDrain()
 const { gamePayload } = useConnfiguration()
 
 </script>

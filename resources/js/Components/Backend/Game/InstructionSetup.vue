@@ -2,7 +2,8 @@
     <div className='p-5'>
         <div className="bg-white shadow rounded mt-5">
             <div className="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between items-center">
-                {{ translate('Game Instruction') }}
+                <!-- {{ translate('Game Instruction') }} -->
+                <span>Instruksjon</span>
                 <button @click="next" class="py-1 px-3 bg-slate-700 text-white rounded">{{ translate('Next') }}</button>
             </div>
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">

@@ -75,14 +75,14 @@ const gamePayload = ref(cloneDeep(defaultGamePayload));
 
 export default function useConnfiguration() {
     let timeOutId = null;
-    watch(gamePayload, ()=>{
-        clearTimeout(timeOutId);
-        timeOutId = setTimeout(()=>{
-            if (!loading.value.save) {
-                saveGame(gamePayload.value);
-            }
-        },1000)
-    }, {deep: true});
+    // watch(gamePayload, ()=>{
+    //     clearTimeout(timeOutId);
+    //     timeOutId = setTimeout(()=>{
+    //         if (!loading.value.save) {
+    //             saveGame(gamePayload.value);
+    //         }
+    //     },1000)
+    // }, {deep: true});
 
     return {
         gamePayload,

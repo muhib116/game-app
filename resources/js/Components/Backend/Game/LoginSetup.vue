@@ -15,7 +15,10 @@
             <div class="p-4 flex gap-5">
                 <div>
                     <h2 class='font-bold'>{{ translate('Login Cover photo') }}*</h2>
-                    <h3 class='mb-2'>{{ translate('Shown to players before starting the game.') }}</h3>
+                    <h3 class='mb-2'>
+                        <!-- {{ translate('Shown to players before starting the game.') }} -->
+                        Vises før start av rebusløpet.
+                    </h3>
                     <img :src="gamePayload.login.image" alt="" v-if="gamePayload.login.image">
                 </div>
                 <div class='w-full'>
@@ -133,11 +136,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- {{ get(gamePayload, 'login.team') }} -->
                             <TeamSetup 
                                 v-for="(item, index) in get(gamePayload, 'login.team')" 
                                 :key="index" 
                                 :index="index+1" 
                                 :item="item"
+                                :duplicateError="duplicateError"
+                                @updateItem="e => handleUpdateItem(e, get(gamePayload, 'login.team'), item, index)"
                                 @remove="removeTeam(get(gamePayload, 'login.team'), index)"
                                 :payload="get(gamePayload, 'login.team')"
                             />
@@ -159,11 +165,12 @@ import TeamSetup from './TeamSetup.vue';
 import { toast, slug } from "@/helper";
 import { get } from 'lodash'
 import { translate } from '@/useLanguage';
-import { hasError } from './gameDrain';
+import gameDrain, { hasError } from './gameDrain';
 
 defineProps({
     next: Function
 });
+
 
 const { gamePayload } = useConnfiguration();
 const { handleImageUpload, deleteImage } = useFileUpload();
@@ -175,11 +182,30 @@ watch(()=> gamePayload, ()=>{
     deep: true
 })
 
+const duplicateError = ref({
+    status: false,
+    index: 0,
+})
+
+const handleUpdateItem = (value, payload, item, index) => {
+    let exist = payload.find(item => item.teamCode == value)
+    item.teamCode = value
+    if (!exist) {
+        duplicateError.value.index = index
+        duplicateError.value.status = false
+        hasError.value = false
+        return
+    }
+
+    hasError.value = true
+    duplicateError.value.status = true
+    duplicateError.value.index = index
+}
 
 const addTeam = (teamAray) => {
     teamAray.push({
+        teamCode: `Kode#${teamAray.length+1}`,
         teamName: `Lag#${teamAray.length+1}`,
-        teamCode: `Kode#${teamAray.length+1}`
     });
 }
 

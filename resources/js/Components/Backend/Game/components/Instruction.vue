@@ -33,7 +33,7 @@
             <div v-if="controlBy!='admin'" class="font-black text-left text-xl mb-9 mt-4 text-[var(--dbg)]">
                 {{ translate('Instructions') }}
             </div>
-            <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full text-[var(--dbg)] min-h-[300px]"></textarea>
+            <textarea v-if="controlBy=='admin'" v-model="data.text" class="bg-transparent border-0 w-full h-full resize-none text-[var(--dbg)] min-h-[300px]"></textarea>
             <p v-else class="bg-transparent border-0 w-full text-[var(--dbg)] overflow-y-auto h-[68%]" v-html="data.text"></p>
         </div>
         <template v-if="controlBy=='admin'">
@@ -44,7 +44,7 @@
 
 <script setup>
     import useFileUpload from '@/useFileUpload';
-import { translate } from '@/useLanguage';
+    import { translate } from '@/useLanguage';
     import { get } from 'lodash';
 
     const { handleImageUpload, deleteImage } = useFileUpload();

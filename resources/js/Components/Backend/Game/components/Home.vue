@@ -35,9 +35,9 @@
             <input v-if="controlBy=='admin'" v-model="data.title" class='text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]' />
             <p v-else class="text-sm font-extrabold mb-2 bg-transparent border-0 text-[var(--dbg)]">{{ data.title }}</p>
 
-            <textarea v-if="controlBy=='admin'" class='w-full text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
+            <textarea v-if="controlBy=='admin'" class='w-full text-[var(--dbg)] text-4xl resize-none leading-9 mb-1 bg-transparent border-0 h-auto' v-model="data.subtitle" />
             <p v-else class="w-[85%] text-[var(--dbg)] text-4xl leading-9 mb-1 bg-transparent border-0 h-auto">{{ data.subtitle }}</p>
-            <textarea v-if="controlBy=='admin'" class="italic text-[var(--dbg)] bg-transparent border-0 block w-full" rows="5" v-model="data.description" />
+            <textarea v-if="controlBy=='admin'" class="italic text-[var(--dbg)] bg-transparent resize-none border-0 block w-full" rows="5" v-model="data.description" />
             <p v-else class="italic text-[var(--dbg)] bg-transparent border-0 block w-full">{{ data.description }}</p>
           </div>
         </div>

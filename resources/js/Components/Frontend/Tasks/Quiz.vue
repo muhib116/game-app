@@ -55,7 +55,7 @@
                 alt=""
                 class='w-full block mb-6 mx-auto'
             />
-            
+
             <div class='text-black text-opacity-80'>
                 <input 
                     v-if="controlBy=='admin'" 
@@ -104,7 +104,7 @@
             <div class="text-left w-full py-4">
                     <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.deadline')">
                         {{ translate('Deadline') }}: 
-                        {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm:ss') }}
+                        {{ moment(get(task, 'data.deadline')).format('D MMM YYYY H:mm') }}
                     </div>
                     <div class="font-bold" v-if="controlBy!='admin' && get(task, 'data.point')">
                         {{ translate('Points') }}: 

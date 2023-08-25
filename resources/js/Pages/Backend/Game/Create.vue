@@ -1,8 +1,8 @@
 <template>
     <Master>
-        <div className="flex justify-between p-5 bg-white">
+        <!-- <div className="flex justify-between p-5 bg-white">
             <p className="text-2xl font-bold text-black">{{ translate('Games') }}</p> 
-        </div>
+        </div> -->
         <Nav :options="options" :setOptions="options" @handleNav="handleNav" />
         <component :is="activeComponent" :next="nextComponent" /> 
     </Master>
@@ -21,7 +21,7 @@
 import { translate } from '@/useLanguage'
 
     const { gamePayload } = useConnfiguration();
-    const { gameList } = gameDrain();
+    const { gameList, saveGame } = gameDrain();
     const props = defineProps({
         id: Number
     });
@@ -53,9 +53,11 @@ import { translate } from '@/useLanguage'
         options.value.forEach(item => {
             item.isActive = selectedOption.id == item.id;
         });
+        saveGame(gamePayload.value)
     }
-
+    
     const nextComponent = () => {
+        saveGame(gamePayload.value)
         // let fnd = options.value.find(item => item.id = activeComponent.value.__name);
         let fnd = findIndex(options.value, (itm) => itm.id == activeComponent.value.__name);
         if (fnd < options.value.length) {
@@ -71,6 +73,7 @@ import { translate } from '@/useLanguage'
             getFirst: true,
         });
         gamePayload.value = getFirst;
+        // console.log('pore', gamePayload.value);
     });
 </script>
 

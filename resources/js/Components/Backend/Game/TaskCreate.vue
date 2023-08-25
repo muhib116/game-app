@@ -5,7 +5,7 @@
                 {{ translate('Task Create') }}
             </div>
             <div class="p-4 flex gap-2 flex-wrap items-center">
-                <span class='font-bold'>{{ translate('Add Template') }}: </span> 
+                <!-- <span class='font-bold'>{{ translate('Add Template') }}: </span>  -->
                 <button 
                     v-for="item in components" 
                     :key="item.name" 
@@ -48,7 +48,7 @@
             <div class="w-full p-4">
                 <component :is="getSelectedComponent(gamePayload.tasks)" controlBy="admin" />
                 <div class="flex">
-                    <Link :href="route('game')" v-if="gamePayload.tasks[gamePayload.tasks.length-1]?.isSelected" class="bg-[var(--faveDark)] text-white py-2 px-3 rounded ml-auto block">
+                    <Link :href="route('game')" v-if="gamePayload.tasks[gamePayload.tasks.length-1]?.isSelected && !hasError" class="bg-[var(--faveDark)] text-white py-2 px-3 rounded ml-auto block">
                         {{ translate('Finish Up') }}
                     </Link>
                 </div>
@@ -64,6 +64,7 @@
     import { onMounted } from '@vue/runtime-core'
     import { Link } from '@inertiajs/inertia-vue3';
 import { translate } from '@/useLanguage';
+import gameDrain, { hasError } from './gameDrain';
 
     const { components, componentList, makeSelected, addTemplate, removeItem } = useTaskCreate() 
     const { config, gamePayload } = useConnfiguration();
