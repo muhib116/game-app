@@ -57,10 +57,18 @@ const instruction = [
     }
 ]
 
+const finishing = {
+    title: null,
+    text: null,
+    longtide: null,
+    lattitude: null,
+}
+
 const defaultGamePayload = {
     id: null,
     login,
     instruction,
+    finishing,
     tasks: [],
     status: 'draft',
     start_time: null,

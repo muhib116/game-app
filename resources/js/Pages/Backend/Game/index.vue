@@ -78,10 +78,10 @@
                                             </svg>
                                             {{ translate('Copy') }}
                                         </button>
-                                        <a v-if="game.status == 'published'" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`" class="py-px px-3 bg-[var(--fave)] text-white rounded">
+                                        <a v-if="game.status == 'published'" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`" class="py-px px-3 bg-[var(--fave)] text-[var(--color)] rounded">
                                             {{ translate('View') }}
                                         </a>
-                                        <button v-else class="py-px px-3 bg-[var(--fave)] text-white rounded">
+                                        <button v-else class="py-px px-3 bg-[var(--fave)] text-[var(--color)] rounded">
                                             {{ translate('View') }}
                                         </button>
                                     </div>

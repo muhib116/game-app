@@ -104,7 +104,7 @@
     <button
         @click="handleSubmit(data.game.id, data.task.id)"
         v-if="!isStarted && controlBy != 'admin'"
-        class="absolute bottom-4 p-1 right-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        class="absolute bottom-4 p-1 right-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
     >
         {{ translate('Start task') }}
     </button>
@@ -116,7 +116,7 @@
         <div v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')">
                     
             <label v-if="controlBy!='admin'" 
-                class="p-2 cursor-pointer left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+                class="p-2 cursor-pointer left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
             >
                 <Preloader v-if="adminImageLoading" />
                 <template v-if="imgLink">
@@ -134,7 +134,7 @@
                 <button 
                     v-if="isStarted && !get(isStarted, 'end_at')"
                     @click="handleSave(game.id, task.id)" 
-                    class="p-1 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+                    class="p-1 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
                 >
                     {{ translate('Submit') }}
                 </button>

@@ -1,6 +1,6 @@
 <template>
     <Master  :showNavigation="true" :gameData="gameData">
-        <div class="py-5 px-5 bg-[var(--fave)] h-[calc(100vh-48px)] overflow-y-auto">
+        <div class="py-5 px-5 bg-[var(--fave)] text-[var(--color)] h-[calc(100vh-48px)] overflow-y-auto">
             <div class="font-bold text-xl text-center">
                 {{ translate('Total Score', 'en') }}
             </div>
@@ -14,7 +14,7 @@
                         <span>{{ team.point }}</span>
                     </div>
                 </template>
-                <div v-if="resultTotal == 0" class="text-black text-opacity-40 text-center">
+                <div v-if="resultTotal == 0" class="text-[var(--color)] text-opacity-40 text-center">
                     {{ translate('No score found', 'en') }}
                 </div>
             </div>

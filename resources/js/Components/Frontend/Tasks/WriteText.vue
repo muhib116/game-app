@@ -100,7 +100,7 @@
     <button
         @click="handleSubmit(data.game.id, data.task.id)"
         v-if="isEmpty(isStarted)"
-        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
     >
         {{ translate('Start task') }}
     </button>
@@ -108,7 +108,7 @@
     <button 
         @click="modelValue=true" 
         v-if="!isEmpty(isStarted) && !get(isStarted, 'end_at')" 
-        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight"
+        class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
     >
         {{ translate('Write in text') }}
     </button>

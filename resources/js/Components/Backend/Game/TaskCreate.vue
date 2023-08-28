@@ -1,8 +1,9 @@
 <template>
     <div class='p-5'>
         <div class="bg-white shadow rounded mt-5">
-            <div class="p-4 bg-[#fefefe] border-b font-bold text-black">
+            <div class="p-4 bg-[#fefefe] border-b font-bold text-black flex justify-between">
                 {{ translate('Task Create') }}
+                <button @click="tabValidator(next)" class="py-1 px-3 bg-slate-700 text-white rounded">{{ translate('Next') }}</button>
             </div>
             <div class="p-4 flex gap-2 flex-wrap items-center">
                 <!-- <span class='font-bold'>{{ translate('Add Template') }}: </span>  -->
@@ -47,11 +48,11 @@
             </div>
             <div class="w-full p-4">
                 <component :is="getSelectedComponent(gamePayload.tasks)" controlBy="admin" />
-                <div class="flex">
+                <!-- <div class="flex">
                     <Link :href="route('game')" v-if="gamePayload.tasks[gamePayload.tasks.length-1]?.isSelected && !hasError" class="bg-[var(--faveDark)] text-white py-2 px-3 rounded ml-auto block">
                         {{ translate('Finish Up') }}
                     </Link>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -62,10 +63,15 @@
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration.js'
     import QRCodeFinder from '@/Components/Frontend/Tasks/QRCodeFinder.vue'
     import { onMounted } from '@vue/runtime-core'
+    import { tabValidator } from '@/Pages/Backend/validator.js'
     import { Link } from '@inertiajs/inertia-vue3';
-import { translate } from '@/useLanguage';
-import gameDrain, { hasError } from './gameDrain';
+    import { translate } from '@/useLanguage';
+    import gameDrain, { hasError } from './gameDrain';
 
+    defineProps({
+        next: Function
+    })
+    
     const { components, componentList, makeSelected, addTemplate, removeItem } = useTaskCreate() 
     const { config, gamePayload } = useConnfiguration();
 
@@ -75,7 +81,10 @@ import gameDrain, { hasError } from './gameDrain';
             return componentList.value[selectedItem.component];
         }
         return;
-    } 
+    }
+
+    const handleFinish = () => {}
+
 </script>
 
 <style lang="scss" scoped>

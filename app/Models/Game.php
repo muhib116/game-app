@@ -15,7 +15,8 @@ class Game extends Authenticatable
         'instruction' => 'array',
         'login' => 'object',
         'tasks' => 'array',
-        'settings' => 'array'
+        'settings' => 'array',
+        'finishing' => 'array',
     ];
 
     public function user() {

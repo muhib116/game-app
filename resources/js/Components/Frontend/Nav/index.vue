@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class='flex justify-between px-6 py-3 bg-[var(--fave)] shadow absolute top-0 left-0 right-0 z-[9999]'>
-      <button @click="asideActive = true">
-        <svg class='w-5 h-5' width="24px" height="24px" viewBox="0 0 24 24">
+    <div class='flex justify-between px-6 py-3 bg-[var(--fave)] text-[var(--color)] shadow absolute top-0 left-0 right-0 z-[9999]'>
+      <button @click="asideActive = true" class="text-[var(--color)]">
+        <svg class='w-5 h-5' fill="currentColor" width="24px" height="24px" viewBox="0 0 24 24">
             <g>
               <path fill="none" d="M0 0h24v24H0z"/>
               <path d="M12 3v2H3V3h9zm4 16v2H3v-2h13zm6-8v2H3v-2h19z"/>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div @click.self="asideActive = false" class="absolute z-40 top-0 left-0 right-0 bottom-0 text-md bg-black bg-opacity-60 transition-opacity" :class="asideActive ? 'opacity-100 delay-0' : 'opacity-0 pointer-events-none'">
-      <div class="bg-[var(--fave)] h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
+      <div class="bg-[var(--fave)] text-[var(--color)] h-full w-[250px] transition-all duration-[0.3s] p-4 pt-16 relative flex flex-col gap-2" :class="asideActive ? '-ml-0 delay-[0s]' : '-ml-[200px]'">
         <button @click="asideActive = false" class='absolute right-4 top-4 cursor-pointer'>
           <svg class='w-4 h-4' width="20" height="20" viewBox="0 0 20 20" fill='currentColor'>
             <path d="M10 8.586 2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />

@@ -15,16 +15,18 @@
     import LoginSetup from '@/Components/Backend/Game/LoginSetup.vue'
     import InstructionSetup from '@/Components/Backend/Game/InstructionSetup.vue'
     import TaskCreate from '@/Components/Backend/Game/TaskCreate.vue'
+    import FinishingPage from '@/Components/Backend/Game/FinishingPage.vue'
     import useConnfiguration from '@/Components/Backend/Game/useConnfiguration'
     import gameDrain from '@/Components/Backend/Game/gameDrain'
     import { findIndex } from 'lodash'
-import { translate } from '@/useLanguage'
+    import { translate } from '@/useLanguage'
 
     const { gamePayload } = useConnfiguration();
     const { gameList, saveGame } = gameDrain();
     const props = defineProps({
         id: Number
     });
+
     const options = ref([
         {
             id: 'LoginSetup',
@@ -43,9 +45,15 @@ import { translate } from '@/useLanguage'
             title: translate('Task Create'),
             component: TaskCreate,
             isActive: false
-        }
+        },
+        {
+            id: 'FinishingPage',
+            title: translate('Closing page'),
+            component: FinishingPage,
+            isActive: false
+        },
     ])
-    
+
     const activeComponent = ref(LoginSetup)
 
     const handleNav = (selectedOption) => {

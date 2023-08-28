@@ -3,35 +3,16 @@ import {ref} from 'vue'
 import { toast } from '@/helper';
 
 export const hasError = ref(false)
-
-const quizValidation = (payload) => {
-    let valid = true
-    payload.tasks.forEach(item => {
-        if (item.name == 'Quiz' && item.data.options?.length == 0) {
-            valid = false
-        }
-        if (item.data.options?.length) {
-            item.data.options.map(opt => {
-                if (!opt.name) {
-                    valid = false
-                }
-            })
-        }
-    })
-    return valid
-}
+export const hasTeamCodeError = ref(false)
 
 export default function gameDrain() {
+    
     const loading = ref({
         save: false,
         list: false,
     });
     let timeOut = null;
     const saveGame = async (payload, fromUser=false) => {
-        if (!quizValidation(payload)) {
-            toast.error('Quiz option cannot be empty')
-            return
-        }
         loading.value.save = true;
         const data = await axios.post('/game/save', payload)
                         .then(res => res.data);

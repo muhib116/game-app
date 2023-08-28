@@ -35,7 +35,7 @@
                                             <button @click="(e) => {
                                                 handleSubmit(e, game.id, task.id, team.teamCode, (task.data.point + task.data.extraPoint))
                                             }"
-                                            class="py-1 px-3 bg-[var(--fave)] border border-green-400 text-white ml-1 rounded">{{ translate('Save') }}</button>
+                                            class="py-1 px-3 bg-[var(--fave)] border border-green-400 text-[var(--color)] ml-1 rounded">{{ translate('Save') }}</button>
                                         </template>
                                         <span v-else>{{ get(getTeamAns(task.userAnswer, team.teamCode), 'value') }} {{ translate('Points') }}</span>
                                     </div>

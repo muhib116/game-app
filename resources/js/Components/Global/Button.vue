@@ -1,5 +1,5 @@
 <template>
-  <button class="px-4 py-2 bg-[var(--fave)] shadow rounded block w-full relative">
+  <button class="px-4 py-2 bg-[var(--fave)] text-[var(--color)] shadow rounded block w-full relative">
     {{ label }}
     <span v-if="isLoading" class='absolute right-2 top-[50%] transform -translate-y-1/2'>
       <svg class='block animate-spin font-bolder' width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

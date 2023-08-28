@@ -278,7 +278,7 @@ class GameController extends Controller
     
     public function save(Request $request) {
         $data = $request->all(); 
-        
+
         $game_title = $request->login['gameTitle'];
         $game_code = $request->login['gameCode'];
         $game_password = $request->login['gamePassword'];
@@ -322,6 +322,7 @@ class GameController extends Controller
                 'instruction' => $request->instruction,
                 'status' => $request->status,
                 'tasks' => $request->tasks,
+                'finishing' => $request->finishing,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
             ]);
@@ -333,6 +334,7 @@ class GameController extends Controller
                 'instruction' => $request->instruction,
                 'status' => $request->status,
                 'tasks' => $request->tasks,
+                'finishing' => $request->finishing,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
             ]);

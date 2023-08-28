@@ -1,5 +1,5 @@
 <template>
-    <div class='grid gap-1'>
+    <div class='grid gap-1 text-[var(--color)]'>
         <button @click="showDropdown = !showDropdown" 
             class='flex justify-between items-center w-full'
         >

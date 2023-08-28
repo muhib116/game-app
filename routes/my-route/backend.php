@@ -3,6 +3,7 @@
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\GameValidatorController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
@@ -32,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Route::get('/get-language', [LanguageController::class, 'all'])->name('language.get');
     // Route::post('/language', [LanguageController::class, 'store'])->name('language.store');
     
+    Route::post('game/validate', [GameValidatorController::class, 'loginScreenValidation'])->name('loginScreenValidation');
     Route::post('/game/save/{game?}', [GameController::class, 'save'])->name('game.save');
     Route::post('/game/list', [GameController::class, 'list'])->name('game.list');
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');

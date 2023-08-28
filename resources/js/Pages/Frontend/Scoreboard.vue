@@ -1,6 +1,6 @@
 <template>
     <Master  :showNavigation="true" :gameData="gameData">
-        <div class="py-5 px-5 bg-[var(--fave)] h-full overflow-y-auto">
+        <div class="py-5 px-5 bg-[var(--fave)] text-[var(--color)] h-full overflow-y-auto">
             <div class="font-bold text-xl">
                 {{ translate('Scoreboard', 'en') }} 
             </div>
@@ -12,7 +12,7 @@
                                 {{ translate('Team', 'en') }}: <strong>{{ team.name }}</strong>
                             </span>
                         </div>
-                        <div class="relative w-full myDiv" :style="`--cont:${translate('No score found!', 'en')}`">
+                        <div class="relative w-full myDiv text-[var(--color)]" :style="`--cont:${translate('No score found!', 'en')}`">
                             <template v-for="(task, index) in gameData.tasks" :key="index">
                                 <div 
                                     v-if="
@@ -21,7 +21,7 @@
                                     " 
                                     class="w-full border-b"
                                 >
-                                    <div class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-white">
+                                    <div class="flex gap-5 justify-between py-2 px-2 font-bold text-lg text-[var(--color)]">
                                         <div>
                                             {{ task.data.title }}
                                         </div>
@@ -119,7 +119,7 @@ const getTotalPoint = (teamCode, tasks) => {
 <style scoped>
 .myDiv:empty::before{
     content: var(--cont);
-    color: #00000081;
+    color: var(--color);
     font-size: 15px;
 }
 </style>

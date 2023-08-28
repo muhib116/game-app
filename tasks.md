@@ -151,3 +151,15 @@ Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-post adresse, 
 (boutton) Tilbakestill passord
 
 Huff da...Glemt passordet? Ikke noe problem. Bare skriv inn din e-posta dresse, så sender vi deg en lenke for PlbakesPlling av passord.
+
+====================================== Closing page
+2. Insert (map or) last page
+When clicking “avsluP now” – its sent to index.
+Fine.
+But I talked earlier about having a “closeing page”
+aka when system sees all game are completed –
+then it shows either a text page OR map with text.
+This is more like a page to say game is over and
+then should meet at place X. (thus the map)
+Enough with text only like the instrucAon text,
+but if a map is possible also great. 

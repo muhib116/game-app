@@ -38,14 +38,32 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import useLanguage from '@/useLanguage'
+import { usePage } from '@inertiajs/inertia-vue3'
 const { selectedLanguage, languageList, showLanguageModal, languageChanger } = useLanguage()
+
+const theme = ref('#5ABB85')
+
+const getColor = (hexColor) => {
+    const r = parseInt(hexColor.slice(1, 3), 16);
+    const g = parseInt(hexColor.slice(3, 5), 16);
+    const b = parseInt(hexColor.slice(5, 7), 16);
+
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+
+    return yiq >= 128 ? "#000000" : "#ffffff";
+}
 
 onMounted(()=>{
     if (localStorage.getItem('language') != 'no') {
         localStorage.setItem('language', 'no')
         location.reload()
     }
-    // languageChanger('no')
+    const serverTheme = usePage().props.value.theme
+    if (serverTheme) {
+        theme.value = serverTheme?.theme
+    }
+    const clr = getColor(theme.value)
+    document.body.style = `--fave:${theme.value};--color:${clr};`
 });
 
 </script>

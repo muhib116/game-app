@@ -9,6 +9,25 @@ Inertia.on('start', (event) => {
     asideActive.value = false;
 })
 
+export const themeColors = [
+    "#C6DDF2",
+    "#9FB4CC",
+    "#22283B",
+    "#C1CDD2",
+    "#5F6B76",
+    "#425061",
+    "#FFBF65",
+    "#6C88C4",
+    "#0065A2",
+    "#FF5C77",
+    "#4DD091",
+    "#FFEC59",
+    "#FFA23A",
+    "#74737A",
+    "#FC6238",
+    "#FFD872",
+];
+
 export function useGlobalSetting() {
     const asideToggle = () => {
         asideActive.value = !asideActive.value;

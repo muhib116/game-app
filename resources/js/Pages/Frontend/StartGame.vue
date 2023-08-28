@@ -1,6 +1,7 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
-        <div class="h-full relative">
+        <FinishingPage v-if="endPage" :public="true" />
+        <div v-else class="h-full relative">
             <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[calc(100%-148px)]'>
                 <component 
                     @skip="(value) => handleEmittedSkip(gameData.tasks, value)" 
@@ -12,19 +13,16 @@
             </div>
 
             <div class="fixed bottom-4 px-4 left-1/2 -translate-x-1/2 w-full flex gap-1 justify-between mt-4 h-[100px] max-w-[768px] z-20">
-                <!-- <button v-if="index > 0" class=' w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] font-black flex items-center justify-center' @click="skipTask(gameData.tasks, true)">
-                    Prev
-                </button>
-                <span v-else></span> -->
                 <div></div>
                 <span></span>
 
-                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-black' @click="skipTask(gameData.tasks)">
+                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-[var(--color)]' @click="skipTask(gameData.tasks)">
                     {{ translate('Next', 'en') }}
                 </button>
             </div>
 
         </div>
+        <!-- endPage -->
         <FlashSuccess @callback="clsoeHandle" v-model="showFlash" v-if="showFlash" />
     </Master>
 </template>
@@ -37,6 +35,7 @@ import useTaskCreate from '@/Components/Backend/Game/useTaskCreate';
 import { ref, onMounted } from 'vue';
 import FlashSuccess from '@/Components/Frontend/Popup/FlashSuccess.vue';
 import useLanguage from '@/useLanguage';
+import FinishingPage from '@/Components/Backend/Game/FinishingPage.vue';
 const { componentList } = useTaskCreate();
 const { translate } = useLanguage();
 
@@ -46,6 +45,7 @@ defineProps({
 
 const index = ref(0)
 const showFlash = ref(false)
+const endPage = ref(false)
 
 const selectTask = (tasks) => {
     return tasks[index.value];
@@ -54,7 +54,7 @@ const selectTask = (tasks) => {
 const clsoeHandle = () => {
     console.log('close', showFlash.value);
     showFlash.value = false;
-    window.location.reload();
+    // window.location.reload();
 }
 
 onMounted(() => {
@@ -86,6 +86,7 @@ const skipTask = (tasks, prev = false) => {
     if (index.value < tasks.length - 1) {
         index.value++;
     } else {
+        endPage.value = true
         index.value = 0;
     }
     if (pageSize == null) {

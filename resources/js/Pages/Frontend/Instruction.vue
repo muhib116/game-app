@@ -4,14 +4,14 @@
             <div class="h-full relative" v-if="selectSteap(gameData)">
                 <component :is="componentList[selectSteap(gameData).component]" :data="selectSteap(gameData)" />
                 <div v-if="Number(gameData.instruction.length) != index + 1">
-                    <button class='absolute right-4 bottom-4 z-20 w-[100px] h-[100px] bg-[var(--fave)] font-black !text-2xl rounded-full' @click="nextSteap(gameData)">
+                    <button class='absolute right-4 bottom-4 z-20 w-[100px] h-[100px] bg-[var(--fave)] text-[var(--color)] font-black !text-2xl rounded-full' @click="nextSteap(gameData)">
                         {{ translate('Next', 'en') }}
                     </button>
                 </div>
                 <Link 
                     v-else
                     :href="`${$page.props.ziggy.url}/start-game/${get(gameData, 'username')}/${get(gameData, 'login.gameCode')}`" 
-                    class='absolute right-4 bottom-4 z-20 w-[100px] h-[100px] flex items-center justify-center bg-[var(--fave)] font-black !text-2xl rounded-full'
+                    class='absolute right-4 bottom-4 z-20 w-[100px] h-[100px] flex items-center justify-center bg-[var(--fave)] text-[var(--color)] font-black !text-2xl rounded-full'
                 >
                     {{ translate('Start', 'en') }}
                 </Link>

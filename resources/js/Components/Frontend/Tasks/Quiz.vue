@@ -124,13 +124,13 @@
         <button
             @click="handleSubmit(data.game.id, data.task.id)"
             v-if="!start && controlBy != 'admin'"
-            class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-sm"
+            class="absolute bottom-4 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-sm"
         >
             {{ translate('Start task') }}
         </button>
         <button 
             v-if="controlBy!='admin' && !isEmpty(isStarted(data.game, data.task)) && !get(isStarted(data.game, data.task), 'end_at')" 
-            class='absolute bottom-4 px-1 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center leading-tight' 
+            class='absolute bottom-4 px-1 left-4 z-40 w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight' 
             @click="handleSave(game.id, task.id)"
         >
             {{ translate('Submit Task') }}

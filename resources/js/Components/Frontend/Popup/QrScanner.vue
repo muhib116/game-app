@@ -78,7 +78,7 @@ import { translate } from '@/useLanguage';
     const successAudioElement = ref()
     const errorAudioElement   = ref()
     const status = {
-        success: 'bg-[var(--fave)]',
+        success: 'bg-[var(--fave)] text-[var(--color)]',
         error: 'bg-red-500'
     }
     const initError = ref('')
