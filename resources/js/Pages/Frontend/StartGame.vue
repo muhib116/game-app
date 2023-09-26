@@ -1,6 +1,10 @@
 <template>
     <Master :showNavigation="true" :gameData="gameData">
-        <FinishingPage v-if="endPage" :public="true" />
+        <FinishingPage 
+            v-if="endPage" 
+            controlBy="user" 
+            :gameData="gameData"
+        />
         <div v-else class="h-full relative">
             <div class='text-black text-opacity-80 text-center leading-8 text-lg overflow-y-auto h-[calc(100%-148px)]'>
                 <component 
@@ -16,7 +20,7 @@
                 <div></div>
                 <span></span>
 
-                <button v-if="index < gameData.tasks.length - 1" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-[var(--color)]' @click="skipTask(gameData.tasks)">
+                <button v-if="index < gameData.tasks.length" class='w-[100px] h-[100px] !text-lg rounded-full bg-[var(--fave)] flex items-center justify-center text-[var(--color)]' @click="skipTask(gameData.tasks)">
                     {{ translate('Next', 'en') }}
                 </button>
             </div>

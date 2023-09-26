@@ -278,7 +278,7 @@ import { translate } from "@/useLanguage";
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task
-            Inertia.reload();
+            // Inertia.reload();
         }
     }
     

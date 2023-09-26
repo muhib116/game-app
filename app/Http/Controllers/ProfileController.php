@@ -35,8 +35,9 @@ class ProfileController extends Controller
         ];
         if ($theme) {
             $theme->update($data);
+        } else {
+            Theme::create($data);
         }
-        Theme::create($data);
         return redirect()->back();
     }
 

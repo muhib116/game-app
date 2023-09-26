@@ -4,7 +4,7 @@
             <p className="text-2xl font-bold text-black">{{ translate('Games') }}</p> 
         </div> -->
         <Nav :options="options" :setOptions="options" @handleNav="handleNav" />
-        <component :is="activeComponent" :next="nextComponent" /> 
+        <component :is="activeComponent" :next="nextComponent" :gameData="gamePayload" /> 
     </Master>
 </template>
 

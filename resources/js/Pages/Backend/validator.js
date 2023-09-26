@@ -45,6 +45,7 @@ export const tabValidator = async (cb) => {
         })
         if(!data){
             cb()
+            return;
         }
 
         toast.error("Game title or game code already exist")

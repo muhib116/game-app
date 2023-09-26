@@ -209,7 +209,7 @@
             let task = find(responseData.game.tasks, item => item.id == props.task.id)
             data.value.game = responseData.game
             data.value.task = task
-            Inertia.reload();
+            // Inertia.reload();
             // window.location.reload();
             // console.log('inConsole', task);
         }
