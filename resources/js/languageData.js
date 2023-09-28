@@ -1,4 +1,5 @@
 const languages = [
+
     {
         en: "en",
         no: "non-en",

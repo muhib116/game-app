@@ -92,7 +92,10 @@
                         {{ translate('Task Completed') }}
                     </span>
                 </div> -->
-                <TextWritePopup @skip="$emit('skip', true)" v-model="modelValue" :task="data.task" :game="data.game" />
+                <TextWritePopup @skip="() => {
+                    $emit('skip', true)
+                    modelValue=false
+                }" v-model="modelValue" :task="data.task" :game="data.game" />
             </template>
         </div>
     </div>
@@ -140,6 +143,10 @@
             type: Object,
             default: {}
         },
+        index: {
+            type: Number,
+            default: 0,
+        },
         game: {
             type: Object,
             default: false,
@@ -150,19 +157,19 @@
     const modelValue = ref(false); 
 
     const data = ref({
-        task: {},
-        game: false
+        task: props.task,
+        game: props.game
     })
 
-    onMounted(()=>{
-        data.value.game = props.game;
-        data.value.task = props.task;
-    })
-    onUpdated(()=>{
-        data.value.game = props.game;
-        data.value.task = props.task;
-        // console.log('updated');
-    })
+    // onMounted(()=>{
+    //     data.value.game = props.game;
+    //     data.value.task = props.task;
+    // })
+    // onUpdated(()=>{
+    //     data.value.game = props.game;
+    //     data.value.task = props.task;
+    //     // console.log('updated');
+    // })
 
     const { saveGame } = gameDrain();
     const { gamePayload } = useConnfiguration();
@@ -170,10 +177,11 @@
     const { taskData } = useDataSource()
 
     const isStarted = computed(() => {
-        let game = props.game;
-        let task = props.task
+        let game = data.value.game;
+        let task = data.value.task
+        // let task = game.tasks[props.index]
         let answer = find(task.userAnswer, item => {
-            return item.team == game.session.team && game.ip == item.ip;
+            return item.team == game.session.team && game.ip == item.ip && item.task_id == task.id;
         })
         return answer;
     })
@@ -206,7 +214,7 @@
         });
 
         if (get(responseData, 'status') == 'success') {
-            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            let task = find(responseData.game.tasks, item => item.id == taskId)
             data.value.game = responseData.game
             data.value.task = task
             // Inertia.reload();

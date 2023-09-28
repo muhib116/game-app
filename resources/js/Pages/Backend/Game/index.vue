@@ -36,7 +36,7 @@
                         <tbody>
                             <tr v-for="game in games" :key="game.id" class="hover:bg-gray-100 focus-within:bg-gray-100 border-b">
                                 <td class="py-3 px-2">
-                                    {{ game.user.name }}
+                                    {{ get(game, 'user.name') }}
                                 </td>
                                 <td class="py-3 px-2">
                                     {{ game.tasks.length }}
@@ -78,7 +78,7 @@
                                             </svg>
                                             {{ translate('Copy') }}
                                         </button>
-                                        <a v-if="game.status == 'published'" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${game.user.username}/${game.login.gameTitle}`" class="py-px px-3 bg-[var(--fave)] text-[var(--color)] rounded">
+                                        <a v-if="game.status == 'published' && game.user" target="_blank" :href="`${get($page, 'props.ziggy.url')}/${get(game, 'user.username')}/${game.login.gameTitle}`" class="py-px px-3 bg-[var(--fave)] text-[var(--color)] rounded">
                                             {{ translate('View') }}
                                         </a>
                                         <button v-else class="py-px px-3 bg-[var(--fave)] text-[var(--color)] rounded">

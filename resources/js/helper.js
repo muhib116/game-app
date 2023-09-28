@@ -28,6 +28,12 @@ export const themeColors = [
     "#FFD872",
 ];
 
+export function getTaskIndexFromUrl(search) {
+    const urlParams = new URLSearchParams(search);
+    const ind = urlParams.get('q');
+    return ind
+}
+
 export function useGlobalSetting() {
     const asideToggle = () => {
         asideActive.value = !asideActive.value;

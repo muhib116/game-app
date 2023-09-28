@@ -1,7 +1,6 @@
 <template>
     <div class="relative">
         <div class='p-0 text-black text-opacity-80 text-center leading-8 text-lg'>
-            
             <div v-if="controlBy=='admin'" class="max-w-[500px] mx-auto">
                 <label class="my-4 mt-5 flex-col flex justify-center">
                     {{ translate('Deadline') }}
@@ -31,7 +30,7 @@
                 </div>
             </div>
 
-            <div v-if="get(isStarted, 'end_at') && !isEmpty(isStarted)" class="flex justify-center mt-6">
+            <div v-if="!isEmpty(isStarted) && get(isStarted, 'end_at')" class="flex justify-center mt-6">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -102,7 +101,7 @@
         </div>
     </div>
     <button
-        @click="handleSubmit(data.game.id, data.task.id)"
+        @click="handleSubmit(game.id, task.id)"
         v-if="!isStarted && controlBy != 'admin'"
         class="absolute bottom-4 p-1 right-4 z-40 w-[100px] h-[100px] !text-2xl rounded-full bg-[var(--fave)] text-[var(--color)] flex items-center justify-center leading-tight"
     >
@@ -150,12 +149,13 @@
     import gameDrain from "@/Components/Backend/Game/gameDrain";
     import useFileUpload from '@/useFileUpload';
     import Preloader from "@/Components/Global/Preloader.vue";
-    import { onMounted, ref, computed } from 'vue'
+    import { onMounted, ref, computed, watch } from 'vue'
     import moment from "moment";
     import { Inertia } from "@inertiajs/inertia";
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css'
 import { translate } from "@/useLanguage";
+import { getTaskIndexFromUrl } from "@/helper";
 
     const { saveUserData } = gameDrain();
     const { handleImageUpload, deleteImage } = useFileUpload();
@@ -177,32 +177,42 @@ import { translate } from "@/useLanguage";
         isLastTask: {
             type: Boolean,
             default: false
+        },
+        index: {
+            type: Number,
+            default: 0,
         }
     });
     const start = ref(false)
 
     const data = ref({
-        task: {},
-        game: false
+        task: props.task,
+        game: props.game
     })
 
-    onMounted(()=>{
-        data.value.game = props.game;
-        data.value.task = props.task;
+    watch(props, () => {
+        console.log('watch', props.task);
+        data.value.task = props.task
+        data.value.game = props.game
+    }, {
+        deep: true
     })
+
+
+
     const { gamePayload } = useConnfiguration();
     const { getSelected } = useTaskCreate();
 
     const adminImageLoading = ref(false);
     const inputFile = ref(null)
     const emit = defineEmits(['skip'])
+
     const handleAdminImage = async (file, tasks, event) => {
         adminImageLoading.value = true;
         const response = await handleImageUpload(file);
         adminImageLoading.value = false;
         file=null
         event.target.value = null;
-        console.log(event.target.value);
         if (response.status == 'error') {
             console.log('error');
         }
@@ -245,14 +255,16 @@ import { translate } from "@/useLanguage";
     }
 
     const isStarted = computed(() => {
-        let game = props.game;
-        let task = props.task
-        
+        let game = data.value.game;
+        // let taskIndex = getTaskIndexFromUrl()
+        let task = data.value.task
+        // let task = game.tasks[props.index]
         let answer = find(task.userAnswer, item => {
-            return item.team == game.session.team && game.ip == item.ip;
+            return item.team == game.session.team && game.ip == item.ip && item.task_id == task.id;
         })
         return answer;
-    })    
+    })
+
     // const isStarted = (game, task) => {
     //     let answer = find(task.userAnswer, item => {
     //         return item.team == game.session.team && game.ip == item.ip;
@@ -274,7 +286,7 @@ import { translate } from "@/useLanguage";
         });
 
         if (get(responseData, 'status') == 'success') {
-            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            let task = find(responseData.game.tasks, item => item.id == taskId)
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task

@@ -1,12 +1,12 @@
 <template>
     <div class='relative flex flex-col h-[85%] overflow-y-auto'>
-        <div class='text-sm mb-4 mt-4 text-center leading-8 text-black text-opacity-75' v-if="controlBy=='admin' || (gameData.finishing.longtide && gameData.finishing.lattitude)">
+        <div class='text-sm mb-4 mt-4 text-center leading-8 text-black text-opacity-75' v-if="controlBy=='admin' || (get(gameData, 'finishing.longtide') && get(gameData, 'finishing.lattitude'))">
             <iframe :src="`https://maps.google.com/maps?q=${gameData.finishing.longtide},${gameData.finishing.lattitude}&z=19&output=embed`" height="400" class='w-full' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class='p-6 text-black text-opacity-80 text-center leading-8 text-lg h-full'>
             <input v-if="controlBy=='admin'" class="block w-full text-3xl mb-4 text-center" :placeholder="translate('Title')" v-model="gameData.finishing.title" />
             <div v-else class="pt-8 pb-4 font-black text-xl">
-                <p class="block w-full text-3xl mb-4 text-center">{{ translate(gameData.finishing.title) }}</p>
+                <p class="block w-full text-3xl mb-4 text-center">{{ translate(get(gameData, 'finishing.title')) }}</p>
             </div>
             <input v-if="controlBy=='admin'" class="block w-full text-3xl mb-4 text-center" v-model="gameData.finishing.longtide" :placeholder="translate('Longitude')" />
             <input v-if="controlBy=='admin'" class="block w-full text-3xl mb-4 text-center" v-model="gameData.finishing.lattitude" :placeholder="translate('Latitude')" />            
@@ -17,7 +17,7 @@
                 rows="3" 
                 v-if="controlBy=='admin'"
             />
-            <p v-else class="w-full block text-center bg-transparent border-none mb-2 h-[168px] overflow-y-auto ">{{ gameData.finishing.text }}</p>
+            <p v-else class="w-full block text-center bg-transparent border-none mb-2 h-[168px] overflow-y-auto ">{{ get(gameData, 'finishing.text') }}</p>
         </div>
         <!-- <button className='bg-[var(--fave)] py-2 px-4 w-full text-white font-bold self-end'>Save</button> -->
         <div class="pr-5 flex justify-end" v-if="controlBy=='admin'">
@@ -34,7 +34,7 @@ import useFileUpload from '@/useFileUpload';
 import { translate } from '@/useLanguage';
 import { Link, useForm, usePage } from '@inertiajs/inertia-vue3';
 import useConnfiguration from './useConnfiguration'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onBeforeMount } from 'vue'
 import gameDrain from './gameDrain';
 import { Inertia } from '@inertiajs/inertia';
 
@@ -80,6 +80,7 @@ const isAdmin = ref(false)
 onMounted(()=>{
     isAdmin.value =  get(usePage().props.value, 'auth.user')
 })
+
 
 </script>
 

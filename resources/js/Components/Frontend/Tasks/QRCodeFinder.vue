@@ -45,12 +45,21 @@
             alt=""
             class='w-full block mb-6 mx-auto'
         /> -->
+
         <img 
             v-if="get(getSelected(gamePayload.tasks), 'adminImage')"
             :src="get(getSelected(gamePayload.tasks), 'adminImage')"
             alt=""
             class='w-full block mb-6 mx-auto'
         />
+        <template v-else>
+            <img 
+                v-if="get(data, 'task.adminImage')"
+                :src="get(data, 'task.adminImage')"
+                alt=""
+                class='w-full block mb-6 mx-auto'
+            />
+        </template>
         <div class="">
             <div v-if="get(isStarted(data.game, data.task), 'end_at')" class="flex justify-center">
                 <span class="py-0 px-3 bg-green-200 text-green-800 inline-flex gap-1 items-center justify-center">
@@ -68,8 +77,11 @@
                 {{ get(task, 'data.title') }}
             </h1>
         </div>
-        <QrScanner @skip="$emit('skip', true)" v-model="modelValue" :game="game" :task="task" />
-        
+        <QrScanner @skip="() => {
+            $emit('skip', true)
+            modelValue = false
+        }" v-model="modelValue" :game="game" :task="task" />
+
         <div class="" v-if="controlBy=='admin'">
             <textarea class="w-full border-0" rows="5" v-model="getSelected(gamePayload.tasks).data.description" placeholder="Description"></textarea>
         </div>
@@ -184,7 +196,7 @@
 
     const isStarted = (game, task) => {
         let answer = find(task.userAnswer, item => {
-            return item.team == game.session.team && game.ip == item.ip;
+            return item.team == game.session.team && game.ip == item.ip && item.task_id == task.id;
         })
         if (answer) {
             start.value=true
@@ -200,7 +212,7 @@
         });
 
         if (get(responseData, 'status') == 'success') {
-            let task = find(responseData.game.tasks, item => item.id == props.task.id)
+            let task = find(responseData.game.tasks, item => item.id == taskId)
             start.value = true;
             data.value.game = responseData.game
             data.value.task = task

@@ -82,7 +82,7 @@ import { translate } from '@/useLanguage';
         error: 'bg-red-500'
     }
     const initError = ref('')
-    const content = ref('');
+    const content = ref('sdf');
     
     const emit = defineEmits(['skip'])
     const switchCamera = () => {

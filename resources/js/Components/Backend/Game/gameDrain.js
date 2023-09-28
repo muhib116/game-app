@@ -5,6 +5,13 @@ import { toast } from '@/helper';
 export const hasError = ref(false)
 export const hasTeamCodeError = ref(false)
 
+const payloadFixing = (payload) => {
+    if (!payload.finishing) {
+        payload.finishing = {}
+    }
+    return payload
+}
+
 export default function gameDrain() {
     
     const loading = ref({
@@ -14,7 +21,8 @@ export default function gameDrain() {
     let timeOut = null;
     const saveGame = async (payload, fromUser=false) => {
         loading.value.save = true;
-        const data = await axios.post('/game/save', payload)
+        let validPayload = payloadFixing(payload) 
+        const data = await axios.post('/game/save', validPayload)
                         .then(res => res.data);
         clearTimeout(timeOut);
         if (data?.status == 'failed' && fromUser==false) {

@@ -11,6 +11,7 @@
                     @skip="(value) => handleEmittedSkip(gameData.tasks, value)" 
                     :is="componentList[selectTask(gameData.tasks).component]" 
                     :game="gameData" 
+                    :index="index"
                     :task="selectTask(gameData.tasks)" 
                     :isLastTask="!(index < gameData.tasks.length - 1)"
                 />
@@ -40,6 +41,7 @@ import { ref, onMounted } from 'vue';
 import FlashSuccess from '@/Components/Frontend/Popup/FlashSuccess.vue';
 import useLanguage from '@/useLanguage';
 import FinishingPage from '@/Components/Backend/Game/FinishingPage.vue';
+import { Inertia } from '@inertiajs/inertia'
 const { componentList } = useTaskCreate();
 const { translate } = useLanguage();
 
@@ -81,10 +83,12 @@ const skipTask = (tasks, prev = false) => {
     if (prev) {
         index.value--;
         if (pageSize == null) {
-            history.pushState({}, null, `${href}?q=${index.value}`); 
+            // history.pushState({}, null, `${href}?q=${index.value}`); 
+            Inertia.visit(`${href}?q=${index.value}`)
             return;
         }
-        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
+        Inertia.visit(href.replace(`?q=${pageSize}`, `?q=${index.value}`))
+        // history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`));
         return;
     }
     if (index.value < tasks.length - 1) {
@@ -94,10 +98,15 @@ const skipTask = (tasks, prev = false) => {
         index.value = 0;
     }
     if (pageSize == null) {
-        history.pushState({}, null, `${href}?q=${index.value}`); 
+        // history.pushState({}, null, `${href}?q=${index.value}`); 
+        Inertia.visit(`${href}?q=${index.value}`)
         return;
     } else {
-        history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`)); 
+        if (endPage.value) {
+            history.pushState({}, null, href.replace(`?q=${pageSize}`, `?q=${index.value}`)); 
+            return
+        }
+        Inertia.visit(href.replace(`?q=${pageSize}`, `?q=${index.value}`))
     }
     // window.location.href = href.replace(`?q=${pageSize}`, `?q=${index.value}`);
 }

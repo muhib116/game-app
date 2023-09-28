@@ -50,6 +50,7 @@ import { translate } from '@/useLanguage';
             if (data.status == "success") {
                 console.log('submited');
                 // window.location.reload();
+                answer.value = ''
                 emit('skip', true)
             }
         } else {
